@@ -1,10 +1,10 @@
 export default {
-  path: 'https://arco.design',
+  path: 'https://www.theresa3rd.cn/',
   name: 'arcoWebsite',
   meta: {
-    locale: 'menu.arcoWebsite',
+    locale: 'menu.botWebsite',
     icon: 'icon-link',
-    requiresAuth: true,
+    requiresAuth: false,
     order: 8,
   },
 };
