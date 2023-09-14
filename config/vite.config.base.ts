@@ -6,12 +6,7 @@ import svgLoader from 'vite-svg-loader';
 import configArcoStyleImportPlugin from './plugin/arcoStyleImport';
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    svgLoader({ svgoConfig: {} }),
-    configArcoStyleImportPlugin(),
-  ],
+  plugins: [vue(), vueJsx(), svgLoader({ svgoConfig: {} }), configArcoStyleImportPlugin()],
   resolve: {
     alias: [
       {
@@ -33,6 +28,10 @@ export default defineConfig({
     ],
     extensions: ['.ts', '.js'],
   },
+  server: {
+    port: 5173,
+    host: '0.0.0.0',
+  },
   define: {
     'process.env': {},
   },
@@ -40,9 +39,7 @@ export default defineConfig({
     preprocessorOptions: {
       less: {
         modifyVars: {
-          hack: `true; @import (reference) "${resolve(
-            'src/assets/style/breakpoint.less'
-          )}";`,
+          hack: `true; @import (reference) "${resolve('src/assets/style/breakpoint.less')}";`,
         },
         javascriptEnabled: true,
       },

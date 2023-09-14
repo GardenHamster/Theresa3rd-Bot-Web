@@ -24,6 +24,8 @@ export default {
   'menu.faq': 'FAQ',
   'navbar.docs': 'Docs',
   'navbar.action.locale': 'Switch to English',
+  'button.submit': 'Save',
+  'button.reset': 'Reset',
   ...localeSettings,
   ...localeMessageBox,
   ...localeLogin,

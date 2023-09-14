@@ -1524,16 +1524,27 @@
     "execa" "^1.0.0"
     "find-versions" "^3.0.0"
 
-"bin-wrapper@^4.0.0", "bin-wrapper@^4.0.1":
-  "integrity" "sha512-1UCm17WYEbgry50tup+AQN+JGVEVzoW4f8HMl899k1lvuFxWKGZXl/G2fgxQxAckRjnloO3ijLVVEsv8zescUg=="
-  "resolved" "https://registry.npmmirror.com/bin-wrapper-china/-/bin-wrapper-china-0.1.0.tgz"
-  "version" "0.1.0"
+"bin-wrapper@^4.0.0":
+  "integrity" "sha512-hfRmo7hWIXPkbpi0ZltboCMVrU+0ClXR/JgbCKKjlDjQf6igXa7OwdqNcFWQZPZTgiY7ZpzE3+LjjkLiTN2T7Q=="
+  "resolved" "https://registry.npmmirror.com/bin-wrapper/-/bin-wrapper-4.1.0.tgz"
+  "version" "4.1.0"
   dependencies:
     "bin-check" "^4.1.0"
     "bin-version-check" "^4.0.0"
-    "binary-mirror-config" "^1"
     "download" "^7.1.0"
-    "import-lazy" "^4.0.0"
+    "import-lazy" "^3.1.0"
+    "os-filter-obj" "^2.0.0"
+    "pify" "^4.0.1"
+
+"bin-wrapper@^4.0.1":
+  "integrity" "sha512-hfRmo7hWIXPkbpi0ZltboCMVrU+0ClXR/JgbCKKjlDjQf6igXa7OwdqNcFWQZPZTgiY7ZpzE3+LjjkLiTN2T7Q=="
+  "resolved" "https://registry.npmmirror.com/bin-wrapper/-/bin-wrapper-4.1.0.tgz"
+  "version" "4.1.0"
+  dependencies:
+    "bin-check" "^4.1.0"
+    "bin-version-check" "^4.0.0"
+    "download" "^7.1.0"
+    "import-lazy" "^3.1.0"
     "os-filter-obj" "^2.0.0"
     "pify" "^4.0.1"
 
@@ -1541,11 +1552,6 @@
   "integrity" "sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA=="
   "resolved" "https://registry.npmmirror.com/binary-extensions/-/binary-extensions-2.2.0.tgz"
   "version" "2.2.0"
-
-"binary-mirror-config@^1":
-  "integrity" "sha512-ZiIhR1s6Sv1Fv6qCQqfPjx0Cj86BgFlhqNxZgHkQOWcxJcMbO3mj1iqsuVjowYqJqeZL8e52+IEv7IRnSX6T6w=="
-  "resolved" "https://registry.npmmirror.com/binary-mirror-config/-/binary-mirror-config-1.41.0.tgz"
-  "version" "1.41.0"
 
 "bl@^1.0.0":
   "integrity" "sha512-pvcNpa0UU69UT341rO6AYy4FVAIkUHuZXRIWbq+zHnsVcRzDDjIAhGuuYoi0d//cwIwtt4pkpKycWEfjdV+vww=="

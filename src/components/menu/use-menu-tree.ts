@@ -1,9 +1,9 @@
-import { computed } from 'vue';
-import { RouteRecordRaw, RouteRecordNormalized } from 'vue-router';
-import usePermission from '@/hooks/permission';
-import { useAppStore } from '@/store';
-import appClientMenus from '@/router/app-menus';
-import { cloneDeep } from 'lodash';
+import { computed } from 'vue'
+import { RouteRecordRaw, RouteRecordNormalized } from 'vue-router'
+import usePermission from '@/hooks/permission'
+import { useAppStore } from '@/store'
+import appClientMenus from '@/router/app-menus'
+import { cloneDeep } from 'lodash'
 
 export default function useMenuTree() {
   const permission = usePermission();
