@@ -27,7 +27,7 @@
   dependencies:
     "color" "^3.1.3"
 
-"@arco-design/web-vue@^2.44.7":
+"@arco-design/web-vue@^2.51.1":
   "integrity" "sha512-YsNF1hrl700rshZPrJ7haNEN6pc3dQwpLbYzpE49jrLdF0mALGU9aP2A8q0FNPH2Rt4rxvxkw1o0gsL7my8H+Q=="
   "resolved" "https://registry.npmmirror.com/@arco-design/web-vue/-/web-vue-2.51.1.tgz"
   "version" "2.51.1"

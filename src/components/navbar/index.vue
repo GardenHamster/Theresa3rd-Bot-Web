@@ -5,7 +5,7 @@
         <img
           alt="logo"
           :src="favicon"
-          style="width: 30px; height: 30px;"
+          style="width: 25px; height: 25px;"
         />
         <a-typography-title
           :style="{ margin: 0, fontSize: '18px' }"
