@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <a-card class="general-card">
-      <Breadcrumb :items="['menu.settings', 'menu.settings.base']" />
+      <Breadcrumb :items="['menu.settings', 'menu.settings.pixiv']" />
       <a-form ref="formRef" layout="horizontal" :model="form">
           <a-row class="row">
 

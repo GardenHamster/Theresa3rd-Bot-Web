@@ -19,7 +19,17 @@ const Settings: AppRouteRecordRaw = {
       meta: {
         locale: 'menu.settings.base',
         requiresAuth: true,
-        roles: ['*'],
+        roles: ['admin'],
+      },
+    },
+    {
+      path: 'pixiv',
+      name: 'PixivSetting',
+      component: () => import('@/views/settings/pixiv/index.vue'),
+      meta: {
+        locale: 'menu.settings.pixiv',
+        requiresAuth: true,
+        roles: ['admin'],
       },
     },
   ],

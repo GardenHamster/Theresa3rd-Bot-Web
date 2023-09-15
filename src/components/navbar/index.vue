@@ -100,7 +100,7 @@
 </template>
 
 <script lang="ts" setup>
-import favicon from '@/assets/images/favicon.ico';
+import favicon from '@/assets/favicon.ico';
 import avatarImg from '@/assets/images/avatar.jpg';
 import { computed, ref, inject } from 'vue';
 import { useDark, useToggle } from '@vueuse/core';
