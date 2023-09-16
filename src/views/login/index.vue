@@ -8,7 +8,7 @@
             <div class="login_title">欢迎使用TheresaBot</div>
             <div id="pwdDiv" class="input_outer">
                 <span class="us_uer"></span>
-                <input id="login_pass" name="logpass" class="text" type="password" @keyup.enter="handleSubmit" v-model="userInfo.password" placeholder="输入配置文件中设置的后台密码">
+                <input id="login_pass" name="logpass" class="text" type="password" @keyup.enter="handleSubmit" v-model="userInfo.password" placeholder="输入配置文件中的后台密码">
             </div>
             <div class="loginDiv">
                 <a id="loginBtn" @click="handleSubmit" class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a>
@@ -31,7 +31,7 @@ const { loading, setLoading } = useLoading();
 const userStore = useUserStore();
 const errorMessage = ref('');
 const userInfo = reactive({
-  password: 'admin',
+  password: '',
 });
 
 const handleSubmit = async () => {
@@ -52,7 +52,6 @@ const handleSubmit = async () => {
     setLoading(false);
   }
 };
-
 </script>
 
 <style lang="css" scoped>
@@ -171,13 +170,16 @@ p.ref {
 
 #login_pass::placeholder {
   color: rgb(155, 155, 155);
-  font-size: 12px;
-  position: absolute;
-  padding-top: 6px;
+  font-size: 0.7em;
 }
 
-input:-webkit-autofill {
-  transition: background-color 5000s ease-in-out 0s;
+#login_pass:-webkit-autofill {  
+    -webkit-text-fill-color: #eb6e6e !important;
+    -webkit-box-shadow: 0 0 0px 1000px transparent  inset !important;
+    font-size: 1.5rem !important;
+    background-color:transparent;
+    background-image: none;  
+    transition: background-color 50000s ease-in-out 0s;  
 }
 
 .login_title {

@@ -2,15 +2,15 @@
   <div class="container">
     <a-card class="general-card">
       <Breadcrumb :items="['menu.settings', 'menu.settings.base']" />
-      <a-form ref="formRef" layout="horizontal" :model="form">
+      <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :model="form">
           <a-row class="row">
 
               <a-form-item
                 field="prefixs"
                 :label="$t('settings.base.prefixs')"
-                tooltip="指令前缀，Bot只会处理带有前缀的指令，如：(#菜单)"
+                tooltip="指令前缀，Bot只会处理带有前缀的指令，如：(#菜单)，多个之间用逗号，隔开"
                 feedback >
-                  <a-input v-model="form.prefixs" placeholder="输入一个或多个前缀，多个之间用逗号隔开" />
+                  <a-input v-model="form.prefixs" placeholder="输入一个或多个前缀" />
               </a-form-item>
 
               <a-form-item
@@ -97,7 +97,7 @@ export default {
 
 .row {
   padding: 20px 0px 0px 0px;
-  min-width: 650px;
+  min-width: 300px;
   margin: 0 auto;
 }
 

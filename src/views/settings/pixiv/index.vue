@@ -2,7 +2,7 @@
   <div class="container">
     <a-card class="general-card">
       <Breadcrumb :items="['menu.settings', 'menu.settings.pixiv']" />
-      <a-form ref="formRef" layout="horizontal" :model="form">
+      <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :model="form">
           <a-row class="row">
 
               <a-form-item
@@ -97,7 +97,7 @@ export default {
 
 .row {
   padding: 20px 0px 0px 0px;
-  min-width: 650px;
+  min-width: 300px;
   margin: 0 auto;
 }
 

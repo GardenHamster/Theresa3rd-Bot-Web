@@ -8,10 +8,10 @@
           style="width: 25px; height: 25px;"
         />
         <a-typography-title
-          :style="{ margin: 0, fontSize: '18px' }"
+          :style="{ margin: 0, fontSize: '18px', minWidth:'100px' }"
           :heading="5"
         >
-          Theresa Bot
+          TheresaBot
         </a-typography-title>
         <icon-menu-fold
           v-if="!topMenu && appStore.device === 'mobile'"
