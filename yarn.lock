@@ -7663,6 +7663,11 @@
   "resolved" "https://registry.npmmirror.com/trough/-/trough-1.0.5.tgz"
   "version" "1.0.5"
 
+"ts-md5@^1.3.1":
+  "integrity" "sha512-DiwiXfwvcTeZ5wCE0z+2A9EseZsztaiZtGrtSaY5JOD7ekPnR/GoIVD5gXZAlK9Na9Kvpo9Waz5rW64WKAWApg=="
+  "resolved" "https://registry.npmmirror.com/ts-md5/-/ts-md5-1.3.1.tgz"
+  "version" "1.3.1"
+
 "ts-node@^10.8.1", "ts-node@>=10":
   "integrity" "sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw=="
   "resolved" "https://registry.npmmirror.com/ts-node/-/ts-node-10.9.1.tgz"

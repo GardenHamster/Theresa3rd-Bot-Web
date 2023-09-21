@@ -6,15 +6,15 @@ export interface LoginData {
   password: string;
 }
 
-export interface LoginRes {
-  token: string;
-}
-export function login(data: LoginData) {
-  return axios.post<LoginRes>('/api/user/login', data);
+export interface LoginResult {
+  error: boolean;
+  code: number;
+  message: string;
+  data: any;
 }
 
-export function logout() {
-  return axios.post<LoginRes>('/api/user/logout');
+export function login(data: LoginData) {
+  return axios.post<LoginResult>('/api/user/login', data);
 }
 
 export function getUserInfo() {

@@ -8,7 +8,7 @@
             <div class="login_title">欢迎使用TheresaBot</div>
             <div id="pwdDiv" class="input_outer">
                 <span class="us_uer"></span>
-                <input id="login_pass" name="logpass" class="text" type="password" @keyup.enter="handleSubmit" v-model="userInfo.password" placeholder="输入配置文件中的后台密码">
+                <input id="login_pass" name="logpass" class="text" v-model="userInfo.password" type="password"  placeholder="输入配置文件中的后台密码" @keyup.enter="handleSubmit"  >
             </div>
             <div class="loginDiv">
                 <a id="loginBtn" @click="handleSubmit" class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a>
@@ -25,6 +25,7 @@ import { Message } from '@arco-design/web-vue';
 import { useUserStore } from '@/store';
 import useLoading from '@/hooks/loading';
 import type { LoginData } from '@/api/user';
+import { Md5 } from 'ts-md5';
 
 const router = useRouter();
 const { loading, setLoading } = useLoading();
@@ -38,7 +39,10 @@ const handleSubmit = async () => {
   try {
     if (loading.value) return;
     setLoading(true);
-    const values = { username: 'admin', password: userInfo.password };
+    if (userInfo.password === undefined || userInfo.password.trim().length === 0) {
+      Message.error({ content: '请输入密码', duration: 5 * 1000 });
+    }
+    const values = { password: Md5.hashStr(userInfo.password).toUpperCase() };
     await userStore.login(values as LoginData);
     const { redirect, ...othersQuery } = router.currentRoute.value.query;
     router.push({
@@ -173,13 +177,13 @@ p.ref {
   font-size: 0.7em;
 }
 
-#login_pass:-webkit-autofill {  
-    -webkit-text-fill-color: #eb6e6e !important;
-    -webkit-box-shadow: 0 0 0px 1000px transparent  inset !important;
-    font-size: 1.5rem !important;
-    background-color:transparent;
-    background-image: none;  
-    transition: background-color 50000s ease-in-out 0s;  
+#login_pass:-webkit-autofill {
+  -webkit-text-fill-color: #eb6e6e !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  font-size: 1.5rem !important;
+  background-color: transparent;
+  background-image: none;
+  transition: background-color 50000s ease-in-out 0s;
 }
 
 .login_title {

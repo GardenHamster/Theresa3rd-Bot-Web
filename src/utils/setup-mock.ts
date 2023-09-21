@@ -9,11 +9,11 @@ export const successResponseWrap = (data: unknown) => {
     data,
     status: 'ok',
     msg: '请求成功',
-    code: 20000,
+    code: 0,
   };
 };
 
-export const failResponseWrap = (data: unknown, msg: string, code = 50000) => {
+export const failResponseWrap = (data: unknown, msg: string, code = -1) => {
   return {
     data,
     status: 'fail',
