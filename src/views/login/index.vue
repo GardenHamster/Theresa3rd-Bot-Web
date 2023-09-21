@@ -41,6 +41,7 @@ const handleSubmit = async () => {
     setLoading(true);
     if (userInfo.password === undefined || userInfo.password.trim().length === 0) {
       Message.error({ content: '请输入密码', duration: 5 * 1000 });
+      return;
     }
     const values = { password: Md5.hashStr(userInfo.password).toUpperCase() };
     await userStore.login(values as LoginData);

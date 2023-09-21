@@ -13,11 +13,11 @@ export const successResponseWrap = (data: unknown) => {
   };
 };
 
-export const failResponseWrap = (data: unknown, msg: string, code = -1) => {
+export const failResponseWrap = (data: unknown, msg: string) => {
   return {
     data,
     status: 'fail',
     msg,
-    code,
+    code:-1,
   };
 };
