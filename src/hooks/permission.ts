@@ -5,12 +5,7 @@ export default function usePermission() {
   const userStore = useUserStore();
   return {
     accessRouter(route: RouteLocationNormalized | RouteRecordRaw) {
-      return (
-        !route.meta?.requiresAuth ||
-        !route.meta?.roles ||
-        route.meta?.roles?.includes('*') ||
-        route.meta?.roles?.includes(userStore.role)
-      );
+      return !route.meta?.requiresAuth || !route.meta?.roles || route.meta?.roles?.includes('*') || route.meta?.roles?.includes(userStore.role);
     },
     findFirstPermissionRoute(_routers: any, role = 'admin') {
       const cloneRouters = [..._routers];

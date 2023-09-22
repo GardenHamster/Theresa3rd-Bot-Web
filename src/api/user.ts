@@ -7,13 +7,13 @@ export interface LoginData {
 }
 
 export interface LoginResult {
-  error: boolean;
-  code: number;
-  message: string;
-  data: any;
+  token: string;
+  createAt: number;
+  expiredAt: number;
+  expiredSeconds: number;
 }
 
-export function login(data: LoginData) {
+export function userLogin(data: LoginData) {
   return axios.post<LoginResult>('/api/user/login', data);
 }
 
