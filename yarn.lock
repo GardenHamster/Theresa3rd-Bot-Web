@@ -4839,6 +4839,11 @@
   "resolved" "https://registry.npmmirror.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz"
   "version" "1.2.4"
 
+"linqts@^1.15.0":
+  "integrity" "sha512-DYRi1eGy8R0/dPzTTE0q3gQKvAj960CumYNikVGaUBc8TJCs/zeIbEmHb9lGx7Y9ALvTKle2cuBpkKgIeCSRTg=="
+  "resolved" "https://registry.npmmirror.com/linqts/-/linqts-1.15.0.tgz"
+  "version" "1.15.0"
+
 "lint-staged@^13.0.3":
   "integrity" "sha512-mPRtrYnipYYv1FEE134ufbWpeggNTo+O/UPzngoaKzbzHAthvR55am+8GfHTnqNRQVRRrYQLGW9ZyUoD7DsBHQ=="
   "resolved" "https://registry.npmmirror.com/lint-staged/-/lint-staged-13.3.0.tgz"

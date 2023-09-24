@@ -9,7 +9,7 @@
           </a-select>
           <a-button type="primary">退订选中</a-button>
         </a-space>
-        <a-table row-key="subscribeId" :columns="columns" :data="dataList"
+        <a-table row-key="subscribeId" :columns="columns" :data="subscribeList"
           :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: false }"
           v-model:selectedKeys="selectedKeys" :pagination="pagination" />
       </a-space>
@@ -22,36 +22,35 @@ import { ref } from 'vue';
 import useLoading from '@/hooks/loading';
 import { useGroupStore } from '@/store';
 import { getPixivUserSubscribe } from '@/api/subscribe';
+import type { PixivUserSubscribe } from '@/api/subscribe';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
-import type { DataType } from '@/api/subscribe';
+import { List } from 'linqts';
 
 const selectedKeys = ref([]);
 const selectedGroup = ref(0);
 const pagination = { pageSize: 25 };
-const groupOptions: SelectOptionData[] = [
-  {
-    label: '全部',
-    value: '0',
-  },
-];
-
 const groupStore = useGroupStore();
+const { groupOptions } = groupStore;
 const { loading, setLoading } = useLoading(true);
-const dataList = ref<DataType[]>([]);
+const subscribeList = ref<PixivUserSubscribe[]>([]);
+const groupList = ref<SelectOptionData[]>([]);
+
 const fetchData = async (groupId = 0) => {
   try {
     setLoading(true);
-    const data = await getPixivUserSubscribe() as unknown as DataType[];
-    dataList.value = data
+    const data = await getPixivUserSubscribe() as unknown as PixivUserSubscribe[];
+    subscribeList.value = groupId === 0 ? data : new List<PixivUserSubscribe>(data).Where(o => o?.groupId === groupId).ToArray();
+    await groupStore.load();
+    groupList.value = groupStore.groupOptions as [];
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   } finally {
     setLoading(false);
   }
 };
 
 const groupChange = async () => {
-  console.log('selectedKeys', selectedKeys);
+  await fetchData(selectedGroup.value);
 };
 
 const columns = [
@@ -66,7 +65,6 @@ const columns = [
 ];
 
 fetchData();
-groupStore.load();
 
 </script>
 

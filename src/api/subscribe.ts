@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export interface DataType {
+export interface PixivUserSubscribe {
   groupId: number;
   subscribeCode: string;
   subscribeId: number;
@@ -10,5 +10,5 @@ export interface DataType {
 }
 
 export function getPixivUserSubscribe() {
-  return axios.get<DataType[]>('/api/subscribe/get/pixiv/user');
+  return axios.get<PixivUserSubscribe[]>('/api/subscribe/get/pixiv/user');
 }

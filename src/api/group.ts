@@ -1,10 +1,8 @@
 import axios from 'axios';
+import { GroupInfo } from '@/store/modules/group/types';
 
-export interface DataType {
-  groupId: number;
-  groupName: string;
+const getGroupList = function () {
+  return axios.get<GroupInfo[]>('/api/group/list');
 }
 
-export function getGroupList() {
-  return axios.get<DataType[]>('/api/group/list');
-}
+export default getGroupList;
