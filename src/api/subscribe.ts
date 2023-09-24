@@ -1,12 +1,5 @@
 import axios from 'axios';
 
-export interface DataResult {
-  error: boolean;
-  code: number;
-  message: string;
-  data: any;
-}
-
 export interface DataType {
   groupId: number;
   subscribeCode: string;

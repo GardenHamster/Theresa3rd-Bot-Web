@@ -1,20 +1,21 @@
 <template>
   <div class="login-background">
-        <div id="login-mask"></div>
-        <div id="login_box">
-            <div id="userImage">
-                <img :src="avatarImg" style="height:100%;">
-            </div>
-            <div class="login_title">欢迎使用TheresaBot</div>
-            <div id="pwdDiv" class="input_outer">
-                <span class="us_uer"></span>
-                <input id="login_pass" name="logpass" class="text" v-model="userInfo.password" type="password"  placeholder="输入配置文件中的后台密码" @keyup.enter="handleSubmit"  >
-            </div>
-            <div class="loginDiv">
-                <a id="loginBtn" @click="handleSubmit" class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a>
-            </div>
-        </div>
+    <div id="login-mask"></div>
+    <div id="login_box">
+      <div id="userImage">
+        <img :src="avatarImg" style="height:100%;">
+      </div>
+      <div class="login_title">欢迎使用TheresaBot</div>
+      <div id="pwdDiv" class="input_outer">
+        <span class="us_uer"></span>
+        <input id="login_pass" name="logpass" class="text" v-model="userInfo.password" type="password"
+          placeholder="输入配置文件中的后台密码" @keyup.enter="handleSubmit">
+      </div>
+      <div class="loginDiv">
+        <a id="loginBtn" @click="handleSubmit" class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -50,7 +51,7 @@ const handleSubmit = async () => {
       name: (redirect as string) || 'Workplace',
       query: { ...othersQuery, },
     });
-    Message.success('欢迎使用');
+    Message.success('欢迎回来');
   } catch (err) {
     errorMessage.value = (err as Error).message;
   } finally {
