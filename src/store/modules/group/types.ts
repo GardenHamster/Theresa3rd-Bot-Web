@@ -6,6 +6,6 @@ export interface GroupInfo {
 }
 
 export interface GroupState {
-  groupInfo?: GroupInfo[];
+  groupInfos?: GroupInfo[];
   groupOptions?: SelectOptionData[];
 }

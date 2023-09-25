@@ -10,5 +10,9 @@ export interface PixivUserSubscribe {
 }
 
 export function getPixivUserSubscribe() {
-  return axios.get<PixivUserSubscribe[]>('/api/subscribe/get/pixiv/user');
+  return axios.get<PixivUserSubscribe[]>('/api/subscribe/list/pixiv/user');
 }
+
+// export function cancleSubscribe(data: number[]) {
+//   return axios.post<LoginResult>('/api/user/login', data);
+// }
