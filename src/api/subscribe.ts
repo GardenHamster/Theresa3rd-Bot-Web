@@ -9,10 +9,15 @@ export interface PixivUserSubscribe {
   subscribeType: number;
 }
 
+export interface CancleSubscribeData {
+  subscribeIds: number[];
+}
+
 export function getPixivUserSubscribe() {
   return axios.get<PixivUserSubscribe[]>('/api/subscribe/list/pixiv/user');
 }
 
-// export function cancleSubscribe(data: number[]) {
-//   return axios.post<LoginResult>('/api/user/login', data);
-// }
+export function cancleSubscribe(data: number[]) {
+  const requestData: CancleSubscribeData = { subscribeIds: data }
+  return axios.post<any>('/api/subscribe/cancle', requestData);
+}

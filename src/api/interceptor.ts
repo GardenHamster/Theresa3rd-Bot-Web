@@ -59,15 +59,12 @@ axios.interceptors.response.use(
   (error) => {
     console.log('error', error);
     const errorJson = error.toJSON();
-    console.log('errorJson', errorJson);
-    console.log('error.status', error.status);
-    console.log('errorJson.status', errorJson.status);
     if (errorJson.status === 401) {
       backLogin();
       return Promise.reject(error);
     }
     if (errorJson.status === null || errorJson.status === undefined || errorJson.status === 404) {
-      Message.error({ content: '请求失败，请检查Bot控制台是否已经启动' });
+      Message.error({ content: '请求失败，请检查Bot插件是否已经启动' });
       return Promise.reject(error);
     }
     Message.error({ content: errorJson.msg || '请求失败' });

@@ -4,11 +4,13 @@
       <Breadcrumb :items="['menu.datas', 'menu.datas.subscribe']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
-          <a-select @change="groupChange" v-model.number="selectedGroup" :options="groupOptions" :style="{ minWidth: '200px' }"
-             placeholder="Please select ..." :loading="groupLoading" allow-search>
-             <a-option :value="0">全部</a-option>
+          <a-select @change="groupChange" v-model.number="selectedGroup" :options="groupOptions"
+            :style="{ minWidth: '200px' }" placeholder="Please select ..." :loading="groupLoading" allow-search>
+            <a-option :value="0">全部</a-option>
           </a-select>
-          <a-button type="primary" @click="cancleSubscribe">退订选中</a-button>
+          <a-popconfirm @ok="unsubscribe" content="将为所有群退订被选中的订阅，是否继续？" type="warning" position="br">
+            <a-button type="primary">退订选中</a-button>
+          </a-popconfirm>
         </a-space>
         <a-table row-key="subscribeId" :columns="columns" :data="subscribeList"
           :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: false }"
@@ -22,14 +24,14 @@
 import { ref } from 'vue';
 import useLoading from '@/hooks/loading';
 import { useGroupStore } from '@/store';
-import { getPixivUserSubscribe } from '@/api/subscribe';
+import { getPixivUserSubscribe, cancleSubscribe } from '@/api/subscribe';
 import type { PixivUserSubscribe } from '@/api/subscribe';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { Message } from '@arco-design/web-vue';
 import { List } from 'linqts';
 
 let groupLoading = false;
-const selectedKeys = ref([]);
+const selectedKeys = ref<number[]>([]);
 const selectedGroup = ref<number>(0);
 const pagination = { pageSize: 50 };
 const groupStore = useGroupStore();
@@ -80,15 +82,18 @@ const groupChange = async () => {
   }
 };
 
-const cancleSubscribe = async () => {
+const unsubscribe = async () => {
   try {
     setLoading(true);
     const selectedIds = selectedKeys.value;
     if (!selectedIds || selectedIds.length === 0) {
       Message.error({ content: '请至少选择一个项目' });
+      return;
     }
-
-    console.log('selectedKeys',);
+    await cancleSubscribe(selectedIds);
+    subscribeList.value = new List<PixivUserSubscribe>(subscribeList.value).Where(o => !selectedIds.includes(o!.subscribeId)).ToArray();
+    selectedKeys.value.length = 0;
+    Message.success('退订成功');
   } catch (error) {
     console.log(error);
   }
