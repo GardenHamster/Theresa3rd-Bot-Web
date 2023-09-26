@@ -2,22 +2,22 @@ import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
 
 const Datas: AppRouteRecordRaw = {
-  path: '/datas',
-  name: 'datas',
+  path: '/subscribe',
+  name: 'subscribe',
   component: DEFAULT_LAYOUT,
   meta: {
-    locale: 'menu.datas',
+    locale: 'menu.subscribe',
     requiresAuth: true,
     icon: 'icon-storage',
     order: 2,
   },
   children: [
     {
-      path: 'subscribe',
-      name: 'SubscribeDatas',
-      component: () => import('@/views/datas/subscribe/index.vue'),
+      path: 'pixiv/user',
+      name: 'PixivUserSubscribe',
+      component: () => import('@/views/subscribe/pixiv-user/index.vue'),
       meta: {
-        locale: 'menu.datas.subscribe',
+        locale: 'menu.subscribe.pixiv.user',
         requiresAuth: true,
         roles: ['admin'],
       },

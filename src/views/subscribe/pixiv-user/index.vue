@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <a-card class="general-card">
-      <Breadcrumb :items="['menu.datas', 'menu.datas.subscribe']" />
+      <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.user']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
           <a-select @change="groupChange" v-model.number="selectedGroup" :options="groupOptions"
@@ -12,16 +12,40 @@
             <a-button type="primary">退订选中</a-button>
           </a-popconfirm>
         </a-space>
-        <a-table row-key="subscribeId" :columns="columns" :data="subscribeList"
-          :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: false }"
-          v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" />
+        <a-table row-key="subscribeId" :columns="columns" :data="subscribeList" :filter-icon-align-left="true"
+          :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
+          v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" >
+          <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
+            <div class="custom-filter">
+              <a-space direction="vertical">
+                <a-input :model-value="filterValue[0]" @input="(value) => setFilterValue([value])" />
+                <div class="custom-filter-footer">
+                  <a-button @click="handleFilterConfirm">搜索</a-button>
+                  <a-button @click="handleFilterReset">重置</a-button>
+                </div>
+              </a-space>
+            </div>
+          </template>
+          <template #name-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
+            <div class="custom-filter">
+              <a-space direction="vertical">
+                <a-input :model-value="filterValue[0]" @input="(value) => setFilterValue([value])" />
+                <div class="custom-filter-footer">
+                  <a-button @click="handleFilterConfirm">搜索</a-button>
+                  <a-button @click="handleFilterReset">重置</a-button>
+                </div>
+              </a-space>
+            </div>
+          </template>
+        </a-table>
       </a-space>
     </a-card>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, h } from 'vue';
+import { IconSearch } from '@arco-design/web-vue/es/icon';
 import useLoading from '@/hooks/loading';
 import { useGroupStore } from '@/store';
 import { getPixivUserSubscribe, cancleSubscribe } from '@/api/subscribe';
@@ -43,11 +67,34 @@ const columns = [
   {
     title: '画师Id',
     dataIndex: 'subscribeCode',
+    ellipsis: true,
+    tooltip: true,
+    filterable: {
+      filter: (value: any, record: any) => record.subscribeCode.includes(value),
+      slotName: 'code-filter',
+      icon: () => h(IconSearch)
+    }
   },
   {
     title: '画师名称',
     dataIndex: 'subscribeName',
+    ellipsis: true,
+    tooltip: true,
+    filterable: {
+      filter: (value: any, record: any) => record.subscribeName.includes(value),
+      slotName: 'name-filter',
+      icon: () => h(IconSearch)
+    }
   },
+  {
+    title: '订阅日期',
+    dataIndex: 'subscribeDate',
+    ellipsis: true,
+    tooltip: true,
+    sortable: {
+      sortDirections: ['ascend', 'descend']
+    }
+  }
 ];
 
 const fetchSubscribes = async (groupId = 0) => {
@@ -85,6 +132,7 @@ const groupChange = async () => {
 const unsubscribe = async () => {
   try {
     setLoading(true);
+    console.log('selectedKeys.value', selectedKeys.value);
     const selectedIds = selectedKeys.value;
     if (!selectedIds || selectedIds.length === 0) {
       Message.error({ content: '请至少选择一个项目' });
@@ -109,7 +157,7 @@ fetchGroups();
 
 <script lang="ts">
 export default {
-  name: 'SubscribeDatas',
+  name: 'PixivUserSubscribe',
 };
 </script>
 
@@ -117,5 +165,20 @@ export default {
 .container {
   padding: 20px;
   overflow: hidden;
+}
+</style>
+
+<style scoped lang="less">
+.custom-filter {
+  padding: 20px;
+  background: var(--color-bg-5);
+  border: 1px solid var(--color-neutral-3);
+  border-radius: var(--border-radius-medium);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+}
+
+.custom-filter-footer {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

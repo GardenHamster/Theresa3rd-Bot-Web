@@ -7,6 +7,8 @@ export interface SubscribeData {
   subscribeName: string;
   subscribeSubType: number;
   subscribeType: number;
+  SubscribeAt: number;
+  SubscribeDate: string;
 }
 
 export interface CancleParam {
