@@ -25,7 +25,7 @@ import { useRouter } from 'vue-router';
 import { Message } from '@arco-design/web-vue';
 import { useUserStore } from '@/store';
 import useLoading from '@/hooks/loading';
-import type { LoginData } from '@/api/user';
+import type { LoginParam } from '@/api/user';
 import { Md5 } from 'ts-md5';
 
 const router = useRouter();
@@ -45,7 +45,7 @@ const handleSubmit = async () => {
       return;
     }
     const values = { password: Md5.hashStr(userInfo.password).toUpperCase() };
-    await userStore.login(values as LoginData);
+    await userStore.login(values as LoginParam);
     const { redirect, ...othersQuery } = router.currentRoute.value.query;
     router.push({
       name: (redirect as string) || 'Workplace',

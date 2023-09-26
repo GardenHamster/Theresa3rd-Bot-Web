@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { RouteRecordNormalized } from 'vue-router';
 import { UserState } from '@/store/modules/user/types';
 
-export interface LoginData {
+export interface LoginParam {
   password: string;
 }
 
@@ -13,8 +13,8 @@ export interface LoginResult {
   expiredSeconds: number;
 }
 
-export function userLogin(data: LoginData) {
-  return axios.post<LoginResult>('/api/user/login', data);
+export function userLogin(param: LoginParam) {
+  return axios.post<LoginResult>('/api/user/login', param);
 }
 
 export function getUserInfo() {

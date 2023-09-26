@@ -25,7 +25,7 @@ import { ref } from 'vue';
 import useLoading from '@/hooks/loading';
 import { useGroupStore } from '@/store';
 import { getPixivUserSubscribe, cancleSubscribe } from '@/api/subscribe';
-import type { PixivUserSubscribe } from '@/api/subscribe';
+import type { SubscribeData } from '@/api/subscribe';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { Message } from '@arco-design/web-vue';
 import { List } from 'linqts';
@@ -36,7 +36,7 @@ const selectedGroup = ref<number>(0);
 const pagination = { pageSize: 50 };
 const groupStore = useGroupStore();
 const { loading, setLoading } = useLoading();
-const subscribeList = ref<PixivUserSubscribe[]>([]);
+const subscribeList = ref<SubscribeData[]>([]);
 const groupOptions = ref<SelectOptionData[]>([]);
 
 const columns = [
@@ -53,8 +53,8 @@ const columns = [
 const fetchSubscribes = async (groupId = 0) => {
   try {
     setLoading(true);
-    const data = await getPixivUserSubscribe() as unknown as PixivUserSubscribe[];
-    subscribeList.value = groupId === 0 ? data : new List<PixivUserSubscribe>(data).Where(o => o?.groupId === groupId).ToArray();
+    const data = await getPixivUserSubscribe() as unknown as SubscribeData[];
+    subscribeList.value = groupId === 0 ? data : new List<SubscribeData>(data).Where(o => o?.groupId === groupId).ToArray();
   } catch (error) {
     console.log(error);
   } finally {
@@ -91,7 +91,7 @@ const unsubscribe = async () => {
       return;
     }
     await cancleSubscribe(selectedIds);
-    subscribeList.value = new List<PixivUserSubscribe>(subscribeList.value).Where(o => !selectedIds.includes(o!.subscribeId)).ToArray();
+    subscribeList.value = new List<SubscribeData>(subscribeList.value).Where(o => !selectedIds.includes(o!.subscribeId)).ToArray();
     selectedKeys.value.length = 0;
     Message.success('退订成功');
   } catch (error) {
