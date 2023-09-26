@@ -32,6 +32,16 @@ const Datas: AppRouteRecordRaw = {
         roles: ['admin'],
       },
     },
+    {
+      path: 'miyoushe/user',
+      name: 'MiyousheUserSubscribe',
+      component: () => import('@/views/subscribe/miyoushe-user/index.vue'),
+      meta: {
+        locale: 'menu.subscribe.miyoushe.user',
+        requiresAuth: true,
+        roles: ['admin'],
+      },
+    },
   ],
 };
 

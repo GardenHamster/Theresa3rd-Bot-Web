@@ -12,9 +12,9 @@
             <a-button type="primary">退订选中</a-button>
           </a-popconfirm>
         </a-space>
-        <a-table ref="subscribeTable" row-key="subscribeId" :columns="columnDatas" :data="subscribeList" :filter-icon-align-left="true"
-          :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
-          v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" >
+        <a-table ref="subscribeTable" row-key="subscribeId" :columns="columnDatas" :data="subscribeList"
+          :filter-icon-align-left="true" :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
+          v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading">
           <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
             <div class="custom-filter">
               <a-space direction="vertical">
@@ -47,9 +47,11 @@
 import { computed, ref, h } from 'vue';
 import { IconSearch } from '@arco-design/web-vue/es/icon';
 import useLoading from '@/hooks/loading';
-import { useGroupStore, userSubscribeStore } from '@/store';
-import { cancleSubscribe } from '@/api/subscribe';
+import { useGroupStore } from '@/store';
+import { getPixivUserSubscribe, cancleSubscribe } from '@/api/subscribe';
+import { GroupInfo } from '@/store/modules/group/types';
 import type { SubscribeData } from '@/api/subscribe';
+import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { Message } from '@arco-design/web-vue';
 import { List } from 'linqts';
@@ -59,14 +61,13 @@ const selectedKeys = ref<number[]>([]);
 const selectedGroup = ref<number>(0);
 const pagination = { pageSize: 50 };
 const groupStore = useGroupStore();
-const subscribeStore = userSubscribeStore();
 const { loading, setLoading } = useLoading();
 const subscribeList = ref<SubscribeData[]>([]);
 const groupOptions = ref<SelectOptionData[]>([]);
 
-const columns = [
+const columns: TableColumnData[] = [
   {
-    title: '标签名',
+    title: '画师ID',
     dataIndex: 'subscribeCode',
     ellipsis: true,
     tooltip: true,
@@ -75,6 +76,23 @@ const columns = [
       slotName: 'code-filter',
       icon: () => h(IconSearch)
     }
+  },
+  {
+    title: '画师名称',
+    dataIndex: 'subscribeName',
+    ellipsis: true,
+    tooltip: true,
+    filterable: {
+      filter: (value: any, record: any) => record.subscribeName.includes(value),
+      slotName: 'name-filter',
+      icon: () => h(IconSearch)
+    }
+  },
+  {
+    title: '目标群',
+    dataIndex: 'subscribeGroup',
+    ellipsis: true,
+    tooltip: true
   },
   {
     title: '订阅日期',
@@ -89,16 +107,28 @@ const columns = [
 
 const columnDatas = computed(() => {
   if (window.innerWidth < 250) {
-    return columns.slice(0, 1);
+    return [columns[1]];
   }
-  return columns;
+  if (window.innerWidth < 400) {
+    return [columns[1], columns[2]]
+  }
+  if (window.innerWidth < 550) {
+    return [columns[0], columns[1], columns[2]]
+  }
+  return [...columns];
 });
 
 const fetchSubscribes = async (groupId = 0) => {
   try {
     setLoading(true);
-    const datas = await subscribeStore.loadPixivUserSubscribes();
-    subscribeList.value = groupId === 0 ? datas : new List<SubscribeData>(datas).Where(o => o?.groupId === groupId).ToArray();
+    const groupInfos = await groupStore.loadGroupInfos();
+    const subscribeDatas = await getPixivUserSubscribe() as unknown as SubscribeData[];
+    for (let index = 0; index < subscribeDatas.length; index += 1) {
+      const data = subscribeDatas[index];
+      const groupName = new List<GroupInfo>(groupInfos).Where((o) => o?.groupId === data.groupId).FirstOrDefault()?.groupName ?? '';
+      data.subscribeGroup = data.groupId === 0 ? '所有群' : `${groupName}(${data.groupId})`;
+    }
+    subscribeList.value = groupId === 0 ? subscribeDatas : new List<SubscribeData>(subscribeDatas).Where(o => o?.groupId === groupId).ToArray();
   } catch (error) {
     console.log(error);
   } finally {
@@ -148,14 +178,8 @@ const unsubscribe = async () => {
 
 fetchSubscribes();
 fetchGroups();
-
 </script>
 
-<script lang="ts">
-export default {
-  name: 'PixivTagSubscribe',
-};
-</script>
 
 <style scoped lang="less">
 .container {

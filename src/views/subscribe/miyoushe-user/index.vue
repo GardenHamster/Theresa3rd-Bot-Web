@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <a-card class="general-card">
-      <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.tag']" />
+      <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.miyoushe.user']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
           <a-select @change="groupChange" v-model.number="selectedGroup" :options="groupOptions"
@@ -48,7 +48,7 @@ import { computed, ref, h } from 'vue';
 import { IconSearch } from '@arco-design/web-vue/es/icon';
 import useLoading from '@/hooks/loading';
 import { useGroupStore } from '@/store';
-import { getPixivTagSubscribe, cancleSubscribe } from '@/api/subscribe';
+import { getMiyousheUserSubscribe, cancleSubscribe } from '@/api/subscribe';
 import { GroupInfo } from '@/store/modules/group/types';
 import type { SubscribeData } from '@/api/subscribe';
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
@@ -67,13 +67,24 @@ const groupOptions = ref<SelectOptionData[]>([]);
 
 const columns: TableColumnData[] = [
   {
-    title: '标签',
+    title: '版主ID',
     dataIndex: 'subscribeCode',
     ellipsis: true,
     tooltip: true,
     filterable: {
       filter: (value: any, record: any) => record.subscribeCode.includes(value),
       slotName: 'code-filter',
+      icon: () => h(IconSearch)
+    }
+  },
+  {
+    title: '版主名称',
+    dataIndex: 'subscribeName',
+    ellipsis: true,
+    tooltip: true,
+    filterable: {
+      filter: (value: any, record: any) => record.subscribeName.includes(value),
+      slotName: 'name-filter',
       icon: () => h(IconSearch)
     }
   },
@@ -96,10 +107,13 @@ const columns: TableColumnData[] = [
 
 const columnDatas = computed(() => {
   if (window.innerWidth < 250) {
-    return [columns[0]];
+    return [columns[1]];
   }
   if (window.innerWidth < 400) {
-    return [columns[0], columns[1]]
+    return [columns[1], columns[2]]
+  }
+  if (window.innerWidth < 550) {
+    return [columns[0], columns[1], columns[2]]
   }
   return [...columns];
 });
@@ -108,13 +122,12 @@ const fetchSubscribes = async (groupId = 0) => {
   try {
     setLoading(true);
     const groupInfos = await groupStore.loadGroupInfos();
-    const subscribeDatas = await getPixivTagSubscribe() as unknown as SubscribeData[];
+    const subscribeDatas = await getMiyousheUserSubscribe() as unknown as SubscribeData[];
     for (let index = 0; index < subscribeDatas.length; index += 1) {
       const data = subscribeDatas[index];
       const groupName = new List<GroupInfo>(groupInfos).Where((o) => o?.groupId === data.groupId).FirstOrDefault()?.groupName ?? '';
       data.subscribeGroup = data.groupId === 0 ? '所有群' : `${groupName}(${data.groupId})`;
     }
-    console.log('subscribeDatas', subscribeDatas);
     subscribeList.value = groupId === 0 ? subscribeDatas : new List<SubscribeData>(subscribeDatas).Where(o => o?.groupId === groupId).ToArray();
   } catch (error) {
     console.log(error);
@@ -145,6 +158,7 @@ const groupChange = async () => {
 const unsubscribe = async () => {
   try {
     setLoading(true);
+    console.log('selectedKeys.value', selectedKeys.value);
     const selectedIds = selectedKeys.value;
     if (!selectedIds || selectedIds.length === 0) {
       Message.error({ content: '请至少选择一个项目' });
