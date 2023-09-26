@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <a-card class="general-card">
-      <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.tag']" />
+      <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.user']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
           <a-select @change="groupChange" v-model.number="selectedGroup" :options="groupOptions"
@@ -66,13 +66,24 @@ const groupOptions = ref<SelectOptionData[]>([]);
 
 const columns = [
   {
-    title: '标签名',
+    title: '画师Id',
     dataIndex: 'subscribeCode',
     ellipsis: true,
     tooltip: true,
     filterable: {
       filter: (value: any, record: any) => record.subscribeCode.includes(value),
       slotName: 'code-filter',
+      icon: () => h(IconSearch)
+    }
+  },
+  {
+    title: '画师名称',
+    dataIndex: 'subscribeName',
+    ellipsis: true,
+    tooltip: true,
+    filterable: {
+      filter: (value: any, record: any) => record.subscribeName.includes(value),
+      slotName: 'name-filter',
       icon: () => h(IconSearch)
     }
   },
@@ -89,7 +100,10 @@ const columns = [
 
 const columnDatas = computed(() => {
   if (window.innerWidth < 250) {
-    return columns.slice(0, 1);
+    return columns.slice(1, 2);
+  }
+  if (window.innerWidth < 600) {
+    return columns.slice(0, 2);
   }
   return columns;
 });
@@ -153,7 +167,7 @@ fetchGroups();
 
 <script lang="ts">
 export default {
-  name: 'PixivTagSubscribe',
+  name: 'PixivUserSubscribe',
 };
 </script>
 

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import getGroupList from '@/api/group';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { GroupState, GroupInfo } from './types';
+import { List } from 'linqts';
 
 const toOptions = (groupInfos: GroupInfo[]) => {
   const optionList: SelectOptionData[] = [];
@@ -16,12 +17,20 @@ const toOptions = (groupInfos: GroupInfo[]) => {
 const useGroupStore = defineStore('group', {
   state: (): GroupState => ({}),
   actions: {
-    async load() {
-      if (this.groupInfos) return;
+    async loadGroupInfos(): Promise<GroupInfo[]> {
+      if (this.groupInfos) return this.groupInfos;
       const groupInfos = (await getGroupList()) as unknown as GroupInfo[];
       this.groupInfos = groupInfos;
+      return this.groupInfos;
+    },
+    async loadGroupOptions(): Promise<SelectOptionData[]> {
+      const groupInfos = await this.loadGroupInfos();
       const groupOptions = toOptions(groupInfos);
-      this.groupOptions = groupOptions;
+      return groupOptions;
+    },
+    async loadGroupName(groupId: Number): Promise<string> {
+      const groupInfos = await this.loadGroupInfos();
+      return new List<GroupInfo>(groupInfos).Where((o) => o?.groupId === groupId).FirstOrDefault()?.groupName ?? '';
     },
   },
 });

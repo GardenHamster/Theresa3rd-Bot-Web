@@ -22,6 +22,16 @@ const Datas: AppRouteRecordRaw = {
         roles: ['admin'],
       },
     },
+    {
+      path: 'pixiv/tag',
+      name: 'PixivTagSubscribe',
+      component: () => import('@/views/subscribe/pixiv-tag/index.vue'),
+      meta: {
+        locale: 'menu.subscribe.pixiv.tag',
+        requiresAuth: true,
+        roles: ['admin'],
+      },
+    },
   ],
 };
 

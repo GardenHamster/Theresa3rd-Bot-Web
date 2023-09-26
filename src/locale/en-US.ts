@@ -13,6 +13,8 @@ export default {
   'menu.settings.pixiv': 'Pixiv Settings',
   'menu.subscribe': 'Subscription Management',
   'menu.subscribe.pixiv.user': 'Pixiv User Subscription',
+  'menu.subscribe.pixiv.tag': 'Pixiv Tag Subscription',
+  'menu.subscribe.miyoushe.user': 'Miyoushe User Subscription',
   'menu.botWebsite': 'Bot Docs',
   'menu.server.dashboard': 'Dashboard-Server',
   'menu.server.workplace': 'Workplace-Server',
