@@ -31,6 +31,7 @@ export default {
   'navbar.action.locale': '切换为中文',
   'button.submit': '保存',
   'button.reset': '重置',
+  'button.restore': '还原',
   ...localeSettings,
   ...localeMessageBox,
   ...localeLogin,

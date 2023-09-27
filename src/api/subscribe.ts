@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export interface SubscribeData {
+  id: number;
   groupId: number;
   subscribeCode: string;
   subscribeId: number;
@@ -12,8 +13,8 @@ export interface SubscribeData {
   subscribeGroup: string;
 }
 
-export interface CancleParam {
-  subscribeIds: number[];
+export interface DeleteParam {
+  ids: number[];
 }
 
 export function getPixivUserSubscribe() {
@@ -28,7 +29,7 @@ export function getMiyousheUserSubscribe() {
   return axios.get<SubscribeData[]>('/api/subscribe/list/miyoushe/user');
 }
 
-export function cancleSubscribe(data: number[]) {
-  const requestData: CancleParam = { subscribeIds: data };
-  return axios.post<any>('/api/subscribe/cancle', requestData);
+export function deleteSubscribe(data: number[]) {
+  const requestData: DeleteParam = { ids: data };
+  return axios.post<any>('/api/subscribe/delete', requestData);
 }

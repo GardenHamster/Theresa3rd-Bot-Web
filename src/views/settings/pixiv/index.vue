@@ -1,16 +1,14 @@
 <template>
   <div class="container">
-    <a-card class="general-card">
-      <Breadcrumb :items="['menu.settings', 'menu.settings.pixiv']" />
+    <a-card class="card">
+      <Breadcrumb :items="['menu.settings', 'menu.settings.base']" />
       <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :model="form">
-          <a-row class="row">
-
-              <a-form-item
+          <a-form-item
                 field="prefixs"
                 :label="$t('settings.base.prefixs')"
-                tooltip="指令前缀，Bot只会处理带有前缀的指令，如：(#菜单)"
+                tooltip="指令前缀，Bot只会处理带有前缀的指令，如：(#菜单)，多个之间用逗号隔开"
                 feedback >
-                  <a-input v-model="form.prefixs" placeholder="输入一个或多个前缀，多个之间用逗号隔开" />
+                  <a-input-tag v-model="form.prefixs" placeholder="输入一个或多个前缀，多个之间用逗号隔开" allow-clear />
               </a-form-item>
 
               <a-form-item
@@ -39,11 +37,11 @@
               </a-form-item>
 
                <a-form-item>
-                  <a-button class="action" type="primary" :loading="loading" @click="onSubmitClick">{{ $t('button.submit') }}</a-button>
-                  <a-button class="action">{{ $t('button.reset') }}</a-button>
+                  <a-space direction="horizontal" >
+                    <a-button type="primary" :loading="loading" @click="onSubmitClick">{{ $t('button.submit') }}</a-button>
+                    <a-button >{{ $t('button.reset') }}</a-button>
+                  </a-space>
                </a-form-item>
-               
-            </a-row>
           </a-form>
         </a-card>
   </div>
@@ -56,7 +54,7 @@ import useLoading from '@/hooks/loading';
 const { loading, setLoading } = useLoading();
 const formRef = ref();
 const form = reactive({
-  prefixs: '',
+  prefixs: [],
   downloadPath: '',
   defaultFontPath: '',
   clearCorn: '',
@@ -78,30 +76,21 @@ const onSubmitClick = async () => {
     setLoading(false);
   }, 1000);
 };
-
-
-
 </script>
 
-<script lang="ts">
-export default {
-  name: 'BaseSettings',
-};
-</script>
 
 <style scoped lang="less">
-.container {
-  padding: 20px;
+.arco-layout .container {
+  padding: 20px 0px 0px 20px;
   overflow: hidden;
 }
 
-.row {
-  padding: 20px 0px 0px 0px;
-  min-width: 300px;
-  margin: 0 auto;
+.arco-layout.mobile .container {
+  padding: 0px;
+  overflow: hidden;
 }
 
-.action {
-  margin-right: 10px;
+.card {
+  min-width: 300px;
 }
 </style>

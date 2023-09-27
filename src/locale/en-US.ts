@@ -31,6 +31,7 @@ export default {
   'navbar.action.locale': 'Switch to English',
   'button.submit': 'Save',
   'button.reset': 'Reset',
+  'button.restore': 'Restore',
   ...localeSettings,
   ...localeMessageBox,
   ...localeLogin,

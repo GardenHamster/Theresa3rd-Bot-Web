@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <a-card class="general-card">
+    <a-card class="card">
       <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.tag']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
@@ -12,7 +12,7 @@
             <a-button type="primary">退订选中</a-button>
           </a-popconfirm>
         </a-space>
-        <a-table ref="subscribeTable" row-key="subscribeId" :columns="columnDatas" :data="subscribeList"
+        <a-table row-key="id" :columns="columnDatas" :data="subscribeList"
           :filter-icon-align-left="true" :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
           v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading">
           <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
@@ -48,7 +48,7 @@ import { computed, ref, h } from 'vue';
 import { IconSearch } from '@arco-design/web-vue/es/icon';
 import useLoading from '@/hooks/loading';
 import { useGroupStore } from '@/store';
-import { getPixivUserSubscribe, cancleSubscribe } from '@/api/subscribe';
+import { getPixivUserSubscribe, deleteSubscribe } from '@/api/subscribe';
 import { GroupInfo } from '@/store/modules/group/types';
 import type { SubscribeData } from '@/api/subscribe';
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
@@ -71,6 +71,9 @@ const columns: TableColumnData[] = [
     dataIndex: 'subscribeCode',
     ellipsis: true,
     tooltip: true,
+    sortable: {
+      sortDirections: ['ascend', 'descend']
+    },
     filterable: {
       filter: (value: any, record: any) => record.subscribeCode.includes(value),
       slotName: 'code-filter',
@@ -82,6 +85,9 @@ const columns: TableColumnData[] = [
     dataIndex: 'subscribeName',
     ellipsis: true,
     tooltip: true,
+    sortable: {
+      sortDirections: ['ascend', 'descend']
+    },
     filterable: {
       filter: (value: any, record: any) => record.subscribeName.includes(value),
       slotName: 'name-filter',
@@ -92,7 +98,10 @@ const columns: TableColumnData[] = [
     title: '目标群',
     dataIndex: 'subscribeGroup',
     ellipsis: true,
-    tooltip: true
+    tooltip: true,
+    sortable: {
+      sortDirections: ['ascend', 'descend']
+    }
   },
   {
     title: '订阅日期',
@@ -164,8 +173,8 @@ const unsubscribe = async () => {
       Message.error({ content: '请至少选择一个项目' });
       return;
     }
-    await cancleSubscribe(selectedIds);
-    subscribeList.value = new List<SubscribeData>(subscribeList.value).Where(o => !selectedIds.includes(o!.subscribeId)).ToArray();
+    await deleteSubscribe(selectedIds);
+    subscribeList.value = new List<SubscribeData>(subscribeList.value).Where(o => !selectedIds.includes(o!.id)).ToArray();
     selectedKeys.value.length = 0;
     Message.success('退订成功');
   } catch (error) {
@@ -180,15 +189,21 @@ fetchSubscribes();
 fetchGroups();
 </script>
 
-
 <style scoped lang="less">
-.container {
-  padding: 20px;
+.arco-layout .container {
+  padding: 20px 0px 0px 20px;
   overflow: hidden;
 }
-</style>
 
-<style scoped lang="less">
+.arco-layout.mobile .container {
+  padding: 0px;
+  overflow: hidden;
+}
+
+.card {
+  min-width: 300px;
+}
+
 .custom-filter {
   padding: 20px;
   background: var(--color-bg-5);
