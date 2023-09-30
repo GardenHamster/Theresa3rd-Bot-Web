@@ -5,4 +5,7 @@ export interface BaseSetting {
   downloadPath: string;
   defaultFontPath: string;
   clearCorn: string;
+  downErrorImgPath: string;
+  errorGroups: number[];
+  errorMsg: string;
 }
