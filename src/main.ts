@@ -11,6 +11,13 @@ import App from './App.vue';
 import '@/assets/style/global.less';
 import '@/api/interceptor';
 
+declare global {
+    interface Window {
+        baseURL: string;
+    }
+}
+window.baseURL = import.meta.env.VITE_API_BASE_URL;
+
 const app = createApp(App);
 app.use(ArcoVue, {});
 app.use(ArcoVueIcon);

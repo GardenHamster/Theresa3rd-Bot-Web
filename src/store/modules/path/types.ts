@@ -1,4 +1,9 @@
 export interface PathState {
   fontPaths?: string[];
-  facePaths?: string[];
+  facePaths?: FacePath[];
+}
+
+export interface FacePath {
+  httpPath: string;
+  serverPath: string;
 }
