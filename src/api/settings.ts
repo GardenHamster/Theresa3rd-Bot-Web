@@ -8,4 +8,9 @@ export interface BaseSetting {
   downErrorImgPath: string;
   errorGroups: number[];
   errorMsg: string;
+  disableMsg: string;
+  noPermissionsMsg: string;
+  managersRequiredMsg: string;
+  setuCustomDisableMsg: string;
+  sendRelevantCommands: boolean;
 }

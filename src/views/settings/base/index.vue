@@ -2,10 +2,18 @@
   <div class="container">
     <a-card class="card">
       <Breadcrumb :items="['menu.settings', 'menu.settings.base']" />
+
       <a-form layout="horizontal" size="large" :auto-label-width="true" :model="param">
         <a-form-item field="prefixs" label="指令前缀" tooltip="指令前缀，Bot只会处理带有前缀的指令，如：(#菜单)，输入后按下回车添加，可同时设置多个前缀" feedback>
           <a-input-tag v-model:model-value="param.prefixs" v-model:input-value="form.prefixs" placeholder="输入后按下回车添加"
             allow-clear />
+        </a-form-item>
+
+        <a-form-item field="sendRelevantCommands" label="指令提示" tooltip="发送的指令不存在时，是否提示相关的可用指令" feedback>
+          <a-switch v-model:model-value="param.sendRelevantCommands">
+            <template #checked>ON</template>
+            <template #unchecked>OFF</template>
+          </a-switch>
         </a-form-item>
 
         <a-form-item field="downloadPath" label="缓存目录" tooltip="下载图片等文件的临时存放目录" feedback>
@@ -35,10 +43,29 @@
           </a-space>
         </a-form-item>
 
-        <a-form-item field="errorMsg" label="错误模板" tooltip="处理异常时返回的消息" extra="输入中括号[]可以快速插入图片" feedback>
-          <a-mention v-model:model-value="param.errorMsg" :style="{ minHeight: '100px' }" :prefix="['[', ']', 'image']"
-            :data="['[Bytedance]', 'Bytedesign', 'Bytenumner']" type="textarea" placeholder="enter something" auto-size
-            allow-clear />
+        <a-form-item field="errorMsg" label="错误提示" tooltip="处理异常时返回的消息" feedback>
+          <a-mention v-model:model-value="param.errorMsg" :style="{ minHeight: '100px' }" :prefix="['[']"
+            :data="imgMentions" type="textarea" placeholder="输入“[”可以快速插入图片码" auto-size allow-clear />
+        </a-form-item>
+
+        <a-form-item field="disableMsg" label="禁用提示" tooltip="功能被禁用时返回的消息" feedback>
+          <a-mention v-model:model-value="param.disableMsg" :style="{ minHeight: '100px' }" :prefix="['[']"
+            :data="imgMentions" type="textarea" placeholder="输入“[”可以快速插入图片码" auto-size allow-clear />
+        </a-form-item>
+
+        <a-form-item field="noPermissionsMsg" label="无权限提示" tooltip="缺少使用权限时时返回的消息" feedback>
+          <a-mention v-model:model-value="param.noPermissionsMsg" :style="{ minHeight: '100px' }" :prefix="['[']"
+            :data="imgMentions" type="textarea" placeholder="输入“[”可以快速插入图片码" auto-size allow-clear />
+        </a-form-item>
+
+        <a-form-item field="managersRequiredMsg" label="非管理员提示" tooltip="缺少管理员权限时时返回的消息" feedback>
+          <a-mention v-model:model-value="param.managersRequiredMsg" :style="{ minHeight: '100px' }" :prefix="['[']"
+            :data="imgMentions" type="textarea" placeholder="输入“[”可以快速插入图片码" auto-size allow-clear />
+        </a-form-item>
+
+        <a-form-item field="setuCustomDisableMsg" label="涩图禁用提示" tooltip="涩图功能被禁用时返回的消息" feedback>
+          <a-mention v-model:model-value="param.setuCustomDisableMsg" :style="{ minHeight: '100px' }" :prefix="['[']"
+            :data="imgMentions" type="textarea" placeholder="输入“[”可以快速插入图片码" auto-size allow-clear />
         </a-form-item>
 
         <a-form-item>
@@ -67,6 +94,7 @@ const { loading, setLoading } = useLoading();
 const pathStore = usePathStore();
 const groupStore = useGroupStore();
 const formRef = ref();
+const imgMentions = ref<SelectOptionData[]>([]);
 const groupOptions = ref<SelectOptionData[]>([]);
 const optionFontPaths = ref<string[]>([]);
 const optionFacePaths = ref<string[]>([]);
@@ -78,6 +106,11 @@ const param = reactive<BaseSetting>({
   downErrorImgPath: '',
   errorGroups: [],
   errorMsg: '',
+  disableMsg: '',
+  noPermissionsMsg: '',
+  managersRequiredMsg: '',
+  setuCustomDisableMsg: '',
+  sendRelevantCommands: false,
 });
 
 const form = reactive({
@@ -126,7 +159,16 @@ const fetchGroups = async () => {
   }
 };
 
+const loadImgMentions = async () => {
+  try {
+    imgMentions.value = await pathStore.loadFaceMentions();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 fetchGroups();
+loadImgMentions();
 searchFontPath();
 searchFacePath();
 showErrorImg();
