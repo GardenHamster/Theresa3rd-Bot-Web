@@ -26,19 +26,32 @@ const locale = computed(() => {
 </script>
 
 <style>
+.arco-layout.mobile .container {
+  padding: 0px;
+  overflow: hidden;
+}
+
+.arco-layout .container {
+  padding: 20px 0px 0px 20px;
+  overflow: hidden;
+}
+
+.arco-layout.mobile .arco-card-body {
+  padding: 10px;
+}
+
 .arco-textarea-mirror {
   height: 100%;
 }
 
 .arco-form-auto-label-width .arco-form-item-label-col>.arco-form-item-label {
-  white-space: pre-line;
-}
-
-.arco-form-item-label-col>.arco-form-item-label {
-  max-width: 150px;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .arco-form-item-label-col {
+  min-width: 100px;
+  flex-basis: 100px;
   padding-right: 10px;
 }
 </style>

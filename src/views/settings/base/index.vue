@@ -172,21 +172,10 @@ loadImgMentions();
 searchFontPath();
 searchFacePath();
 showErrorImg();
-
 </script>
 
 
 <style scoped lang="less">
-.arco-layout .container {
-  padding: 20px 0px 0px 20px;
-  overflow: hidden;
-}
-
-.arco-layout.mobile .container {
-  padding: 0px;
-  overflow: hidden;
-}
-
 .card {
   min-width: 300px;
 }
