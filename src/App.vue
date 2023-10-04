@@ -24,3 +24,21 @@ const locale = computed(() => {
   }
 });
 </script>
+
+<style>
+.arco-textarea-mirror {
+  height: 100%;
+}
+
+.arco-form-auto-label-width .arco-form-item-label-col>.arco-form-item-label {
+  white-space: pre-line;
+}
+
+.arco-form-item-label-col>.arco-form-item-label {
+  max-width: 150px;
+}
+
+.arco-form-item-label-col {
+  padding-right: 10px;
+}
+</style>
