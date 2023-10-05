@@ -6,7 +6,7 @@ import localeSettings from './en-US/settings';
 export default {
   'menu.dashboard': 'Dashboard',
   'menu.settings': 'Bot Settings',
-  'menu.settings.base': 'Base Settings',
+  'menu.settings.general': 'General Settings',
   'menu.settings.pixiv': 'Pixiv Settings',
   'menu.subscribe': 'Subscription Management',
   'menu.subscribe.pixiv.user': 'Pixiv User Subscription',

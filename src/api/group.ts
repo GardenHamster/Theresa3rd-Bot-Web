@@ -3,6 +3,6 @@ import { GroupInfo } from '@/store/modules/group/types';
 
 const getGroupList = function () {
   return axios.get<GroupInfo[]>('/api/group/list');
-}
+};
 
 export default getGroupList;

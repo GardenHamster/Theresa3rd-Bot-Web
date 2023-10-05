@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <a-card class="card">
-      <Breadcrumb :items="['menu.settings', 'menu.settings.base']" />
+      <Breadcrumb :items="['menu.settings', 'menu.settings.general']" />
       <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :model="form">
           <a-form-item
                 field="prefixs"

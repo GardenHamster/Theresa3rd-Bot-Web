@@ -51,7 +51,7 @@ const locale = computed(() => {
 
 .arco-form-item-label-col {
   min-width: 100px;
-  flex-basis: 100px;
+  flex-basis: 102px;
   padding-right: 10px;
 }
 </style>

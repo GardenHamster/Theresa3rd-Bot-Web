@@ -13,11 +13,11 @@ const Settings: AppRouteRecordRaw = {
   },
   children: [
     {
-      path: 'base',
-      name: 'BaseSetting',
-      component: () => import('@/views/settings/base/index.vue'),
+      path: 'general',
+      name: 'GeneralSetting',
+      component: () => import('@/views/settings/general/index.vue'),
       meta: {
-        locale: 'menu.settings.base',
+        locale: 'menu.settings.general',
         requiresAuth: true,
         roles: ['admin'],
       },

@@ -1,16 +1,10 @@
 import axios from 'axios';
+import { GeneralSetting } from '@/store/modules/setting/types';
 
-export interface BaseSetting {
-  prefixs: string[];
-  downloadPath: string;
-  defaultFontPath: string;
-  clearCorn: string;
-  downErrorImgPath: string;
-  errorGroups: number[];
-  errorMsg: string;
-  disableMsg: string;
-  noPermissionsMsg: string;
-  managersRequiredMsg: string;
-  setuCustomDisableMsg: string;
-  sendRelevantCommands: boolean;
+export function getGeneralSetting() {
+  return axios.get<GeneralSetting>('/api/config/get/general');
+}
+
+export function setGeneralSetting(setting: GeneralSetting) {
+  return axios.post<GeneralSetting>('/api/config/set/general', setting);
 }

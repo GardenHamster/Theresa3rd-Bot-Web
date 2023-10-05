@@ -3,7 +3,6 @@ import getGroupList from '@/api/group';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { GroupState, GroupInfo } from './types';
 
-
 const toOptions = (groupInfos: GroupInfo[]) => {
   const optionList: SelectOptionData[] = [];
   for (let i = 0; i < groupInfos.length; i += 1) {
