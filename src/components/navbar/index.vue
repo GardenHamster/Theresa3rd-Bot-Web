@@ -2,22 +2,9 @@
   <div class="navbar">
     <div class="left-side">
       <a-space>
-        <img
-          alt="logo"
-          :src="favicon"
-          style="width: 25px; height: 25px;"
-        />
-        <a-typography-title
-          :style="{ margin: 0, fontSize: '18px', minWidth:'100px' }"
-          :heading="5"
-        >
-          TheresaBot
-        </a-typography-title>
-        <icon-menu-fold
-          v-if="!topMenu && appStore.device === 'mobile'"
-          style="font-size: 22px; cursor: pointer"
-          @click="toggleDrawerMenu"
-        />
+        <img alt="logo" :src="favicon" style="width: 25px; height: 25px;"/>
+        <a-typography-title :style="{ margin: 0, fontSize: '18px', minWidth: '100px' }" :heading="5">TheresaBot</a-typography-title>
+        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer" @click="toggleDrawerMenu"/>
       </a-space>
     </div>
     <div class="center-side">
@@ -149,6 +136,10 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
 </script>
 
 <style scoped lang="less">
+.title {
+  color: rgb(var(--primary-6));
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;

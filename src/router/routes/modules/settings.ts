@@ -20,6 +20,7 @@ const Settings: AppRouteRecordRaw = {
         locale: 'menu.settings.general',
         requiresAuth: true,
         roles: ['admin'],
+        keepAlive: true,
       },
     },
     {
@@ -30,6 +31,7 @@ const Settings: AppRouteRecordRaw = {
         locale: 'menu.settings.pixiv',
         requiresAuth: true,
         roles: ['admin'],
+        keepAlive: true,
       },
     },
   ],

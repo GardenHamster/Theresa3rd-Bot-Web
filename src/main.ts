@@ -8,13 +8,13 @@ import i18n from './locale';
 import directive from './directive';
 import './mock';
 import App from './App.vue';
-import '@/assets/style/global.less';
+import '@arco-themes/vue-sakura/theme.less';
 import '@/api/interceptor';
 
 declare global {
-    interface Window {
-        baseURL: string;
-    }
+  interface Window {
+    baseURL: string;
+  }
 }
 window.baseURL = import.meta.env.VITE_API_BASE_URL;
 

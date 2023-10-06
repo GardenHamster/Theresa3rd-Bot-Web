@@ -3,29 +3,6 @@
     <a-card class="card">
       <Breadcrumb :items="['menu.settings', 'menu.settings.general']" />
       <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :model="form">
-          <a-form-item
-                field="prefixs"
-                :label="$t('settings.base.prefixs')"
-                tooltip="指令前缀，Bot只会处理带有前缀的指令，如：(#菜单)，多个之间用逗号隔开"
-                feedback >
-                  <a-input-tag v-model="form.prefixs" placeholder="输入一个或多个前缀，多个之间用逗号隔开" allow-clear />
-              </a-form-item>
-
-              <a-form-item
-                field="downloadPath"
-                :label="$t('settings.base.downloadPath')"
-                tooltip="下载临时文件存放路径"
-                feedback >
-                  <a-input v-model="form.downloadPath" placeholder="输入一个相对路径或者绝对路径" />
-              </a-form-item>
-
-              <a-form-item
-                field="defaultFontPath"
-                label="字体路径"
-                tooltip="默认字体路径"
-                feedback >
-                  <a-input v-model="form.downloadPath" placeholder="输入一个相对路径或者绝对路径" />
-              </a-form-item>
 
               <a-form-item
                 field="clearCorn"
@@ -75,6 +52,12 @@ const onSubmitClick = async () => {
   setTimeout(() => {
     setLoading(false);
   }, 1000);
+};
+</script>
+
+<script lang="ts">
+export default {
+  name: 'PixivSetting',
 };
 </script>
 
