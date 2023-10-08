@@ -36,6 +36,8 @@ module.exports = {
     },
   },
   rules: {
+    'no-shadow': "off",
+    '@typescript-eslint/no-shadow': ["error"],
     'prettier/prettier': 0,
     // Vue: Recommended rules to be closed or modify
     'vue/require-default-prop': 0,

@@ -27,7 +27,7 @@
   dependencies:
     "color" "^3.1.3"
 
-"@arco-design/web-vue@^2.40.0", "@arco-design/web-vue@^2.51.1":
+"@arco-design/web-vue@^2.44.7", "@arco-design/web-vue@^2.51.1":
   "integrity" "sha512-YsNF1hrl700rshZPrJ7haNEN6pc3dQwpLbYzpE49jrLdF0mALGU9aP2A8q0FNPH2Rt4rxvxkw1o0gsL7my8H+Q=="
   "resolved" "https://registry.npmmirror.com/@arco-design/web-vue/-/web-vue-2.51.1.tgz"
   "version" "2.51.1"
@@ -53,10 +53,10 @@
     "@babel/types" "^7.12.12"
     "@types/node" "^16.11.10"
 
-"@arco-themes/vue-sakura@^0.0.2":
-  "integrity" "sha512-Gyd3vteUsEUwIQO8yBO9w/SdbILGKAa+Te8jdZe7Wmk7AZJH0WJ0aO7trc1YT5FwLf1Tjr+4GCAft6WxxtBFHw=="
-  "resolved" "https://registry.npmmirror.com/@arco-themes/vue-sakura/-/vue-sakura-0.0.2.tgz"
-  "version" "0.0.2"
+"@arco-themes/vue-mengtu@^0.0.3":
+  "integrity" "sha512-vKyNLF/dg4I5pkIrMg2/K7n3qByo4SkgEo4sAngEdiefdlq1svPeUV1bOIe1JBvT3yaHDLWQpqxQ9+nLSeBXOw=="
+  "resolved" "https://registry.npmmirror.com/@arco-themes/vue-mengtu/-/vue-mengtu-0.0.3.tgz"
+  "version" "0.0.3"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.22.13":
   "integrity" "sha512-XktuhWlJ5g+3TJXc5upd9Ks1HutSArik6jf2eAjYFyIOf4ej3RN+184cZbzDvbPnuTJIUhPKKJE3cIsYTiAT3w=="
@@ -1180,6 +1180,11 @@
     "json-schema-traverse" "^1.0.0"
     "require-from-string" "^2.0.2"
     "uri-js" "^4.2.2"
+
+"animate.css@^4.1.1":
+  "integrity" "sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ=="
+  "resolved" "https://registry.npmmirror.com/animate.css/-/animate.css-4.1.1.tgz"
+  "version" "4.1.1"
 
 "ansi-escapes@^5.0.0":
   "integrity" "sha512-5GFMVX8HqE/TB+FuBJGuO5XG0WrsA6ptUqoODaT/n9mmUaZFkqnBueB4leqGBCmrUHnCnC4PCZTCd0E7QQ83bA=="

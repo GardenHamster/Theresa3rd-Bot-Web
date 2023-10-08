@@ -8,8 +8,10 @@ import i18n from './locale';
 import directive from './directive';
 import './mock';
 import App from './App.vue';
-import '@arco-themes/vue-sakura/theme.less';
+import '@arco-themes/vue-mengtu/theme.less';
 import '@/api/interceptor';
+import 'animate.css';
+
 
 declare global {
   interface Window {
@@ -26,5 +28,4 @@ app.use(store);
 app.use(i18n);
 app.use(globalComponents);
 app.use(directive);
-
 app.mount('#app');
