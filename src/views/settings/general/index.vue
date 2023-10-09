@@ -29,11 +29,12 @@
 
 <template>
   <div class="container">
-    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true" :model="formModel">
+    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true"
+      :model="formModel">
       <a-card class="card">
 
         <a-alert class="alert" type="warning" v-show="saveWarning" center>某些属性值已经被修改，但是还未进行保存</a-alert>
-        
+
         <Breadcrumb :items="['menu.settings', 'menu.settings.general']" />
 
         <a-form-item field="prefixs" label="指令前缀" tooltip="指令前缀，Bot只会处理带有前缀的指令，如：(#菜单)，你也可以不设置任何前缀。输入后按下回车添加，可同时设置多个前缀"
@@ -104,7 +105,7 @@
           <a-button @click="onReset">{{ $t('button.reset') }}</a-button>
         </a-space>
       </div>
-      
+
     </a-form>
 
   </div>
@@ -150,17 +151,17 @@ const onSubmit = async () => {
   try {
     const result = await formRef.value?.validate();
     if (result) {
-      Message.error({ content: '数据有误，请重新检查', position: 'bottom' });
+      Message.error({ content: '数据有误，请重新检查', position: 'top' });
       return;
     }
     setLoading(true);
     await settingStore.saveGeneralSetting(formModel.value);
     initModel.value = { ...formModel.value };
     formModel.value = { ...formModel.value };
-    Message.success({ content: '保存成功', position: 'bottom' });
+    Message.success({ content: '保存成功', position: 'top' });
   } catch (error) {
     console.log(error);
-    Message.error({ content: '保存失败', position: 'bottom' });
+    Message.error({ content: '保存失败', position: 'top' });
   }
   finally {
     setLoading(false);
@@ -171,7 +172,7 @@ const onReset = async () => {
   try {
     setLoading(true);
     formModel.value = { ...initModel.value };
-    Message.info({ content: '重置完毕', position: 'bottom' });
+    Message.info({ content: '重置完毕', position: 'top' });
   } catch (error) {
     console.log(error);
   }

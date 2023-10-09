@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { getGeneralSetting, setGeneralSetting } from '@/api/settings';
-import { SettingState, GeneralSetting } from './types';
+import { getGeneralSetting, setGeneralSetting, getPixivSetting, setPixivSetting } from '@/api/settings';
+import { SettingState, GeneralSetting, PixivSetting } from './types';
 
 const useSettingStore = defineStore('setting', {
   state: (): SettingState => ({}),
@@ -13,6 +13,15 @@ const useSettingStore = defineStore('setting', {
     async saveGeneralSetting(setting: GeneralSetting) {
       await setGeneralSetting(setting);
       this.generalSetting = setting;
+    },
+    async loadPixivSetting(): Promise<PixivSetting> {
+      if (this.pixivSetting) return this.pixivSetting;
+      this.pixivSetting = (await getPixivSetting()) as unknown as PixivSetting;
+      return this.pixivSetting;
+    },
+    async savePixivSetting(setting: PixivSetting) {
+      await setPixivSetting(setting);
+      this.pixivSetting = setting;
     },
   },
 });
