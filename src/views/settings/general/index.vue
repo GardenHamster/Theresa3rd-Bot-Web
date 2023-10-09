@@ -1,23 +1,19 @@
-
 <style scoped lang="less">
 .container {
-  margin-bottom: 70px;
+  margin-bottom: 100px;
   overflow: hidden;
 }
 
 .card {
   min-width: 300px;
-  padding-bottom: 20px;
+  padding-bottom: 25px;
   position: relative;
+  overflow: auto;
 }
 
 .alert {
   position: absolute;
-  width: 100%;
-  padding: inherit;
-  margin: inherit;
   left: 0;
-  right: 0
 }
 
 .actions {
@@ -35,9 +31,9 @@
   <div class="container">
     <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true" :model="formModel">
       <a-card class="card">
-        
-        <a-alert class="alert" type="warning" v-show="saveWarning" center>某些属性值已经被修改，但是还未进行保存</a-alert>
 
+        <a-alert class="alert" type="warning" v-show="saveWarning" center>某些属性值已经被修改，但是还未进行保存</a-alert>
+        
         <Breadcrumb :items="['menu.settings', 'menu.settings.general']" />
 
         <a-form-item field="prefixs" label="指令前缀" tooltip="指令前缀，Bot只会处理带有前缀的指令，如：(#菜单)，你也可以不设置任何前缀。输入后按下回车添加，可同时设置多个前缀"
@@ -121,6 +117,7 @@ import { useSettingStore, usePathStore, useGroupStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import type { GeneralSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
+import cronRules from '@/utils/validator'
 import getFaceHttpUrl from '@/utils/url'
 
 const saveWarning = ref(false);
@@ -152,7 +149,10 @@ const initJson = computed(() => {
 const onSubmit = async () => {
   try {
     const result = await formRef.value?.validate();
-    if (result) return;
+    if (result) {
+      Message.error({ content: '数据有误，请重新检查', position: 'bottom' });
+      return;
+    }
     setLoading(true);
     await settingStore.saveGeneralSetting(formModel.value);
     initModel.value = { ...formModel.value };
@@ -179,14 +179,6 @@ const onReset = async () => {
     setLoading(false);
   }
 };
-
-const cronRules = [{
-  validator: (value: string, callback: (error: string) => void) => {
-    if (value === '') {
-      callback('cron格式不正确');
-    }
-  }
-}];
 
 const searchFontPath = async () => {
   optionFontPaths.value = await pathStore.loadFontPaths();

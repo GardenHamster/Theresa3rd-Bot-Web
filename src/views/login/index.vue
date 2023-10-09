@@ -176,7 +176,9 @@ p.ref {
 
 #login_pass::placeholder {
   color: rgb(155, 155, 155);
-  font-size: 0.7em;
+  font-size: 0.5em;
+  position: relative;
+  top: -0.25rem;
 }
 
 #login_pass:-webkit-autofill {

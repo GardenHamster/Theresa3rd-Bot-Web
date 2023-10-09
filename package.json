@@ -35,6 +35,7 @@
     "@vueuse/core": "^9.3.0",
     "arco-design-pro-vue": "^2.7.2",
     "axios": "^0.24.0",
+    "cron-validate": "^1.4.5",
     "dayjs": "^1.11.5",
     "echarts": "^5.4.0",
     "linqts": "^1.15.0",
