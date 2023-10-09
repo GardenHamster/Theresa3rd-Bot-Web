@@ -1,10 +1,42 @@
+
+<style scoped lang="less">
+.container {
+  margin-bottom: 70px;
+  overflow: hidden;
+}
+
+.card {
+  min-width: 300px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.alert {
+  position: absolute;
+  width: 100%;
+  padding: inherit;
+  margin: inherit;
+  left: 0;
+  right: 0
+}
+
+.actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15px 30px 15px 0;
+  background: var(--color-bg-2);
+  text-align: right;
+}
+</style>
+
 <template>
   <div class="container">
-    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true"
-      :model="formModel">
+    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true" :model="formModel">
       <a-card class="card">
-
-        <a-alert type="warning" v-show="saveWarning" center>某些属性值已经被修改，但是还未进行保存</a-alert>
+        
+        <a-alert class="alert" type="warning" v-show="saveWarning" center>某些属性值已经被修改，但是还未进行保存</a-alert>
 
         <Breadcrumb :items="['menu.settings', 'menu.settings.general']" />
 
@@ -76,6 +108,7 @@
           <a-button @click="onReset">{{ $t('button.reset') }}</a-button>
         </a-space>
       </div>
+      
     </a-form>
 
   </div>
@@ -124,10 +157,10 @@ const onSubmit = async () => {
     await settingStore.saveGeneralSetting(formModel.value);
     initModel.value = { ...formModel.value };
     formModel.value = { ...formModel.value };
-    Message.success('保存成功');
+    Message.success({ content: '保存成功', position: 'bottom' });
   } catch (error) {
     console.log(error);
-    Message.error('保存失败');
+    Message.error({ content: '保存失败', position: 'bottom' });
   }
   finally {
     setLoading(false);
@@ -217,23 +250,3 @@ export default {
 </script>
 
 
-<style scoped lang="less">
-.container {
-  margin-bottom: 70px;
-  overflow: hidden;
-}
-
-.card {
-  min-width: 300px;
-}
-
-.actions {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 15px 30px 15px 0;
-  background: var(--color-bg-2);
-  text-align: right;
-}
-</style>

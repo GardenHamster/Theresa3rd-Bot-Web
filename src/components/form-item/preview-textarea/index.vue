@@ -1,13 +1,12 @@
 <template>
-    <a-space direction="vertical" :style="{ width: '100%' }" size="mini">
+    <a-space direction="vertical" :style="{ width: '100%', position: 'relative' }" size="mini">
         <a-mention v-model:model-value="inputvalue" :style="{ minHeight: '100px' }" :prefix="['[']" type="textarea"
             placeholder="输入“[”可以快速插入图片码" @focus="onFocus" @blur="onBlur" @change="onChange" auto-size allow-clear />
         <transition name="preview">
             <p class="preview" v-show="preview">
                 <template v-for="(content, index) in contents" :key="index">
                     <span v-if="(content.type === PreviewType.Text)">{{ (content.value as PreviewText).text }}</span>
-                    <a-image v-if="(content.type === PreviewType.Image)" width="100"
-                        :src="`http://127.0.0.1:5000/${(content.value as PreviewImage).path}`" />
+                    <a-image v-if="(content.type === PreviewType.Image)" width="100" :src="`http://127.0.0.1:5000/${(content.value as PreviewImage).path}`" />
                 </template>
             </p>
         </transition>
@@ -58,6 +57,7 @@ const onFocus = async () => {
 const onBlur = async () => {
     preview.value = false;
 }
+
 const onChange = (value: string) => {
     emit('update:modelValue', value)
 }
@@ -70,20 +70,35 @@ const onChange = (value: string) => {
     flex-direction: column;
     border: 2px dashed rgb(var(--primary-6));
     color: rgb(var(--primary-6));
-    border-radius: 3px;
+    border-radius: 5px;
     padding: 10px;
     margin: 0px;
-    width: auto;
+    width: 100%;
     overflow: auto;
     box-sizing: border-box;
     gap: 10px;
+    position: absolute;
+    z-index: 1100;
+    background-color: white;
 }
 
 .preview-enter-active {
-    animation: fadeIn 0.2s ease-in;
+    animation: fold 0.2s ease;
 }
 
 .preview-leave-active {
-    animation: fadeOut 0.2s ease-in;
+    animation: fold 0.2s ease reverse;
+}
+
+@keyframes fold {
+    100% {
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+
+    0% {
+        transform: scaleY(0);
+        transform-origin: top;
+    }
 }
 </style>

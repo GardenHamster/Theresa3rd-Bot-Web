@@ -33,7 +33,6 @@
     "@arco-design/web-vue": "^2.51.1",
     "@arco-themes/vue-mengtu": "^0.0.3",
     "@vueuse/core": "^9.3.0",
-    "animate.css": "^4.1.1",
     "arco-design-pro-vue": "^2.7.2",
     "axios": "^0.24.0",
     "dayjs": "^1.11.5",

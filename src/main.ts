@@ -10,8 +10,6 @@ import './mock';
 import App from './App.vue';
 import '@arco-themes/vue-mengtu/theme.less';
 import '@/api/interceptor';
-import 'animate.css';
-
 
 declare global {
   interface Window {

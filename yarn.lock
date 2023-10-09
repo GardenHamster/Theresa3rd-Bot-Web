@@ -1181,11 +1181,6 @@
     "require-from-string" "^2.0.2"
     "uri-js" "^4.2.2"
 
-"animate.css@^4.1.1":
-  "integrity" "sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ=="
-  "resolved" "https://registry.npmmirror.com/animate.css/-/animate.css-4.1.1.tgz"
-  "version" "4.1.1"
-
 "ansi-escapes@^5.0.0":
   "integrity" "sha512-5GFMVX8HqE/TB+FuBJGuO5XG0WrsA6ptUqoODaT/n9mmUaZFkqnBueB4leqGBCmrUHnCnC4PCZTCd0E7QQ83bA=="
   "resolved" "https://registry.npmmirror.com/ansi-escapes/-/ansi-escapes-5.0.0.tgz"
