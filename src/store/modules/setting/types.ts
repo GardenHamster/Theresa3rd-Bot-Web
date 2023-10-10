@@ -36,6 +36,6 @@ export interface PixivSetting {
   cookieExpireMsg?: string;
   template?: string;
   generalTarget?: number;
-  aITarget?: number;
+  aiTarget?: number;
   r18Target?: number;
 }

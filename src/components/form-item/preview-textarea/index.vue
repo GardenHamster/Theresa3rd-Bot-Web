@@ -1,6 +1,6 @@
 <template>
     <a-space direction="vertical" :style="{ width: '100%', position: 'relative' }" size="mini">
-        <a-mention v-model:model-value="inputvalue" :style="{ minHeight: '100px' }" :prefix="['[']" type="textarea"
+        <a-mention v-model:model-value="inputvalue" :style="{ minHeight: '120px' }" :prefix="['[']" :data="imgMentions" type="textarea"
             placeholder="输入“[”可以快速插入图片码" @focus="onFocus" @blur="onBlur" @change="onChange" auto-size allow-clear />
         <transition name="preview">
             <p class="preview" v-show="preview">
@@ -15,6 +15,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch } from 'vue';
+import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
 enum PreviewType {
     Text = 1,
@@ -36,7 +37,7 @@ interface PreviewContent {
 
 const preview = ref(false);
 const contents = ref<PreviewContent[]>([]);
-const props = withDefaults(defineProps<{ modelValue: string }>(), { modelValue: '' })
+const props = withDefaults(defineProps<{ modelValue: string, imgMentions: SelectOptionData[] }>(), { modelValue: '' })
 const emit = defineEmits<{ (e: "update:modelValue", value: string): void }>()
 const inputvalue = computed({
     get: () => props.modelValue,
@@ -78,7 +79,7 @@ const onChange = (value: string) => {
     box-sizing: border-box;
     gap: 10px;
     position: absolute;
-    z-index: 1100;
+    z-index: 100;
     background-color: white;
 }
 

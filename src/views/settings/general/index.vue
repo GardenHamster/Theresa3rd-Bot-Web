@@ -55,7 +55,7 @@
         </a-form-item>
 
         <a-form-item field="fontPath" label="字体路径" tooltip="默认字体路径" feedback>
-          <a-auto-complete v-model:model-value="formModel.fontPath" :data="optionFontPaths" placeholder="输入一个相对路径或者绝对路径"
+          <a-auto-complete v-model:model-value="formModel.fontPath" :data="fontPathOptions" placeholder="输入一个相对路径或者绝对路径"
             allow-clear @search="searchFontPath" />
         </a-form-item>
 
@@ -71,30 +71,30 @@
 
         <a-form-item field="errorImgPath" label="替代图片" tooltip="图片下载失败时，用于代替展示的图片" feedback>
           <a-space direction="vertical" :style="{ width: '100%' }" size="small">
-            <a-auto-complete v-model:model-value="formModel.errorImgPath" :data="optionFacePaths"
+            <a-auto-complete v-model:model-value="formModel.errorImgPath" :data="facePathOptions"
               placeholder="输入一个相对路径或者绝对路径" allow-clear @search="searchFacePath" @change="showErrorImg" />
             <a-image width="100px" :src="errorImgUrl" v-show="errorImgvisable" />
           </a-space>
         </a-form-item>
 
-        <a-form-item field="errorMsg" label="错误提示" tooltip="处理异常时返回的消息" feedback>
-          <preview-textarea v-model:model-value="formModel.errorMsg" />
+        <a-form-item field="errorMsg" label="错误提示" tooltip="处理异常时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
+          <preview-textarea v-model:model-value="formModel.errorMsg" :imgMentions="imgMentions" />
         </a-form-item>
 
-        <a-form-item field="disableMsg" label="禁用提示" tooltip="发送某个指令但是被禁用时返回的消息" feedback>
-          <preview-textarea v-model:model-value="formModel.disableMsg" />
+        <a-form-item field="disableMsg" label="禁用提示" tooltip="发送某个指令但是被禁用时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
+          <preview-textarea v-model:model-value="formModel.disableMsg" :imgMentions="imgMentions" />
         </a-form-item>
 
-        <a-form-item field="noPermissionsMsg" label="无权限提示" tooltip="发送某个指令但是缺少使用权限时时返回的消息" feedback>
-          <preview-textarea v-model:model-value="formModel.noPermissionsMsg" />
+        <a-form-item field="noPermissionsMsg" label="无权限提示" tooltip="发送某个指令但是缺少使用权限时时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
+          <preview-textarea v-model:model-value="formModel.noPermissionsMsg" :imgMentions="imgMentions" />
         </a-form-item>
 
-        <a-form-item field="managersRequiredMsg" label="非管理员提示" tooltip="发送某个指令但是缺少管理员权限时返回的消息" feedback>
-          <preview-textarea v-model:model-value="formModel.managersRequiredMsg" />
+        <a-form-item field="managersRequiredMsg" label="非管理员提示" tooltip="发送某个指令但是缺少管理员权限时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
+          <preview-textarea v-model:model-value="formModel.managersRequiredMsg" :imgMentions="imgMentions" />
         </a-form-item>
 
-        <a-form-item field="setuCustomDisableMsg" label="涩图禁用提示" tooltip="涩图功能被禁用时返回的消息" feedback>
-          <preview-textarea v-model:model-value="formModel.setuCustomDisableMsg" />
+        <a-form-item field="setuCustomDisableMsg" label="涩图禁用提示" tooltip="涩图功能被禁用时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
+          <preview-textarea v-model:model-value="formModel.setuCustomDisableMsg" :imgMentions="imgMentions" />
         </a-form-item>
 
       </a-card>
@@ -131,8 +131,8 @@ const groupStore = useGroupStore();
 const formRef = ref();
 const imgMentions = ref<SelectOptionData[]>([]);
 const groupOptions = ref<SelectOptionData[]>([]);
-const optionFontPaths = ref<string[]>([]);
-const optionFacePaths = ref<string[]>([]);
+const fontPathOptions = ref<string[]>([]);
+const facePathOptions = ref<string[]>([]);
 const formModel = ref<GeneralSetting>({});
 const initModel = ref<GeneralSetting>({});
 const inputModel = reactive({
@@ -182,11 +182,11 @@ const onReset = async () => {
 };
 
 const searchFontPath = async () => {
-  optionFontPaths.value = await pathStore.loadFontPaths();
+  fontPathOptions.value = await pathStore.loadFontPaths();
 }
 
 const searchFacePath = async () => {
-  optionFacePaths.value = await pathStore.loadFaceServerPaths();
+  facePathOptions.value = await pathStore.loadFaceServerPaths();
 }
 
 const showErrorImg = async () => {

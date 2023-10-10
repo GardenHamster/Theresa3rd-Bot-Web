@@ -37,100 +37,101 @@
 
         <Breadcrumb :items="['menu.settings', 'menu.settings.pixiv']" />
 
-        <a-form-item field="httpProxy" label="Http代理" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input v-model:model-value="formModel.httpProxy" placeholder="输入一个相对路径或者绝对路径" allow-clear />
-        </a-form-item>
-
-        <a-form-item field="imgProxy" label="图片代理" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input v-model:model-value="formModel.httpProxy" placeholder="输入一个相对路径或者绝对路径" allow-clear />
-        </a-form-item>
-
-        <a-form-item field="originUrlProxy" label="链接代理" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input v-model:model-value="formModel.originUrlProxy" placeholder="输入一个相对路径或者绝对路径" allow-clear />
-        </a-form-item>
-
-        <a-form-item field="freeProxy" label="免代理模式" tooltip="发送的指令不存在时，是否提示相关的可用指令" feedback>
+        <a-form-item field="freeProxy" label="免代理模式" tooltip="开启Pixiv免代理模式，该模式下使用图片代理下载图片，请确保图片代理地址可用。梯子网络较好的情况下不建议开启" feedback>
           <a-switch v-model:model-value="formModel.freeProxy">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
 
-        <a-form-item field="imgShowMaximum" label="图片数量" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.imgShowMaximum" :style="{ width: '320px' }"
-            placeholder="Please Enter" mode="button" size="large" />
+        <a-form-item field="httpProxy" label="Http代理" tooltip="Pixiv代理地址，值为空时使用本地代理，免代理模式启用后失效，格式：http://127.0.0.1:7890" feedback>
+          <a-input v-model:model-value="formModel.httpProxy" placeholder="输入一个Http/Https地址" allow-clear />
         </a-form-item>
 
-        <a-form-item field="tagShowMaximum" label="标签数量" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.tagShowMaximum" :style="{ width: '320px' }"
-            placeholder="Please Enter" mode="button" size="large" />
+        <a-form-item field="imgProxy" label="图片代理" tooltip="图片代理地址，值为空时使用本地代理，免代理模式启用后使用该值下载图片，默认：https://i.pixiv.re" feedback>
+          <a-input v-model:model-value="formModel.httpProxy" placeholder="输入一个Http/Https地址" allow-clear />
         </a-form-item>
 
-        <a-form-item field="urlShowMaximum" label="链接数量" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.urlShowMaximum" :style="{ width: '320px' }"
-            placeholder="Please Enter" mode="button" size="large" />
+        <a-form-item field="originUrlProxy" label="链接代理" tooltip="Pixiv图片链接的代理地址，默认：https://i.pixiv.re" feedback>
+          <a-input v-model:model-value="formModel.originUrlProxy" placeholder="输入一个Http/Https地址" allow-clear />
         </a-form-item>
 
-        <a-form-item field="imgSize" label="图片尺寸" tooltip="发生错误时会将日志发送到这些群" feedback>
-          <a-select v-model:model-value="formModel.imgSize" :options="groupOptions" placeholder="选择任意群"
-            :scrollbar="true"></a-select>
-        </a-form-item>
-
-        <a-form-item field="imgResend" label="重发模式" tooltip="发生错误时会将日志发送到这些群" feedback>
-          <a-select v-model:model-value="formModel.imgResend" :options="groupOptions" placeholder="选择任意群"
-            :scrollbar="true"></a-select>
-        </a-form-item>
-
-        <a-form-item field="r18ImgBlur" label="高斯模糊" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.r18ImgBlur" :style="{ width: '320px' }"
-            placeholder="Please Enter" mode="button" size="large" />
-        </a-form-item>
-
-        <a-form-item field="sendImgBehind" label="分别发送" tooltip="发送的指令不存在时，是否提示相关的可用指令" feedback>
+        <a-form-item field="sendImgBehind" label="图文分离" tooltip="将图片和详情分开发送，先发送作品信息，后发送图片，可以开启此项避免图片发送失败时整条消息被吞" feedback>
           <a-switch v-model:model-value="formModel.sendImgBehind">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
 
-        <a-form-item field="imgRetryTimes" label="图片重试次数" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.imgRetryTimes" :style="{ width: '320px' }"
-            placeholder="Please Enter" mode="button" size="large" />
+        <a-form-item field="imgSize" label="图片尺寸" tooltip="发送图片的尺寸大小，从上到下表示从小到大。默认为thumb" feedback>
+          <a-select v-model:model-value="formModel.imgSize" :options="imgSizeOptions" :style="{ maxWidth: '300px' }" placeholder="选择一个尺寸"
+            :scrollbar="true"></a-select>
         </a-form-item>
 
-        <a-form-item field="errRetryTimes" label="错误重试次数" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.errRetryTimes" :style="{ width: '320px' }"
-            placeholder="Please Enter" mode="button" size="large" />
+        <a-form-item field="imgResend" label="重发模式" tooltip="图片发送失败后的操作" feedback>
+          <a-select v-model:model-value="formModel.imgResend" :options="resendOptions" :style="{ maxWidth: '300px' }" placeholder="选择一个模式"
+            :scrollbar="true"></a-select>
         </a-form-item>
 
-        <a-form-item field="cookieExpire" label="Cookie存活" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.cookieExpire" :style="{ width: '320px' }"
-            placeholder="Please Enter" mode="button" size="large" />
+        <a-form-item field="r18ImgBlur" label="R18高斯模糊" tooltip="R18图片高斯模糊处理程度" feedback>
+          <a-input-number v-model:model-value="formModel.r18ImgBlur" :style="{ maxWidth: '300px' }" :min="5" :max="100"
+            placeholder="输入一个数字" mode="button" size="large" />
         </a-form-item>
 
-        <a-form-item field="cookieExpireMsg" label="过期提示" tooltip="处理异常时返回的消息" feedback>
-          <preview-textarea v-model:model-value="formModel.cookieExpireMsg" />
+        <a-form-item field="imgShowMaximum" label="发送图片数量" tooltip="发送作品时最多显示N张图片，0表示无限制" feedback>
+          <a-input-number v-model:model-value="formModel.imgShowMaximum" :style="{ maxWidth: '300px' }" :min="0" :max="99"
+            placeholder="输入一个数字" mode="button" size="large" />
         </a-form-item>
 
-        <a-form-item field="template" label="发送模板" tooltip="处理异常时返回的消息" feedback>
-          <preview-textarea v-model:model-value="formModel.template" />
+        <a-form-item field="tagShowMaximum" label="发送标签数量" tooltip="发送作品时最多显示N个标签，0表示无限制" feedback>
+          <a-input-number v-model:model-value="formModel.tagShowMaximum" :style="{ maxWidth: '300px' }" :min="0" :max="99"
+            placeholder="输入一个数字" mode="button" size="large" />
         </a-form-item>
 
-        <a-form-item field="generalTarget" label="一般指标" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.generalTarget" :style="{ width: '320px' }"
-            placeholder="Please Enter" mode="button" size="large" />
+        <a-form-item field="urlShowMaximum" label="发送链接数量" tooltip="发送作品时最多显示N条图片链接，0表示无限制" feedback>
+          <a-input-number v-model:model-value="formModel.urlShowMaximum" :style="{ maxWidth: '300px' }" :min="0" :max="99"
+            placeholder="输入一个数字" mode="button" size="large" />
         </a-form-item>
 
-        <a-form-item field="aITarget" label="AI指标" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.aITarget" :style="{ width: '320px' }" placeholder="Please Enter"
-            mode="button" size="large" />
+        <a-form-item field="imgRetryTimes" label="图片重试次数" tooltip="图片下载失败后重试下载次数，0表示不重试" feedback>
+          <a-input-number v-model:model-value="formModel.imgRetryTimes" :style="{ maxWidth: '300px' }" :min="0" :max="10"
+            placeholder="输入一个数字" mode="button" size="large" />
         </a-form-item>
 
-        <a-form-item field="r18Target" label="R18指标" tooltip="下载图片等文件的临时存放目录" feedback>
-          <a-input-number v-model:model-value="formModel.r18Target" :style="{ width: '320px' }" placeholder="Please Enter"
-            mode="button" size="large" />
+        <a-form-item field="errRetryTimes" label="错误重试次数" tooltip="作品信息读取失败后的重试次数，0表示不重试" feedback>
+          <a-input-number v-model:model-value="formModel.errRetryTimes" :style="{ maxWidth: '300px' }" :min="0" :max="10"
+            placeholder="输入一个数字" mode="button" size="large" />
         </a-form-item>
 
+        <a-form-item field="generalTarget" label="普通作品标准" tooltip="非AI和非R18作品推送标准，收藏数需要达到(最低收藏数*指标)，其他相关参数同理" feedback>
+          <a-input-number v-model:model-value="formModel.generalTarget" :style="{ maxWidth: '300px' }" :min="0" :precision="2" :step="0.01"
+            placeholder="输入一个数字" mode="button" size="large" />
+        </a-form-item>
+
+        <a-form-item field="aiTarget" label="AI作品标准" tooltip="AI作品推送标准，收藏数需要达到(最低收藏数*指标)，其他相关参数同理" feedback>
+          <a-input-number v-model:model-value="formModel.aiTarget" :style="{ maxWidth: '300px' }" :min="0" :precision="2" :step="0.01"
+           placeholder="输入一个数字" mode="button" size="large" />
+        </a-form-item>
+
+        <a-form-item field="r18Target" label="R18作品标准" tooltip="R18作品推送标准，收藏数需要达到(最低收藏数*指标)，其他相关参数同理" feedback>
+          <a-input-number v-model:model-value="formModel.r18Target" :style="{ maxWidth: '300px' }" :min="0" :precision="2" :step="0.01"
+           placeholder="输入一个数字" mode="button" size="large" />
+        </a-form-item>
+
+        <a-form-item field="cookieExpireDay" label="CK保质期" tooltip="Cookie失效时间，超过该时间后需要使用命令更新cookie，建议cookie每60天左右更新一次" feedback>
+          <a-input-number v-model:model-value="cookieExpireDay" :style="{ maxWidth: '300px' }" 
+            placeholder="输入一个数字" mode="button" size="large" >
+            <template #suffix>日</template>
+          </a-input-number>
+        </a-form-item>
+
+        <a-form-item field="cookieExpireMsg" label="CK过期提示" tooltip="Cookie过期后返回的提示消息" extra="输入“[”可以快速插入图片码" feedback>
+          <preview-textarea v-model:model-value="formModel.cookieExpireMsg" :imgMentions="imgMentions" />
+        </a-form-item>
+
+        <a-form-item field="template" label="发送模板" tooltip="发送Pixiv消息时的模版，值为空时将使用默认模版" extra="输入“[”可以快速插入图片码" feedback>
+          <preview-textarea v-model:model-value="formModel.template" :imgMentions="imgMentions" />
+        </a-form-item>
       </a-card>
 
       <div class="actions">
@@ -139,38 +140,30 @@
           <a-button @click="onReset">{{ $t('button.reset') }}</a-button>
         </a-space>
       </div>
-
     </a-form>
 
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, computed, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 import useLoading from '@/hooks/loading';
-import { useSettingStore, usePathStore, useGroupStore } from '@/store';
+import { useSettingStore, usePathStore, useOptionStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import type { PixivSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
-import getFaceHttpUrl from '@/utils/url'
 
+const formRef = ref();
 const saveWarning = ref(false);
-const errorImgUrl = ref('');
-const errorImgvisable = ref(false);
 const { loading, setLoading } = useLoading();
 const settingStore = useSettingStore();
 const pathStore = usePathStore();
-const groupStore = useGroupStore();
-const formRef = ref();
+const optionStore = useOptionStore();
 const imgMentions = ref<SelectOptionData[]>([]);
-const groupOptions = ref<SelectOptionData[]>([]);
-const optionFontPaths = ref<string[]>([]);
-const optionFacePaths = ref<string[]>([]);
+const resendOptions = ref<SelectOptionData[]>([]);
+const imgSizeOptions = ref<SelectOptionData[]>([]);
 const formModel = ref<PixivSetting>({});
 const initModel = ref<PixivSetting>({});
-const inputModel = reactive({
-  prefixs: ''
-});
 
 const fromJson = computed(() => {
   return JSON.stringify(formModel.value);
@@ -178,6 +171,15 @@ const fromJson = computed(() => {
 
 const initJson = computed(() => {
   return JSON.stringify(initModel.value);
+})
+
+const cookieExpireDay = computed({
+  get() {
+    return Math.floor((formModel.value.cookieExpire ?? 0) / 60 / 60 / 24);
+  },
+  set(value) {
+    formModel.value.cookieExpire = value * 60 * 60 * 24;
+  }
 })
 
 const onSubmit = async () => {
@@ -214,17 +216,17 @@ const onReset = async () => {
   }
 };
 
-const searchFontPath = async () => {
-  optionFontPaths.value = await pathStore.loadFontPaths();
-}
-
-const searchFacePath = async () => {
-  optionFacePaths.value = await pathStore.loadFaceServerPaths();
-}
-
-const fetchGroups = async () => {
+const fetchResendOptions = async () => {
   try {
-    groupOptions.value = await groupStore.loadGroupOptions();
+    resendOptions.value = await optionStore.loadResendOptions();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchImgSizeOptions = async () => {
+  try {
+    imgSizeOptions.value = await optionStore.loadImgSizeOptions();
   } catch (error) {
     console.log(error);
   }
@@ -251,11 +253,10 @@ const fetchSettings = async () => {
   }
 };
 
-fetchGroups();
-fetchSettings();
+fetchResendOptions();
+fetchImgSizeOptions();
 loadImgMentions();
-searchFontPath();
-searchFacePath();
+fetchSettings();
 </script>
 
 <script lang="ts">
