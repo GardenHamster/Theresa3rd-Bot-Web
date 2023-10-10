@@ -8,6 +8,9 @@
 - 功能还在开发中 ......
 
 ## 一些效果图
-![image](https://github.com/GardenHamster/Theresa3rd-Bot-Web/assets/89188316/03e1667e-cd2d-420b-8e29-1458716f3a76)
 
-![image](https://github.com/GardenHamster/Theresa3rd-Bot-Web/assets/89188316/017270b3-5357-4288-9850-96172e3eb61e)
+![image](https://github.com/GardenHamster/Theresa3rd-Bot-Web/assets/89188316/d48ed800-0f57-4ad0-ba0e-4d867cbc5f59)
+
+![image](https://github.com/GardenHamster/Theresa3rd-Bot-Web/assets/89188316/16c90547-8b51-4444-88bb-f96bb5f8bd55)
+
+![image](https://github.com/GardenHamster/Theresa3rd-Bot-Web/assets/89188316/eb744bc8-eb70-4e86-bb40-4de6f75a231b)
