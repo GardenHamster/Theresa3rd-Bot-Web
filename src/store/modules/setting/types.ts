@@ -1,6 +1,7 @@
 export interface SettingState {
   generalSetting?: GeneralSetting;
   pixivSetting?: PixivSetting;
+  permissionsSetting?: PermissionsSetting;
 }
 
 export interface GeneralSetting {
@@ -38,4 +39,23 @@ export interface PixivSetting {
   generalTarget?: number;
   aiTarget?: number;
   r18Target?: number;
+}
+
+export interface PermissionsSetting {
+  superManagers?: number[];
+  limitlessMembers?: number[];
+  acceptGroups?: number[];
+  setuGroups?: number[];
+  setuShowImgGroups?: number[];
+  setuShowAIGroups?: number[];
+  setuShowR18Groups?: number[];
+  setuShowR18ImgGroups?: number[];
+  setuCustomGroups?: number[];
+  setuNoneCDGroups?: number[];
+  setuLimitlessGroups?: number[];
+  saucenaoGroups?: number[];
+  saucenaoR18Groups?: number[];
+  subscribeGroups?: number[];
+  pixivRankingGroups?: number[];
+  wordCloudGroups?: number[];
 }

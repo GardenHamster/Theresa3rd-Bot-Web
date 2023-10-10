@@ -27,7 +27,7 @@ const locale = computed(() => {
 
 <style>
 .arco-layout.mobile .container {
-  padding: 0px;
+  padding: 5px;
   overflow: hidden;
 }
 

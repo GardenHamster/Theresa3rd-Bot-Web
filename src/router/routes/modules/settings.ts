@@ -34,6 +34,17 @@ const Settings: AppRouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: 'permissions',
+      name: 'PermissionsSetting',
+      component: () => import('@/views/settings/permissions/index.vue'),
+      meta: {
+        locale: 'menu.settings.permissions',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
   ],
 };
 

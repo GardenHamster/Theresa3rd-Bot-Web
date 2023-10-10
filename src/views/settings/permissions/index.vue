@@ -1,0 +1,241 @@
+<style scoped lang="less">
+.container {
+  margin-bottom: 100px;
+  overflow: hidden;
+}
+
+.card {
+  min-width: 300px;
+  padding-bottom: 25px;
+  position: relative;
+  overflow: auto;
+}
+
+.alert {
+  position: absolute;
+  left: 0;
+}
+
+.actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 30px 10px 0;
+  background: var(--color-bg-2);
+  text-align: right;
+}
+</style>
+
+<template>
+  <div class="container">
+    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true"
+      :model="formModel">
+      <a-card class="card">
+
+        <a-alert class="alert" type="warning" v-show="saveWarning" center>某些属性值已经被修改，但是还未进行保存</a-alert>
+
+        <Breadcrumb :items="['menu.settings', 'menu.settings.permissions']" />
+
+        <a-form-item field="superManagers" label="超级管理员" tooltip="超级管理员QQ号，超级管理可以使用管理员指令" feedback>
+          <a-select v-model:model-value="formModel.superManagers" :options="memberOptions" :style="{ minHeight: '100px' }"
+            placeholder="添加任意数量QQ号" :scrollbar="true" allow-search allow-clear multiple allow-create>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="limitlessMembers" label="无限制成员" tooltip="功能冷却时间和每日次数无限制的成员" feedback>
+          <a-select v-model:model-value="formModel.limitlessMembers" :options="memberOptions"
+            :style="{ minHeight: '100px' }" placeholder="添加任意数量QQ号" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="acceptGroups" label="可用群" tooltip="白名单，只处理这些群的消息" feedback>
+          <a-select v-model:model-value="formModel.acceptGroups" :options="groupOptions" :style="{ minHeight: '100px' }"
+            placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="setuGroups" label="涩图权限" tooltip="拥有涩图权限的群号" feedback>
+          <a-select v-model:model-value="formModel.setuGroups" :options="groupOptions" :style="{ minHeight: '100px' }"
+            placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="setuShowImgGroups" label="显示图片" tooltip="允许发送图片的群，否则只发送图片链接" feedback>
+          <a-select v-model:model-value="formModel.setuShowImgGroups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="setuShowAIGroups" label="显示AI" tooltip="允许发送AI图片的群" feedback>
+          <a-select v-model:model-value="formModel.setuShowAIGroups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="setuShowR18Groups" label="显示R18" tooltip="允许出现r18内容的群，图片将使用链接代替" feedback>
+          <a-select v-model:model-value="formModel.setuShowR18Groups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="setuShowR18ImgGroups" label="显示R18图片" tooltip="允许发送r18图片的群，图片经过压缩和高斯模糊后发送" feedback>
+          <a-select v-model:model-value="formModel.setuShowR18ImgGroups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="setuCustomGroups" label="标签搜索" tooltip="允许查找自定义涩图的群" feedback>
+          <a-select v-model:model-value="formModel.setuCustomGroups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="setuNoneCDGroups" label="涩图无冷却" tooltip="涩图没有CD的群" feedback>
+          <a-select v-model:model-value="formModel.setuNoneCDGroups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="setuLimitlessGroups" label="涩图无限制" tooltip="涩图每日次数无限制的群" feedback>
+          <a-select v-model:model-value="formModel.setuLimitlessGroups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="saucenaoGroups" label="以图搜图" tooltip="拥有以图搜图权限的群" feedback>
+          <a-select v-model:model-value="formModel.saucenaoGroups" :options="groupOptions" :style="{ minHeight: '100px' }"
+            placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="saucenaoR18Groups" label="以图搜图R18" tooltip="以图搜图允许发送r18结果的群" feedback>
+          <a-select v-model:model-value="formModel.saucenaoR18Groups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="subscribeGroups" label="订阅权限" tooltip="拥有订阅权限的群" feedback>
+          <a-select v-model:model-value="formModel.subscribeGroups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="pixivRankingGroups" label="日榜权限" tooltip="拥有查询Pixiv日榜权限的群" feedback>
+          <a-select v-model:model-value="formModel.pixivRankingGroups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item field="wordCloudGroups" label="词云权限" tooltip="拥有主动获取群词云权限的群" feedback>
+          <a-select v-model:model-value="formModel.wordCloudGroups" :options="groupOptions"
+            :style="{ minHeight: '100px' }" placeholder="选择任意群" :scrollbar="true" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+      </a-card>
+
+      <div class="actions">
+        <a-space direction="horizontal" size="medium">
+          <a-button type="primary" :loading="loading" @click="onSubmit">{{ $t('button.submit') }}</a-button>
+          <a-button @click="onReset">{{ $t('button.reset') }}</a-button>
+        </a-space>
+      </div>
+
+    </a-form>
+
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, computed, watch } from 'vue';
+import useLoading from '@/hooks/loading';
+import { useSettingStore, useGroupStore } from '@/store';
+import { Message } from '@arco-design/web-vue';
+import type { PermissionsSetting } from '@/store/modules/setting/types';
+import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
+
+const formRef = ref();
+const saveWarning = ref(false);
+const { loading, setLoading } = useLoading();
+const settingStore = useSettingStore();
+const groupStore = useGroupStore();
+const memberOptions = ref<SelectOptionData[]>([]);
+const groupOptions = ref<SelectOptionData[]>([]);
+const formModel = ref<PermissionsSetting>({});
+const initModel = ref<PermissionsSetting>({});
+
+const fromJson = computed(() => {
+  return JSON.stringify(formModel.value);
+})
+
+const initJson = computed(() => {
+  return JSON.stringify(initModel.value);
+})
+
+const onSubmit = async () => {
+  try {
+    const result = await formRef.value?.validate();
+    if (result) {
+      Message.error({ content: '数据有误，请重新检查', position: 'top' });
+      return;
+    }
+    setLoading(true);
+    await settingStore.savePermissionsSetting(formModel.value);
+    initModel.value = { ...formModel.value };
+    formModel.value = { ...formModel.value };
+    Message.success({ content: '保存成功', position: 'top' });
+  } catch (error) {
+    console.log(error);
+    Message.error({ content: '保存失败', position: 'top' });
+  }
+  finally {
+    setLoading(false);
+  }
+};
+
+const onReset = async () => {
+  try {
+    setLoading(true);
+    formModel.value = { ...initModel.value };
+    Message.info({ content: '重置完毕', position: 'top' });
+  } catch (error) {
+    console.log(error);
+  }
+  finally {
+    setLoading(false);
+  }
+};
+
+const fetchGroups = async () => {
+  try {
+    groupOptions.value = await groupStore.loadGroupOptions();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchSettings = async () => {
+  try {
+    initModel.value = await settingStore.loadPermissionsSetting();
+    formModel.value = { ...initModel.value };
+    watch(fromJson, (newJson, oldJson) => {
+      saveWarning.value = newJson !== initJson.value;
+    }, { deep: true }
+    )
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+fetchGroups();
+fetchSettings();
+</script>
+
+<script lang="ts">
+export default {
+  name: 'PermissionsSetting',
+};
+</script>
+
+

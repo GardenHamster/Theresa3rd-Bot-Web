@@ -21,7 +21,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 15px 30px 15px 0;
+  padding: 10px 30px 10px 0;
   background: var(--color-bg-2);
   text-align: right;
 }
@@ -85,11 +85,13 @@
           <preview-textarea v-model:model-value="formModel.disableMsg" :imgMentions="imgMentions" />
         </a-form-item>
 
-        <a-form-item field="noPermissionsMsg" label="无权限提示" tooltip="发送某个指令但是缺少使用权限时时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
+        <a-form-item field="noPermissionsMsg" label="无权限提示" tooltip="发送某个指令但是缺少使用权限时时返回的消息" extra="输入“[”可以快速插入图片码"
+          feedback>
           <preview-textarea v-model:model-value="formModel.noPermissionsMsg" :imgMentions="imgMentions" />
         </a-form-item>
 
-        <a-form-item field="managersRequiredMsg" label="非管理员提示" tooltip="发送某个指令但是缺少管理员权限时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
+        <a-form-item field="managersRequiredMsg" label="非管理员提示" tooltip="发送某个指令但是缺少管理员权限时返回的消息" extra="输入“[”可以快速插入图片码"
+          feedback>
           <preview-textarea v-model:model-value="formModel.managersRequiredMsg" :imgMentions="imgMentions" />
         </a-form-item>
 

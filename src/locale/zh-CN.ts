@@ -8,6 +8,7 @@ export default {
   'menu.settings': 'Bot配置',
   'menu.settings.general': '基本配置',
   'menu.settings.pixiv': 'Pixiv配置',
+  'menu.settings.permissions': '权限配置',
   'menu.subscribe': '订阅管理',
   'menu.subscribe.pixiv.user': '画师订阅',
   'menu.subscribe.pixiv.tag': '标签订阅',
