@@ -21,10 +21,6 @@ const usePathStore = defineStore('path', {
       const facePaths = await this.loadFacePaths();
       return new List<FacePath>(facePaths).Select(o => o.serverPath).ToArray();
     },
-    async getFaceHttpPath(serverPath: string): Promise<string> {
-      const facePaths = await this.loadFacePaths();
-      return new List<FacePath>(facePaths).Where(o => o?.serverPath === serverPath).FirstOrDefault().httpPath;
-    },
     async loadFaceMentions(): Promise<SelectOptionData[]> {
       const facePaths = await this.loadFacePaths();
       const optionList: SelectOptionData[] = [];

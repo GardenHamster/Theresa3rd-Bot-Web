@@ -78,25 +78,29 @@
         </a-form-item>
 
         <a-form-item field="errorMsg" label="错误提示" tooltip="处理异常时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.errorMsg" :imgMentions="imgMentions" />
+          <preview-textarea v-model:model-value="formModel.errorMsg" :imgMentions="imgMentions" :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="disableMsg" label="禁用提示" tooltip="发送某个指令但是被禁用时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.disableMsg" :imgMentions="imgMentions" />
+          <preview-textarea v-model:model-value="formModel.disableMsg" :imgMentions="imgMentions"
+            :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="noPermissionsMsg" label="无权限提示" tooltip="发送某个指令但是缺少使用权限时时返回的消息" extra="输入“[”可以快速插入图片码"
           feedback>
-          <preview-textarea v-model:model-value="formModel.noPermissionsMsg" :imgMentions="imgMentions" />
+          <preview-textarea v-model:model-value="formModel.noPermissionsMsg" :imgMentions="imgMentions"
+            :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="managersRequiredMsg" label="非管理员提示" tooltip="发送某个指令但是缺少管理员权限时返回的消息" extra="输入“[”可以快速插入图片码"
           feedback>
-          <preview-textarea v-model:model-value="formModel.managersRequiredMsg" :imgMentions="imgMentions" />
+          <preview-textarea v-model:model-value="formModel.managersRequiredMsg" :imgMentions="imgMentions"
+            :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="setuCustomDisableMsg" label="涩图禁用提示" tooltip="涩图功能被禁用时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.setuCustomDisableMsg" :imgMentions="imgMentions" />
+          <preview-textarea v-model:model-value="formModel.setuCustomDisableMsg" :imgMentions="imgMentions"
+            :facePaths="facePaths" />
         </a-form-item>
 
       </a-card>
@@ -114,14 +118,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, computed, watch, onMounted } from 'vue';
+import { List } from 'linqts';
+import { ref, reactive, computed, watch } from 'vue';
 import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useGroupStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
+import { FacePath } from '@/store/modules/path/types';
 import type { GeneralSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import cronRules from '@/utils/validator'
-import getFaceHttpUrl from '@/utils/url'
+import { getFaceHttpUrl } from '@/utils/url'
 
 const saveWarning = ref(false);
 const errorImgUrl = ref('');
@@ -131,6 +137,7 @@ const settingStore = useSettingStore();
 const pathStore = usePathStore();
 const groupStore = useGroupStore();
 const formRef = ref();
+const facePaths = ref<FacePath[]>([]);
 const imgMentions = ref<SelectOptionData[]>([]);
 const groupOptions = ref<SelectOptionData[]>([]);
 const fontPathOptions = ref<string[]>([]);
@@ -195,7 +202,8 @@ const showErrorImg = async () => {
   const serverPath = formModel.value.errorImgPath?.trim() ?? '';
   errorImgvisable.value = serverPath.length > 0;
   if (serverPath.length === 0) return;
-  const httpPath = await pathStore.getFaceHttpPath(serverPath);
+  const facePaths = await pathStore.loadFacePaths();
+  const httpPath = new List<FacePath>(facePaths).Where(o => o?.serverPath === serverPath).FirstOrDefault()?.httpPath;
   if (!httpPath || httpPath.length === 0) return;
   const imgHttpUrl = getFaceHttpUrl(httpPath);
   errorImgUrl.value = imgHttpUrl;
@@ -204,6 +212,14 @@ const showErrorImg = async () => {
 const fetchGroups = async () => {
   try {
     groupOptions.value = await groupStore.loadGroupOptions();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchFaces = async () => {
+  try {
+    facePaths.value = await pathStore.loadFacePaths();
   } catch (error) {
     console.log(error);
   }
@@ -232,6 +248,7 @@ const fetchSettings = async () => {
 };
 
 fetchGroups();
+fetchFaces();
 fetchSettings();
 loadImgMentions();
 searchFontPath();

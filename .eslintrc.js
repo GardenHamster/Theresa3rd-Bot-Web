@@ -36,10 +36,11 @@ module.exports = {
     },
   },
   rules: {
-    'no-shadow': "off",
-    '@typescript-eslint/no-shadow': ["error"],
+    'no-shadow': 0,
     'no-useless-escape': 0,
+    'no-await-in-loop': 0,
     'prettier/prettier': 0,
+    '@typescript-eslint/no-shadow': ["error"],
     // Vue: Recommended rules to be closed or modify
     'vue/require-default-prop': 0,
     'vue/singleline-html-element-content-newline': 0,

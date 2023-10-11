@@ -130,11 +130,12 @@
         </a-form-item>
 
         <a-form-item field="cookieExpireMsg" label="CK过期提示" tooltip="Cookie过期后返回的提示消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.cookieExpireMsg" :imgMentions="imgMentions" />
+          <preview-textarea v-model:model-value="formModel.cookieExpireMsg" :imgMentions="imgMentions"
+            :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="template" label="发送模板" tooltip="发送Pixiv消息时的模版，值为空时将使用默认模版" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.template" :imgMentions="imgMentions" />
+          <preview-textarea v-model:model-value="formModel.template" :imgMentions="imgMentions" :facePaths="facePaths" />
         </a-form-item>
       </a-card>
 
@@ -154,6 +155,7 @@ import { ref, computed, watch } from 'vue';
 import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useOptionStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
+import { FacePath } from '@/store/modules/path/types';
 import type { PixivSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
@@ -163,6 +165,7 @@ const { loading, setLoading } = useLoading();
 const settingStore = useSettingStore();
 const pathStore = usePathStore();
 const optionStore = useOptionStore();
+const facePaths = ref<FacePath[]>([]);
 const imgMentions = ref<SelectOptionData[]>([]);
 const resendOptions = ref<SelectOptionData[]>([]);
 const imgSizeOptions = ref<SelectOptionData[]>([]);
@@ -220,6 +223,14 @@ const onReset = async () => {
   }
 };
 
+const fetchFaces = async () => {
+  try {
+    facePaths.value = await pathStore.loadFacePaths();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const fetchResendOptions = async () => {
   try {
     resendOptions.value = await optionStore.loadResendOptions();
@@ -257,6 +268,7 @@ const fetchSettings = async () => {
   }
 };
 
+fetchFaces();
 fetchResendOptions();
 fetchImgSizeOptions();
 loadImgMentions();
