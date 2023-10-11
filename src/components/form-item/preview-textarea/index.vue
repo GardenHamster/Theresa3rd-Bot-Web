@@ -16,24 +16,9 @@
 <script lang="ts" setup>
 import { ref, computed, watch } from 'vue';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
+import { PreviewType, PreviewText, PreviewImage, PreviewContent, analysis } from '@/utils/analysis';
 
-enum PreviewType {
-    Text = 1,
-    Image = 2,
-}
 
-interface PreviewText {
-    text: string;
-}
-
-interface PreviewImage {
-    path: string;
-}
-
-interface PreviewContent {
-    type: PreviewType;
-    value: PreviewText | PreviewImage;
-}
 
 const preview = ref(false);
 const contents = ref<PreviewContent[]>([]);
@@ -44,7 +29,8 @@ const inputvalue = computed({
     set: (value) => emit('update:modelValue', value)
 });
 
-watch(inputvalue, (newValue, oldValue) => {
+watch(inputvalue, (newValue) => {
+    const contentArr = analysis(newValue);
     const content1: PreviewContent = { type: PreviewType.Text, value: { text: newValue } };
     const content2: PreviewContent = { type: PreviewType.Image, value: { path: 'img/face/emmm.jpg' } };
     contents.value = [];
