@@ -26,18 +26,18 @@ const locale = computed(() => {
 </script>
 
 <style>
-.arco-layout.mobile .container {
-  padding: 5px;
-  overflow: hidden;
-}
-
 .arco-layout .container {
   padding: 20px;
   overflow: hidden;
 }
 
+.arco-layout.mobile .container {
+  padding: 0px;
+  overflow: hidden;
+}
+
 .arco-layout.mobile .arco-card-body {
-  padding: 10px;
+  padding: 5px;
 }
 
 .arco-textarea-mirror {
@@ -53,5 +53,9 @@ const locale = computed(() => {
   min-width: 100px;
   flex-basis: 102px;
   padding-right: 10px;
+}
+
+.arco-select-view-tag {
+  white-space: nowrap !important;
 }
 </style>

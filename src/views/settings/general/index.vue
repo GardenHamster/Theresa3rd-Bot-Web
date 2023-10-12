@@ -78,28 +78,28 @@
         </a-form-item>
 
         <a-form-item field="errorMsg" label="错误提示" tooltip="处理异常时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.errorMsg" :imgMentions="imgMentions" :facePaths="facePaths" />
+          <preview-textarea v-model:model-value="formModel.errorMsg" :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="disableMsg" label="禁用提示" tooltip="发送某个指令但是被禁用时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.disableMsg" :imgMentions="imgMentions"
+          <preview-textarea v-model:model-value="formModel.disableMsg"
             :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="noPermissionsMsg" label="无权限提示" tooltip="发送某个指令但是缺少使用权限时时返回的消息" extra="输入“[”可以快速插入图片码"
           feedback>
-          <preview-textarea v-model:model-value="formModel.noPermissionsMsg" :imgMentions="imgMentions"
+          <preview-textarea v-model:model-value="formModel.noPermissionsMsg"
             :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="managersRequiredMsg" label="非管理员提示" tooltip="发送某个指令但是缺少管理员权限时返回的消息" extra="输入“[”可以快速插入图片码"
           feedback>
-          <preview-textarea v-model:model-value="formModel.managersRequiredMsg" :imgMentions="imgMentions"
+          <preview-textarea v-model:model-value="formModel.managersRequiredMsg"
             :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="setuCustomDisableMsg" label="涩图禁用提示" tooltip="涩图功能被禁用时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.setuCustomDisableMsg" :imgMentions="imgMentions"
+          <preview-textarea v-model:model-value="formModel.setuCustomDisableMsg"
             :facePaths="facePaths" />
         </a-form-item>
 
@@ -138,7 +138,6 @@ const pathStore = usePathStore();
 const groupStore = useGroupStore();
 const formRef = ref();
 const facePaths = ref<FacePath[]>([]);
-const imgMentions = ref<SelectOptionData[]>([]);
 const groupOptions = ref<SelectOptionData[]>([]);
 const fontPathOptions = ref<string[]>([]);
 const facePathOptions = ref<string[]>([]);
@@ -225,14 +224,6 @@ const fetchFaces = async () => {
   }
 };
 
-const loadImgMentions = async () => {
-  try {
-    imgMentions.value = await pathStore.loadFaceMentions();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const fetchSettings = async () => {
   try {
     initModel.value = await settingStore.loadGeneralSetting();
@@ -250,7 +241,6 @@ const fetchSettings = async () => {
 fetchGroups();
 fetchFaces();
 fetchSettings();
-loadImgMentions();
 searchFontPath();
 searchFacePath();
 </script>

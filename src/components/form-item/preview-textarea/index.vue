@@ -1,7 +1,7 @@
 <template>
     <a-space direction="vertical" :style="{ width: '100%', position: 'relative' }" size="mini">
-        <a-mention v-model:model-value="inputvalue" :style="{ minHeight: '120px' }" :prefix="['[']" :data="imgMentions"
-            type="textarea" placeholder="输入“[”可以快速插入图片码" @focus="onFocus" @blur="onBlur" @change="onChange" auto-size
+        <a-mention v-model:model-value="modelValue" :style="{ minHeight: '120px' }" :prefix="['[']" :data="imgMentions"
+            type="textarea" placeholder="随便写点什么吧..." @focus="onFocus" @blur="onBlur" @change="onChange" auto-size
             allow-clear />
         <transition name="preview">
             <p class="preview" v-show="preview">
@@ -23,16 +23,27 @@ import { PreviewType, PreviewText, PreviewImage, PreviewContent, analysis } from
 
 const preview = ref(false);
 const contents = ref<PreviewContent[]>([]);
-const props = withDefaults(defineProps<{ modelValue: string, imgMentions: SelectOptionData[], facePaths: FacePath[] }>(), { modelValue: '' })
-const emit = defineEmits<{ (e: "update:modelValue", value: string): void }>()
-const inputvalue = computed({
+const props = withDefaults(defineProps<{ modelValue: string, facePaths: FacePath[] }>(), { modelValue: '' })
+const emit = defineEmits<{ (e: "update:modelValue", value: string): void }>();
+
+const modelValue = computed({
     get: () => props.modelValue,
     set: (value) => emit('update:modelValue', value)
 });
 
-watch(inputvalue, async (newValue) => {
+const watchValue = watch(modelValue, async (newValue) => {
     contents.value = await analysis(props.facePaths, newValue);
-})
+});
+
+const imgMentions = computed(() => {
+    const optionList: SelectOptionData[] = [];
+    for (let i = 0; i < props.facePaths.length; i += 1) {
+        const face = props.facePaths[i];
+        const optionItem: SelectOptionData = { label: `[image:${face.serverPath}]`, value: `image:${face.serverPath}]` };
+        optionList.push(optionItem);
+    }
+    return optionList;
+});
 
 const onFocus = async () => {
     preview.value = true;

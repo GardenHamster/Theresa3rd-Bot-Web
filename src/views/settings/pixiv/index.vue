@@ -130,12 +130,14 @@
         </a-form-item>
 
         <a-form-item field="cookieExpireMsg" label="CK过期提示" tooltip="Cookie过期后返回的提示消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.cookieExpireMsg" :imgMentions="imgMentions"
+          <preview-textarea v-model:model-value="formModel.cookieExpireMsg"
             :facePaths="facePaths" />
         </a-form-item>
 
-        <a-form-item field="template" label="发送模板" tooltip="发送Pixiv消息时的模版，值为空时将使用默认模版" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.template" :imgMentions="imgMentions" :facePaths="facePaths" />
+        <a-form-item field="template" label="消息模板" tooltip="Pixiv作品信息模版，值为空时将使用默认模版" extra="输入“{”可以快速插入占位符" feedback>
+          <a-mention v-model:model-value="formModel.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="placeholders" type="textarea" 
+            placeholder="随便写点什么吧..." auto-size
+            allow-clear />
         </a-form-item>
       </a-card>
 
@@ -166,11 +168,23 @@ const settingStore = useSettingStore();
 const pathStore = usePathStore();
 const optionStore = useOptionStore();
 const facePaths = ref<FacePath[]>([]);
-const imgMentions = ref<SelectOptionData[]>([]);
 const resendOptions = ref<SelectOptionData[]>([]);
 const imgSizeOptions = ref<SelectOptionData[]>([]);
 const formModel = ref<PixivSetting>({});
 const initModel = ref<PixivSetting>({});
+const placeholders = ref<SelectOptionData[]>([
+  { label: '{PixivId}:作品ID', value: 'PixivId}' },
+  { label: '{IllustTitle}:作品标题', value: 'IllustTitle}' },
+  { label: '{UserId}:画师ID', value: 'UserId}' },
+  { label: '{UserName}:画师名', value: 'UserName}' },
+  { label: '{BookmarkCount}:收藏数', value: 'BookmarkCount}' },
+  { label: '{LikeCount}:点赞数', value: 'LikeCount}' },
+  { label: '{ViewCount}:浏览数', value: 'ViewCount}' },
+  { label: '{PageCount}:作品图片数', value: 'PageCount}' },
+  { label: '{RelevantCount}:相关作品数', value: 'RelevantCount}' },
+  { label: '{Tags}:作品标签', value: 'Tags}' },
+  { label: '{Urls}:图片链接', value: 'Urls}' },
+]);
 
 const fromJson = computed(() => {
   return JSON.stringify(formModel.value);
@@ -247,14 +261,6 @@ const fetchImgSizeOptions = async () => {
   }
 };
 
-const loadImgMentions = async () => {
-  try {
-    imgMentions.value = await pathStore.loadFaceMentions();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const fetchSettings = async () => {
   try {
     initModel.value = await settingStore.loadPixivSetting();
@@ -271,7 +277,6 @@ const fetchSettings = async () => {
 fetchFaces();
 fetchResendOptions();
 fetchImgSizeOptions();
-loadImgMentions();
 fetchSettings();
 </script>
 
