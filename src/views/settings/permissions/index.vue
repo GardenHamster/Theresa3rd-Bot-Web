@@ -16,8 +16,6 @@
   left: 0;
 }
 
-
-
 .actions {
   position: fixed;
   left: 0;
@@ -41,10 +39,8 @@
 
         <a-tabs default-active-key="1">
           <a-tab-pane key="1" title="基本">
-            <a-form-item field="acceptGroups" label="接入群" tooltip="白名单，只处理这些群的消息" feedback>
-              <a-select v-model:model-value="formModel.acceptGroups" :options="groupOptions" :style="{ minHeight: '100px' }" :scrollbar="true"
-                placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+            <a-form-item field="acceptGroups" label="接入群" tooltip="白名单，只处理这些群的消息" extra="输入群号后按下Enter可以添加一个群" feedback>
+              <group-select v-model:model-value="formModel.acceptGroups" :options="groupOptions"/>
             </a-form-item>
             
             <a-form-item field="superManagers" label="超级管理员" tooltip="超级管理员QQ号，超级管理可以使用管理员指令" extra="输入群号后按下Enter可以添加一个群" feedback>
@@ -62,89 +58,63 @@
 
           <a-tab-pane key="2" title="涩图">
              <a-form-item field="setuGroups" label="可用群" tooltip="拥有涩图权限的群号" feedback>
-              <a-select v-model:model-value="formModel.setuGroups" :options="groupOptions" :style="{ minHeight: '100px' }" :scrollbar="true"
-                placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.setuGroups" :options="groupOptions"/>
             </a-form-item>
 
             <a-form-item field="setuShowImgGroups" label="显示图片" tooltip="允许发送图片的群，否则只发送图片链接" feedback>
-              <a-select v-model:model-value="formModel.setuShowImgGroups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+             <group-select v-model:model-value="formModel.setuShowImgGroups" :options="groupOptions"/>
             </a-form-item>
 
             <a-form-item field="setuShowAIGroups" label="显示AI内容" tooltip="允许发送AI内容的群" feedback>
-              <a-select v-model:model-value="formModel.setuShowAIGroups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.setuShowAIGroups" :options="groupOptions"/>
             </a-form-item>
 
             <a-form-item field="setuShowR18Groups" label="显示R18内容" tooltip="允许出现r18内容的群，图片将使用链接代替" feedback>
-              <a-select v-model:model-value="formModel.setuShowR18Groups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.setuShowR18Groups" :options="groupOptions"/>
             </a-form-item>
 
             <a-form-item field="setuShowR18ImgGroups" label="显示R18图片" tooltip="允许发送r18图片的群，图片经过压缩和高斯模糊后发送" feedback>
-              <a-select v-model:model-value="formModel.setuShowR18ImgGroups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.setuShowR18ImgGroups" :options="groupOptions"/>
             </a-form-item>
 
             <a-form-item field="setuCustomGroups" label="自定义搜索" tooltip="允许查找自定义涩图的群" feedback>
-              <a-select v-model:model-value="formModel.setuCustomGroups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.setuCustomGroups" :options="groupOptions"/>
             </a-form-item>
 
             <a-form-item field="setuNoneCDGroups" label="无冷却" tooltip="涩图没有CD的群" feedback>
-              <a-select v-model:model-value="formModel.setuNoneCDGroups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.setuNoneCDGroups" :options="groupOptions"/>
             </a-form-item>
 
             <a-form-item field="setuLimitlessGroups" label="无限次数" tooltip="涩图每日次数无限制的群" feedback>
-              <a-select v-model:model-value="formModel.setuLimitlessGroups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.setuLimitlessGroups" :options="groupOptions"/>
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="3" title="搜图">
             <a-form-item field="saucenaoGroups" label="可用群" tooltip="拥有以图搜图权限的群" feedback>
-              <a-select v-model:model-value="formModel.saucenaoGroups" :options="groupOptions" :style="{ minHeight: '100px' }" :scrollbar="true"
-                placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.saucenaoGroups" :options="groupOptions"/>
             </a-form-item>
 
             <a-form-item field="saucenaoR18Groups" label="显示R18内容" tooltip="以图搜图允许发送r18结果的群" feedback>
-              <a-select v-model:model-value="formModel.saucenaoR18Groups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.saucenaoR18Groups" :options="groupOptions"/>
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="4" title="订阅">
             <a-form-item field="subscribeGroups" label="可用群" tooltip="拥有订阅权限的群" feedback>
-              <a-select v-model:model-value="formModel.subscribeGroups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.subscribeGroups" :options="groupOptions"/>
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="5" title="日榜">
             <a-form-item field="pixivRankingGroups" label="可用群" tooltip="拥有查询Pixiv日榜权限的群" feedback>
-              <a-select v-model:model-value="formModel.pixivRankingGroups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.pixivRankingGroups" :options="groupOptions"/>
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="6" title="词云">
              <a-form-item field="wordCloudGroups" label="可用群" tooltip="拥有主动获取群词云权限的群" feedback>
-              <a-select v-model:model-value="formModel.wordCloudGroups" :options="groupOptions" :scrollbar="true"
-                :style="{ minHeight: '100px' }" placeholder="选择一个或多个群"  allow-search allow-clear multiple>
-              </a-select>
+              <group-select v-model:model-value="formModel.wordCloudGroups" :options="groupOptions"/>
             </a-form-item>
           </a-tab-pane>
 

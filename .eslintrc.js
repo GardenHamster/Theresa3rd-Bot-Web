@@ -37,6 +37,7 @@ module.exports = {
   },
   rules: {
     'no-shadow': 0,
+    'no-continue': 0,
     'no-useless-escape': 0,
     'no-await-in-loop': 0,
     'prettier/prettier': 0,

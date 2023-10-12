@@ -84,11 +84,6 @@ const splitImgCodes = async (facePaths: FacePath[], contents: PreviewContent[]):
 export const analysis = async (facePaths: FacePath[], template: string): Promise<PreviewContent[]> => {
     let contents: PreviewContent[] = [];
     contents = splitNewLine(template);
-    console.log('contents', contents);
     contents = await splitImgCodes(facePaths, contents);
-    console.log('contents', contents);
     return contents;
 }
-
-
-
