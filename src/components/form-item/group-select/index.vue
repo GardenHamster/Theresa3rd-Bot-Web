@@ -8,6 +8,7 @@
 import { ref, computed, watch } from 'vue';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
+let fullOptions: SelectOptionData[] = [];
 const props = withDefaults(defineProps<{ modelValue?: number[], options: SelectOptionData[], placeholder?: string }>(), { placeholder: '选择一个或多个群' })
 const emit = defineEmits<{ (e: "update:modelValue", value: number[]): void }>();
 const modelValue = computed({
@@ -15,33 +16,52 @@ const modelValue = computed({
     set: (value) => emit('update:modelValue', value)
 });
 
+const activeAll = (options: SelectOptionData[]): SelectOptionData[] => {
+    for (let index = 0; index < options.length; index += 1) {
+        const option = options[index];
+        option.disabled = option.value !== 0;
+    }
+    return options;
+}
+
+const disableAll = (options: SelectOptionData[]): SelectOptionData[] => {
+    for (let index = 0; index < options.length; index += 1) {
+        const option = options[index];
+        option.disabled = false;
+    }
+    return options;
+}
+
+const getFullOptions = (): SelectOptionData[] => {
+    console.log('props.modelValue', props.modelValue);
+    if (fullOptions.length > 0) return fullOptions;
+    const values = props.modelValue ?? [];
+    const options: SelectOptionData[] = Array.from(props.options, o => { return { ...o } });
+    for (let index = 0; index < values.length; index += 1) {
+        const groupId = values[index];
+        if (groupId === 0) continue;
+        if (options.some(o => o.value === groupId)) continue;
+        const newOption: SelectOptionData = { label: `???(${groupId})`, value: groupId };
+        options.push(newOption);
+    }
+    fullOptions = options;
+    return options;
+}
+
 const onChange = (value: unknown) => {
-    emit('update:modelValue', value as number[])
-}
-
-const selectAll = (options: SelectOptionData[]) => {
-    const groupOptions = [...options];
-    for (let index = 0; index < groupOptions.length; index += 1) {
-        if (groupOptions[index].value === 0) continue;
-        groupOptions[index].disabled = true;
-    }
-    return groupOptions;
-}
-
-const diselectAll = (options: SelectOptionData[]) => {
-    const groupOptions = [...options];
-    for (let index = 0; index < groupOptions.length; index += 1) {
-        groupOptions[index].disabled = false;
-    }
-    return groupOptions;
+    const newValue = value as number[];
+    emit('update:modelValue', newValue);
+    if (newValue.some(o => o === 0)) modelValue.value = [0];
 }
 
 const groupOptions = computed(() => {
-    return modelValue.value.some(o => o === 0) ? selectAll(props.options) : diselectAll(props.options);
-});
+    const options = getFullOptions();
+    console.log('options', options);
+    return modelValue.value.some(o => o === 0) ? activeAll(options) : disableAll(options);
+})
 
 watch(modelValue, async (newValue) => {
-    modelValue.value = newValue.some(o => o === 0) ? [0] : [...newValue];
+    // console.log('newValue', newValue);
 });
 
 
