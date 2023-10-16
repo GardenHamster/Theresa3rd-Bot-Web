@@ -33,7 +33,7 @@
       :model="formModel">
       <a-card class="card">
 
-        <a-alert class="alert" type="warning" v-show="saveWarning" center>某些属性值已经被修改，但是还未进行保存</a-alert>
+        <save-warning :initModel="initModel" :formModel="formModel"/>
 
         <Breadcrumb :items="['menu.settings', 'menu.settings.general']" />
 
@@ -129,7 +129,6 @@ import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface'
 import cronRules from '@/utils/validator'
 import { getFaceHttpUrl } from '@/utils/url'
 
-const saveWarning = ref(false);
 const errorImgUrl = ref('');
 const errorImgvisable = ref(false);
 const { loading, setLoading } = useLoading();
@@ -146,14 +145,6 @@ const initModel = ref<GeneralSetting>({});
 const inputModel = reactive({
   prefixs: ''
 });
-
-const fromJson = computed(() => {
-  return JSON.stringify(formModel.value);
-})
-
-const initJson = computed(() => {
-  return JSON.stringify(initModel.value);
-})
 
 const onSubmit = async () => {
   try {
@@ -179,6 +170,7 @@ const onSubmit = async () => {
 const onReset = async () => {
   try {
     setLoading(true);
+    console.log('formModel', formModel.value);
     formModel.value = { ...initModel.value };
     Message.info({ content: '重置完毕', position: 'top' });
   } catch (error) {
@@ -228,10 +220,6 @@ const fetchSettings = async () => {
   try {
     initModel.value = await settingStore.loadGeneralSetting();
     formModel.value = { ...initModel.value };
-    watch(fromJson, (newJson, oldJson) => {
-      saveWarning.value = newJson !== initJson.value;
-    }, { deep: true }
-    )
     await showErrorImg();
   } catch (error) {
     console.log(error);

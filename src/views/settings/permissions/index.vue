@@ -33,14 +33,14 @@
       :model="formModel">
       <a-card class="card">
 
-        <a-alert class="alert" type="warning" v-show="saveWarning" center>某些属性值已经被修改，但是还未进行保存</a-alert>
+        <save-warning :initModel="initModel" :formModel="formModel"/>
 
         <Breadcrumb :items="['menu.settings', 'menu.settings.permissions']" />
 
         <a-tabs default-active-key="1">
           <a-tab-pane key="1" title="基本">
             <a-form-item field="acceptGroups" label="启用群" tooltip="白名单，只处理这些群的消息" extra="输入群号后按下Enter可以添加一个群" feedback>
-              <group-select v-model:model-value="formModel.acceptGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.acceptGroups" :options="groupOptions" select-all />
             </a-form-item>
 
             <a-form-item field="superManagers" label="超级管理员" tooltip="超级管理员QQ号，超级管理可以使用管理员指令" extra="输入群号后按下Enter可以添加一个群"
@@ -61,63 +61,63 @@
 
           <a-tab-pane key="2" title="涩图">
             <a-form-item field="setuGroups" label="可用群" tooltip="拥有涩图权限的群号" feedback>
-              <group-select v-model:model-value="formModel.setuGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.setuGroups" :options="groupOptions" select-all />
             </a-form-item>
 
             <a-form-item field="setuShowImgGroups" label="显示图片" tooltip="允许发送图片的群，否则只发送图片链接" feedback>
-              <group-select v-model:model-value="formModel.setuShowImgGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.setuShowImgGroups" :options="groupOptions" select-all />
             </a-form-item>
 
             <a-form-item field="setuShowAIGroups" label="显示AI内容" tooltip="允许发送AI内容的群" feedback>
-              <group-select v-model:model-value="formModel.setuShowAIGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.setuShowAIGroups" :options="groupOptions" select-all />
             </a-form-item>
 
             <a-form-item field="setuShowR18Groups" label="显示R18内容" tooltip="允许出现r18内容的群，图片将使用链接代替" feedback>
-              <group-select v-model:model-value="formModel.setuShowR18Groups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.setuShowR18Groups" :options="groupOptions" select-all />
             </a-form-item>
 
             <a-form-item field="setuShowR18ImgGroups" label="显示R18图片" tooltip="允许发送r18图片的群，图片经过压缩和高斯模糊后发送" feedback>
-              <group-select v-model:model-value="formModel.setuShowR18ImgGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.setuShowR18ImgGroups" :options="groupOptions" select-all />
             </a-form-item>
 
             <a-form-item field="setuCustomGroups" label="自定义搜索" tooltip="允许查找自定义涩图的群" feedback>
-              <group-select v-model:model-value="formModel.setuCustomGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.setuCustomGroups" :options="groupOptions" select-all />
             </a-form-item>
 
             <a-form-item field="setuNoneCDGroups" label="无冷却" tooltip="涩图没有CD的群" feedback>
-              <group-select v-model:model-value="formModel.setuNoneCDGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.setuNoneCDGroups" :options="groupOptions" select-all />
             </a-form-item>
 
             <a-form-item field="setuLimitlessGroups" label="无限次数" tooltip="涩图每日次数无限制的群" feedback>
-              <group-select v-model:model-value="formModel.setuLimitlessGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.setuLimitlessGroups" :options="groupOptions" select-all />
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="3" title="搜图">
             <a-form-item field="saucenaoGroups" label="可用群" tooltip="拥有以图搜图权限的群" feedback>
-              <group-select v-model:model-value="formModel.saucenaoGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.saucenaoGroups" :options="groupOptions" select-all />
             </a-form-item>
 
             <a-form-item field="saucenaoR18Groups" label="显示R18内容" tooltip="以图搜图允许发送r18结果的群" feedback>
-              <group-select v-model:model-value="formModel.saucenaoR18Groups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.saucenaoR18Groups" :options="groupOptions" select-all />
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="4" title="订阅">
             <a-form-item field="subscribeGroups" label="可用群" tooltip="拥有订阅权限的群" feedback>
-              <group-select v-model:model-value="formModel.subscribeGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.subscribeGroups" :options="groupOptions" select-all />
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="5" title="日榜">
             <a-form-item field="pixivRankingGroups" label="可用群" tooltip="拥有查询Pixiv日榜权限的群" feedback>
-              <group-select v-model:model-value="formModel.pixivRankingGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.pixivRankingGroups" :options="groupOptions" select-all />
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="6" title="词云">
             <a-form-item field="wordCloudGroups" label="可用群" tooltip="拥有主动获取群词云权限的群" feedback>
-              <group-select v-model:model-value="formModel.wordCloudGroups" :options="groupOptions" />
+              <group-select v-model:model-value="formModel.wordCloudGroups" :options="groupOptions" select-all />
             </a-form-item>
           </a-tab-pane>
 
@@ -137,7 +137,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue';
+import { ref } from 'vue';
 import useLoading from '@/hooks/loading';
 import { useSettingStore, useGroupStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
@@ -145,7 +145,6 @@ import type { PermissionsSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
 const formRef = ref();
-const saveWarning = ref(false);
 const { loading, setLoading } = useLoading();
 const settingStore = useSettingStore();
 const groupStore = useGroupStore();
@@ -153,14 +152,6 @@ const memberOptions = ref<SelectOptionData[]>([]);
 const groupOptions = ref<SelectOptionData[]>([]);
 const formModel = ref<PermissionsSetting>({});
 const initModel = ref<PermissionsSetting>({});
-
-const fromJson = computed(() => {
-  return JSON.stringify(formModel.value);
-})
-
-const initJson = computed(() => {
-  return JSON.stringify(initModel.value);
-})
 
 const onSubmit = async () => {
   try {
@@ -186,6 +177,7 @@ const onSubmit = async () => {
 const onReset = async () => {
   try {
     setLoading(true);
+    console.log('formModel', formModel.value);
     formModel.value = { ...initModel.value };
     Message.info({ content: '重置完毕', position: 'top' });
   } catch (error) {
@@ -208,10 +200,6 @@ const fetchSettings = async () => {
   try {
     initModel.value = await settingStore.loadPermissionsSetting();
     formModel.value = { ...initModel.value };
-    watch(fromJson, (newJson, oldJson) => {
-      saveWarning.value = newJson !== initJson.value;
-    }, { deep: true }
-    )
   } catch (error) {
     console.log(error);
   }

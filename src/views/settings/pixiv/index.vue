@@ -33,7 +33,7 @@
       :model="formModel">
       <a-card class="card">
 
-        <a-alert class="alert" type="warning" v-show="saveWarning" center>某些属性值已经被修改，但是还未进行保存</a-alert>
+        <save-warning :initModel="initModel" :formModel="formModel"/>
 
         <Breadcrumb :items="['menu.settings', 'menu.settings.pixiv']" />
 
@@ -162,7 +162,6 @@ import type { PixivSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
 const formRef = ref();
-const saveWarning = ref(false);
 const { loading, setLoading } = useLoading();
 const settingStore = useSettingStore();
 const pathStore = usePathStore();
@@ -185,14 +184,6 @@ const placeholders = ref<SelectOptionData[]>([
   { label: '{Tags}:作品标签', value: 'Tags}' },
   { label: '{Urls}:图片链接', value: 'Urls}' },
 ]);
-
-const fromJson = computed(() => {
-  return JSON.stringify(formModel.value);
-})
-
-const initJson = computed(() => {
-  return JSON.stringify(initModel.value);
-})
 
 const cookieExpireDay = computed({
   get() {
@@ -265,10 +256,6 @@ const fetchSettings = async () => {
   try {
     initModel.value = await settingStore.loadPixivSetting();
     formModel.value = { ...initModel.value };
-    watch(fromJson, (newJson, oldJson) => {
-      saveWarning.value = newJson !== initJson.value;
-    }, { deep: true }
-    )
   } catch (error) {
     console.log(error);
   }

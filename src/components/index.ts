@@ -11,8 +11,9 @@ import {
 } from 'echarts/components';
 import Chart from './chart/index.vue';
 import Breadcrumb from './breadcrumb/index.vue';
-import PreviewTextarea from './form-item/preview-textarea/index.vue'
-import GroupSelect from './form-item/group-select/index.vue'
+import PreviewTextarea from './form-item/preview-textarea/index.vue';
+import GroupSelect from './form-item/group-select/index.vue';
+import SaveWarning from './form-item/save-warning/index.vue';
 
 // Manually introduce ECharts modules to reduce packing size
 
@@ -35,5 +36,6 @@ export default {
     Vue.component('Breadcrumb', Breadcrumb);
     Vue.component('PreviewTextarea', PreviewTextarea);
     Vue.component('GroupSelect', GroupSelect);
+    Vue.component('SaveWarning', SaveWarning);
   },
 };

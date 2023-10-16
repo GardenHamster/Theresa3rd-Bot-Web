@@ -1,7 +1,7 @@
 <template>
     <a-select v-model:model-value="modelValue" :options="groupOptions" :style="{ minHeight: '100px' }" :scrollbar="true"
-        :placeholder="placeholder" @change="onChange" allow-search allow-clear multiple>
-        <a-option :value="0">所有群</a-option>
+        :placeholder="placeholder" @change="onChange" allow-search allow-clear allow-create multiple>
+        <a-option v-if="selectAll" :value="0">所有群</a-option>
     </a-select>
 </template>
 
@@ -10,7 +10,7 @@ import { computed } from 'vue';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
 let initValues: number[] = [];
-const props = withDefaults(defineProps<{ modelValue?: number[], options: SelectOptionData[], placeholder?: string }>(), { placeholder: '选择一个或多个群' })
+const props = withDefaults(defineProps<{ modelValue?: number[], options: SelectOptionData[], placeholder?: string, selectAll: boolean }>(), { placeholder: '选择一个或多个群' })
 const emit = defineEmits<{ (e: "update:modelValue", value: number[]): void }>();
 const modelValue = computed({
     get: () => props.modelValue ?? [],
@@ -54,7 +54,6 @@ const getFullOptions = (): SelectOptionData[] => {
 
 const onChange = (value: unknown) => {
     const newValue = value as number[];
-    emit('update:modelValue', newValue);
     if (newValue.some(o => o === 0)) modelValue.value = [0];
 }
 

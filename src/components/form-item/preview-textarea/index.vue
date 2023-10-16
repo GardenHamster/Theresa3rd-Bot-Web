@@ -1,7 +1,7 @@
 <template>
     <a-space direction="vertical" :style="{ width: '100%', position: 'relative' }" size="mini">
         <a-mention v-model:model-value="modelValue" :style="{ minHeight: '120px' }" :prefix="['[']" :data="imgMentions"
-            type="textarea" placeholder="随便写点什么吧..." @focus="onFocus" @blur="onBlur" @change="onChange" auto-size
+            type="textarea" placeholder="随便写点什么吧..." @focus="onFocus" @blur="onBlur" auto-size
             allow-clear />
         <transition name="preview">
             <p class="preview" v-show="preview">
@@ -31,10 +31,6 @@ const modelValue = computed({
     set: (value) => emit('update:modelValue', value)
 });
 
-const watchValue = watch(modelValue, async (newValue) => {
-    contents.value = await analysis(props.facePaths, newValue);
-});
-
 const imgMentions = computed(() => {
     const optionList: SelectOptionData[] = [];
     for (let i = 0; i < props.facePaths.length; i += 1) {
@@ -52,15 +48,15 @@ const onBlur = async () => {
     preview.value = false;
 }
 
-const onChange = (value: string) => {
-    emit('update:modelValue', value)
-}
-
 const getImgHttpUrl = function (content: PreviewContent): string {
     const image = content.value as PreviewImage;
     const path = image?.path ?? '';
     return getFaceHttpUrl(path);
 }
+
+watch(modelValue, async (newValue) => {
+    contents.value = await analysis(props.facePaths, newValue);
+});
 
 </script>
 
