@@ -1,6 +1,6 @@
 <template>
     <a-select v-model:model-value="modelValue" :options="groupOptions" :style="{ minHeight: '100px' }" :scrollbar="true"
-        @change="onChange" allow-search allow-clear multiple>
+        :placeholder="placeholder" @change="onChange" allow-search allow-clear multiple>
         <a-option :value="0">所有群</a-option>
     </a-select>
 </template>
@@ -62,7 +62,6 @@ const groupOptions = computed(() => {
     const options = getFullOptions();
     return modelValue.value.some(o => o === 0) ? activeAll(options) : disableAll(options);
 })
-
 
 </script>
 
