@@ -134,8 +134,8 @@ const fetchSubscribes = async (groupId = 0) => {
     const subscribeDatas = await getMiyousheUserSubscribe() as unknown as SubscribeData[];
     for (let index = 0; index < subscribeDatas.length; index += 1) {
       const data = subscribeDatas[index];
-      const groupName = new List<GroupInfo>(groupInfos).Where((o) => o?.groupId === data.groupId).FirstOrDefault()?.groupName ?? '';
-      data.subscribeGroup = data.groupId === 0 ? '所有群' : `${groupName}(${data.groupId})`;
+      const groupName = new List<GroupInfo>(groupInfos).Where((o) => o?.groupId === data.groupId).FirstOrDefault()?.groupName ?? data.groupId;
+      data.subscribeGroup = data.groupId === 0 ? '订阅可用群' : `${groupName}(${data.groupId})`;
     }
     subscribeList.value = groupId === 0 ? subscribeDatas : new List<SubscribeData>(subscribeDatas).Where(o => o?.groupId === groupId).ToArray();
   } catch (error) {

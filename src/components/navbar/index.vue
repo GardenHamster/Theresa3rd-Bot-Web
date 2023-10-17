@@ -112,7 +112,6 @@ const isDark = useDark({
   valueLight: 'light',
   storageKey: 'arco-theme',
   onChanged(dark: boolean) {
-    // overridden default behavior
     appStore.toggleTheme(dark);
   },
 });

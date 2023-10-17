@@ -1,23 +1,12 @@
 <template>
   <div class="container">
     <div class="left-side">
-      <div class="panel">
-        <Banner />
-        <DataPanel />
-        <ContentChart />
+      <div class="panel background">
+        <div class="mask">
+          <Banner/>
+          <DataPanel/>
+        </div>
       </div>
-      <a-grid :cols="24" :col-gap="16" :row-gap="16" style="margin-top: 16px">
-        <a-grid-item
-          :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }"
-        >
-          <PopularContent />
-        </a-grid-item>
-        <a-grid-item
-          :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }"
-        >
-          <CategoriesPercent />
-        </a-grid-item>
-      </a-grid>
     </div>
   </div>
 </template>
@@ -25,9 +14,6 @@
 <script lang="ts" setup>
 import Banner from './components/banner.vue';
 import DataPanel from './components/data-panel.vue';
-import ContentChart from './components/content-chart.vue';
-import PopularContent from './components/popular-content.vue';
-import CategoriesPercent from './components/categories-percent.vue';
 </script>
 
 <script lang="ts">
@@ -38,7 +24,7 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  background-color: var(--color-fill-2);
+  height: 100%;
   padding: 16px 20px;
   padding-bottom: 0;
   display: flex;
@@ -47,6 +33,7 @@ export default {
 .left-side {
   flex: 1;
   overflow: auto;
+  background-color: var(--color-bg-2);
 }
 
 .right-side {
@@ -55,9 +42,20 @@ export default {
 }
 
 .panel {
-  background-color: var(--color-bg-2);
   border-radius: 4px;
   overflow: auto;
+}
+
+.background {
+  height: 100vh;
+  background: url('../../../assets/images/112539581_p0.png') 95% 10% / cover;
+}
+
+.mask {
+  background-color: #fff;
+  opacity: .85;
+  height: 100vh;
+  z-index: 1;
 }
 
 :deep(.panel-border) {
