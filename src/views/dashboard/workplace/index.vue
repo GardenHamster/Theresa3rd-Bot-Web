@@ -25,6 +25,7 @@ export default {
 <style lang="less" scoped>
 .container {
   height: 100%;
+  min-width: 300px;
   padding: 16px 20px;
   padding-bottom: 0;
   display: flex;
@@ -48,7 +49,7 @@ export default {
 
 .background {
   height: 100vh;
-  background: url('../../../assets/images/112539581_p0.png') 95% 10% / cover;
+  background: url('../../../assets/images/background/112539581_p0.png') 95% 10% / cover;
 }
 
 .mask {

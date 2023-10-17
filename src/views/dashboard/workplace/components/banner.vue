@@ -1,11 +1,11 @@
 <template>
   <a-col class="banner">
-    <a-col :span="8">
+    <a-col :span="24">
       <a-typography-title :heading="5" style="margin-top: 0">
         欢迎使用 TheresaBot
       </a-typography-title>
     </a-col>
-    <a-divider class="panel-border" />
+    <a-divider />
   </a-col>
 </template>
 
