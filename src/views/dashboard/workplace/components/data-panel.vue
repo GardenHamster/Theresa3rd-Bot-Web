@@ -5,12 +5,7 @@
         <a-avatar :size="54" class="col-avatar">
           <img alt="avatar" :src="face05" />
         </a-avatar>
-        <a-statistic
-          title="运行时间"
-          :value="runDate"
-          animation
-          format="DD:HH:mm:ss"
-          show-group-separator/>
+        <clock title="运行时间" :value="runTime"/>
       </a-space>
     </a-grid-item>
 
@@ -35,7 +30,7 @@
           <img alt="avatar" :src="face04" />
         </a-avatar>
         <a-statistic
-          title="累计扫描"
+          title="累计扫描作品"
           :value="368"
           :value-from="0"
           animation
@@ -51,7 +46,7 @@
           <img alt="avatar" :src="face07" />
         </a-avatar>
         <a-statistic
-          title="错误次数"
+          title="扫描错误次数"
           :value="1"
           :value-from="0"
           animation
@@ -77,29 +72,22 @@ import face06 from '@/assets/images/face/c0c08cd4aaec.gif';
 import face07 from '@/assets/images/face/25c77bdb7331.gif';
 import { computed, ref } from 'vue';
 
-const gridSpan = { xs: 12, sm: 8, md: 8, lg: 8, xl: 8, xxl: 6 };
-const runTime = ref<number>(0);
-const runDate = ref<Date>(new Date(1000));
-
-setInterval(() => {
-  runTime.value += 1;
-  runDate.value = new Date(runTime.value * 1000);
-}, 1000);
-
-
+const gridSpan = { xs: 12, sm: 12, md: 8, lg: 8, xl: 8, xxl: 6 };
+const runTime = ref<number>(86400);
 </script>
 
 <style lang="less" scoped>
 .arco-grid.panel {
   margin-bottom: 0;
   padding: 16px 20px 0 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .arco-layout.mobile .arco-grid.panel {
   margin-bottom: 0;
   padding: 16px 5px 0 5px;
 }
-
 
 .col-avatar {
   margin-right: 12px;

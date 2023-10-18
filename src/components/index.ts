@@ -14,6 +14,7 @@ import Breadcrumb from './breadcrumb/index.vue';
 import PreviewTextarea from './form-item/preview-textarea/index.vue';
 import GroupSelect from './form-item/group-select/index.vue';
 import SaveWarning from './form-item/save-warning/index.vue';
+import Clock from './statistic/clock.vue';
 
 // Manually introduce ECharts modules to reduce packing size
 
@@ -33,6 +34,7 @@ use([
 export default {
   install(Vue: App) {
     Vue.component('Chart', Chart);
+    Vue.component('Clock', Clock);
     Vue.component('Breadcrumb', Breadcrumb);
     Vue.component('PreviewTextarea', PreviewTextarea);
     Vue.component('GroupSelect', GroupSelect);

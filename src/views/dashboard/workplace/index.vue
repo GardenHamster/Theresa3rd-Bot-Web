@@ -49,13 +49,15 @@ export default {
 
 .background {
   height: 100vh;
-  background: url('../../../assets/images/background/112539581_p0.png') 95% 10% / cover;
+  overflow: auto;
+  background: url('../../../assets/images/background/112539581_p0.png') 80% 15% / cover;
 }
 
 .mask {
+  height: 100vh;
+  overflow: auto;
   background-color: #fff;
   opacity: .85;
-  height: 100vh;
   z-index: 1;
 }
 

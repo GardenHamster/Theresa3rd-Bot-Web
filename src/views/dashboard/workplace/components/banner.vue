@@ -5,7 +5,7 @@
         欢迎使用 TheresaBot
       </a-typography-title>
     </a-col>
-    <a-divider />
+    <a-divider :style="{ margin: '15px 0px' }" />
   </a-col>
 </template>
 
