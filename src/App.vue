@@ -26,14 +26,34 @@ const locale = computed(() => {
 </script>
 
 <style>
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+.layout-content {
+  box-sizing: border-box;
+}
+
 .arco-layout .container {
   padding: 20px;
+  min-width: 300px;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .arco-layout.mobile .container {
   padding: 0px;
+  min-width: 300px;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .arco-layout.mobile .arco-card-body {

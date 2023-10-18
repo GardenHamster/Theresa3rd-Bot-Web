@@ -2,9 +2,11 @@
   <div class="navbar">
     <div class="left-side">
       <a-space>
-        <img alt="logo" :src="favicon" style="width: 25px; height: 25px;"/>
-        <a-typography-title :style="{ margin: 0, fontSize: '18px', minWidth: '100px' }" :heading="5">TheresaBot</a-typography-title>
-        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer" @click="toggleDrawerMenu"/>
+        <img alt="logo" :src="favicon" style="width: 25px; height: 25px;" />
+        <a-typography-title :style="{ margin: 0, fontSize: '18px', minWidth: '100px' }"
+          :heading="5">TheresaBot</a-typography-title>
+        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer"
+          @click="toggleDrawerMenu" />
       </a-space>
     </div>
     <div class="center-side">
@@ -13,12 +15,7 @@
     <ul class="right-side">
       <li>
         <a-tooltip :content="$t('settings.language')">
-          <a-button
-            class="nav-btn"
-            type="outline"
-            :shape="'circle'"
-            @click="setDropDownVisible"
-          >
+          <a-button class="nav-btn" type="outline" :shape="'circle'" @click="setDropDownVisible">
             <template #icon>
               <icon-language />
             </template>
@@ -27,11 +24,7 @@
         <a-dropdown trigger="click" @select="changeLocale as any">
           <div ref="triggerBtn" class="trigger-btn"></div>
           <template #content>
-            <a-doption
-              v-for="item in locales"
-              :key="item.value"
-              :value="item.value"
-            >
+            <a-doption v-for="item in locales" :key="item.value" :value="item.value">
               <template #icon>
                 <icon-check v-show="item.value === currentLocale" />
               </template>
@@ -41,18 +34,11 @@
         </a-dropdown>
       </li>
       <li>
-        <a-tooltip
-          :content="theme === 'light'
-            ? $t('settings.navbar.theme.toDark')
-            : $t('settings.navbar.theme.toLight')
-            "
-        >
-          <a-button
-            class="nav-btn"
-            type="outline"
-            :shape="'circle'"
-            @click="handleToggleTheme"
-          >
+        <a-tooltip :content="theme === 'light'
+          ? $t('settings.navbar.theme.toDark')
+          : $t('settings.navbar.theme.toLight')
+          ">
+          <a-button class="nav-btn" type="outline" :shape="'circle'" @click="handleToggleTheme">
             <template #icon>
               <icon-moon-fill v-if="theme === 'dark'" />
               <icon-sun-fill v-else />
@@ -63,10 +49,7 @@
 
       <li>
         <a-dropdown trigger="click">
-          <a-avatar
-            :size="32"
-            :style="{ marginRight: '8px', cursor: 'pointer' }"
-          >
+          <a-avatar :size="32" :style="{ marginRight: '8px', cursor: 'pointer' }">
             <img alt="avatar" :src="avatarImg" />
           </a-avatar>
           <template #content>

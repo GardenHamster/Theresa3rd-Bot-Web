@@ -5,7 +5,6 @@
 }
 
 .card {
-  min-width: 300px;
   padding-bottom: 25px;
   position: relative;
   overflow: auto;
@@ -33,7 +32,7 @@
       :model="formModel">
       <a-card class="card">
 
-        <save-warning :initModel="initModel" :formModel="formModel"/>
+        <save-warning :initModel="initModel" :formModel="formModel" />
 
         <Breadcrumb :items="['menu.settings', 'menu.settings.pixiv']" />
 
@@ -130,14 +129,12 @@
         </a-form-item>
 
         <a-form-item field="cookieExpireMsg" label="CK过期提示" tooltip="Cookie过期后返回的提示消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.cookieExpireMsg"
-            :facePaths="facePaths" />
+          <preview-textarea v-model:model-value="formModel.cookieExpireMsg" :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="template" label="消息模板" tooltip="Pixiv作品信息模版，值为空时将使用默认模版" extra="输入“{”可以快速插入占位符" feedback>
-          <a-mention v-model:model-value="formModel.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="placeholders" type="textarea" 
-            placeholder="随便写点什么吧..." auto-size
-            allow-clear />
+          <a-mention v-model:model-value="formModel.template" :style="{ minHeight: '120px' }" :prefix="['{']"
+            :data="placeholders" type="textarea" placeholder="随便写点什么吧..." auto-size allow-clear />
         </a-form-item>
       </a-card>
 

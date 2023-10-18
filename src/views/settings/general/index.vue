@@ -5,7 +5,6 @@
 }
 
 .card {
-  min-width: 300px;
   padding-bottom: 25px;
   position: relative;
   overflow: auto;
@@ -33,7 +32,7 @@
       :model="formModel">
       <a-card class="card">
 
-        <save-warning :initModel="initModel" :formModel="formModel"/>
+        <save-warning :initModel="initModel" :formModel="formModel" />
 
         <Breadcrumb :items="['menu.settings', 'menu.settings.general']" />
 
@@ -82,25 +81,21 @@
         </a-form-item>
 
         <a-form-item field="disableMsg" label="禁用提示" tooltip="发送某个指令但是被禁用时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.disableMsg"
-            :facePaths="facePaths" />
+          <preview-textarea v-model:model-value="formModel.disableMsg" :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="noPermissionsMsg" label="无权限提示" tooltip="发送某个指令但是缺少使用权限时时返回的消息" extra="输入“[”可以快速插入图片码"
           feedback>
-          <preview-textarea v-model:model-value="formModel.noPermissionsMsg"
-            :facePaths="facePaths" />
+          <preview-textarea v-model:model-value="formModel.noPermissionsMsg" :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="managersRequiredMsg" label="非管理员提示" tooltip="发送某个指令但是缺少管理员权限时返回的消息" extra="输入“[”可以快速插入图片码"
           feedback>
-          <preview-textarea v-model:model-value="formModel.managersRequiredMsg"
-            :facePaths="facePaths" />
+          <preview-textarea v-model:model-value="formModel.managersRequiredMsg" :facePaths="facePaths" />
         </a-form-item>
 
         <a-form-item field="setuCustomDisableMsg" label="涩图禁用提示" tooltip="涩图功能被禁用时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
-          <preview-textarea v-model:model-value="formModel.setuCustomDisableMsg"
-            :facePaths="facePaths" />
+          <preview-textarea v-model:model-value="formModel.setuCustomDisableMsg" :facePaths="facePaths" />
         </a-form-item>
 
       </a-card>

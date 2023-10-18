@@ -3,8 +3,8 @@
     <div class="left-side">
       <div class="panel background">
         <div class="mask">
-          <Banner/>
-          <DataPanel/>
+          <Banner />
+          <DataPanel />
         </div>
       </div>
     </div>
@@ -25,7 +25,7 @@ export default {
 <style lang="less" scoped>
 .container {
   height: 100%;
-  min-width: 300px;
+
   padding: 16px 20px;
   padding-bottom: 0;
   display: flex;
@@ -35,6 +35,7 @@ export default {
   flex: 1;
   overflow: auto;
   background-color: var(--color-bg-2);
+  height: 100%;
 }
 
 .right-side {
@@ -48,13 +49,13 @@ export default {
 }
 
 .background {
-  height: 100vh;
+  height: 100%;
   overflow: auto;
   background: url('../../../assets/images/background/112539581_p0.png') 80% 15% / cover;
 }
 
 .mask {
-  height: 100vh;
+  height: 100%;
   overflow: auto;
   background-color: #fff;
   opacity: .85;

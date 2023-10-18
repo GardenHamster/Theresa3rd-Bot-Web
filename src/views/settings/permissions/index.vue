@@ -5,7 +5,6 @@
 }
 
 .card {
-  min-width: 300px;
   padding-bottom: 25px;
   position: relative;
   overflow: auto;
@@ -33,7 +32,7 @@
       :model="formModel">
       <a-card class="card">
 
-        <save-warning :initModel="initModel" :formModel="formModel"/>
+        <save-warning :initModel="initModel" :formModel="formModel" />
 
         <Breadcrumb :items="['menu.settings', 'menu.settings.permissions']" />
 

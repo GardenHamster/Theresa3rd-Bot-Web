@@ -12,8 +12,8 @@
             <a-button type="primary">退订选中</a-button>
           </a-popconfirm>
         </a-space>
-        <a-table row-key="id" :columns="columnDatas" :data="subscribeList"
-          :filter-icon-align-left="true" :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
+        <a-table row-key="id" :columns="columnDatas" :data="subscribeList" :filter-icon-align-left="true"
+          :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
           v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading">
           <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
             <div class="custom-filter">
@@ -182,10 +182,6 @@ fetchGroups();
 .arco-layout.mobile .container {
   padding: 0px;
   overflow: hidden;
-}
-
-.card {
-  min-width: 300px;
 }
 
 .custom-filter {
