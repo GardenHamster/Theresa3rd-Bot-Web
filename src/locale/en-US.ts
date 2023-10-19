@@ -9,6 +9,7 @@ export default {
   'menu.settings.general': 'General Settings',
   'menu.settings.pixiv': 'Pixiv Settings',
   'menu.settings.permissions': 'Permissions Settings',
+  'menu.settings.manage': 'Manage Settings',
   'menu.subscribe': 'Subscription Management',
   'menu.subscribe.pixiv.user': 'Pixiv User Subscription',
   'menu.subscribe.pixiv.tag': 'Pixiv Tag Subscription',

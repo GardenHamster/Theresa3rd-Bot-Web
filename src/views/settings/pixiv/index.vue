@@ -1,6 +1,6 @@
 <style scoped lang="less">
 .container {
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   overflow: hidden;
 }
 
@@ -8,11 +8,6 @@
   padding-bottom: 25px;
   position: relative;
   overflow: auto;
-}
-
-.alert {
-  position: absolute;
-  left: 0;
 }
 
 .actions {

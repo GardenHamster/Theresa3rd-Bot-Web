@@ -2,7 +2,8 @@ import { defineStore } from 'pinia';
 import { getGeneralSetting, setGeneralSetting } from '@/api/settings';
 import { getPixivSetting, setPixivSetting } from '@/api/settings';
 import { getPermissionsSetting, setPermissionsSetting } from '@/api/settings';
-import { SettingState, GeneralSetting, PixivSetting, PermissionsSetting } from './types';
+import { getManageSetting, setManageSetting } from '@/api/settings';
+import { SettingState, GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from './types';
 
 const useSettingStore = defineStore('setting', {
   state: (): SettingState => ({}),
@@ -33,6 +34,15 @@ const useSettingStore = defineStore('setting', {
     async savePermissionsSetting(setting: PermissionsSetting) {
       await setPermissionsSetting(setting);
       this.permissionsSetting = setting;
+    },
+    async loadManageSetting(): Promise<ManageSetting> {
+      if (this.manageSetting) return this.manageSetting;
+      this.manageSetting = (await getManageSetting()) as unknown as ManageSetting;
+      return this.manageSetting;
+    },
+    async saveManageSetting(setting: ManageSetting) {
+      await setManageSetting(setting);
+      this.manageSetting = setting;
     },
   },
 });

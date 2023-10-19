@@ -82,6 +82,7 @@ const runTime = ref<number>(86400);
   padding: 16px 20px 0 20px;
   overflow-x: hidden;
   overflow-y: auto;
+  font-weight: bold;
 }
 
 .arco-layout.mobile .arco-grid.panel {

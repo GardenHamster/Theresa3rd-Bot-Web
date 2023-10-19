@@ -190,16 +190,6 @@ fetchGroups();
 </script>
 
 <style scoped lang="less">
-.arco-layout .container {
-  padding: 20px 0px 0px 20px;
-  overflow: hidden;
-}
-
-.arco-layout.mobile .container {
-  padding: 0px;
-  overflow: hidden;
-}
-
 .custom-filter {
   padding: 20px;
   background: var(--color-bg-5);

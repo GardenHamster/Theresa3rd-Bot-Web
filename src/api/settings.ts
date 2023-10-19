@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GeneralSetting, PixivSetting, PermissionsSetting } from '@/store/modules/setting/types';
+import { GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from '@/store/modules/setting/types';
 
 export function getGeneralSetting() {
   return axios.get<GeneralSetting>('/api/config/get/general');
@@ -23,4 +23,12 @@ export function getPermissionsSetting() {
 
 export function setPermissionsSetting(setting: PermissionsSetting) {
   return axios.post<PermissionsSetting>('/api/config/set/permissions', setting);
+}
+
+export function getManageSetting() {
+  return axios.get<ManageSetting>('/api/config/get/manage');
+}
+
+export function setManageSetting(setting: ManageSetting) {
+  return axios.post<ManageSetting>('/api/config/set/manage', setting);
 }

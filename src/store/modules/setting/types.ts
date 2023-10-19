@@ -2,6 +2,7 @@ export interface SettingState {
   generalSetting?: GeneralSetting;
   pixivSetting?: PixivSetting;
   permissionsSetting?: PermissionsSetting;
+  manageSetting?: ManageSetting;
 }
 
 export interface GeneralSetting {
@@ -58,4 +59,17 @@ export interface PermissionsSetting {
   subscribeGroups?: number[];
   pixivRankingGroups?: number[];
   wordCloudGroups?: number[];
+}
+
+export interface ManageSetting {
+  pixivCookieCommands?: string[];
+  saucenaoCookieCommands?: string[];
+  disableTagCommands?: string[];
+  enableTagCommands?: string[];
+  disableMemberCommands?: string[];
+  enableMemberCommands?: string[];
+  listSubCommands?: string[];
+  removeSubCommands?: string[];
+  bindTagCommands?: string[];
+  unBindTagCommands?: string[];
 }

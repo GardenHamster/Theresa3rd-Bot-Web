@@ -45,6 +45,17 @@ const Settings: AppRouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: 'manage',
+      name: 'ManageSetting',
+      component: () => import('@/views/settings/manage/index.vue'),
+      meta: {
+        locale: 'menu.settings.manage',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
   ],
 };
 
