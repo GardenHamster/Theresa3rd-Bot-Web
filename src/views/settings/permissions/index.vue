@@ -38,7 +38,7 @@
 
         <a-tabs default-active-key="1">
           <a-tab-pane key="1" title="基本">
-            <a-form-item field="acceptGroups" label="启用群" tooltip="白名单，只处理这些群的消息" extra="输入群号后按下Enter可以添加一个群" feedback>
+            <a-form-item field="acceptGroups" label="可用群" tooltip="白名单，只处理这些群的消息" extra="输入群号后按下Enter可以添加一个群" feedback>
               <group-select v-model:model-value="formModel.acceptGroups" :options="groupOptions" select-all />
             </a-form-item>
 

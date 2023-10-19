@@ -25,10 +25,9 @@ export default {
 <style lang="less" scoped>
 .container {
   height: 100%;
-
-  padding: 16px 20px;
-  padding-bottom: 0;
+  padding: 15px 20px 5px 20px;
   display: flex;
+  border-radius: 5px;
 }
 
 .left-side {
