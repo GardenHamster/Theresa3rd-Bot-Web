@@ -129,7 +129,7 @@ p.ref {
 .login-background {
   width: 100%;
   overflow: auto;
-  background: url('../../assets/images/login/background.jpg') 70% 50% / cover fixed;
+  background: url('../../assets/images/login/80391469_p1.png') 70% 50% / cover fixed;
   height: 100vh;
   z-index: -1;
 }
