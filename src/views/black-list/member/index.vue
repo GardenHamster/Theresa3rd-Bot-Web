@@ -19,15 +19,12 @@
       <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.tag']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
-          <a-select @change="groupChange" v-model.number="selectedGroup" :options="groupOptions"
-            :style="{ minWidth: '200px' }" placeholder="Please select ..." :loading="groupLoading" allow-search>
-            <a-option :value="0">全部</a-option>
-          </a-select>
-          <a-popconfirm @ok="unsubscribe" content="将为所有群退订被选中的订阅，是否继续？" type="warning" position="br">
-            <a-button type="primary">退订选中</a-button>
+          <a-popconfirm @ok="delMembers" content="确定将选中的成员从黑名单中移除？" type="warning" position="br">
+            <a-button type="primary">删除选中</a-button>
           </a-popconfirm>
+          <a-button type="primary">添加成员</a-button>
         </a-space>
-        <a-table row-key="id" :columns="columnDatas" :data="subscribeList" :filter-icon-align-left="true"
+        <a-table row-key="id" :data="memberList" :columns="columns" :filter-icon-align-left="true"
           :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
           v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading">
           <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
@@ -62,28 +59,20 @@
 import { computed, ref, h } from 'vue';
 import { IconSearch } from '@arco-design/web-vue/es/icon';
 import useLoading from '@/hooks/loading';
-import { useGroupStore } from '@/store';
-import { getPixivUserSubscribe, deleteSubscribe } from '@/api/subscribe';
-import { GroupInfo } from '@/store/modules/group/types';
-import type { SubscribeData } from '@/api/subscribe';
+import { getBanMembers, addBanMember, delBanMember } from '@/api/black-list';
+import type { BanMemberData, AddMemberParam } from '@/api/black-list';
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
-import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { Message } from '@arco-design/web-vue';
-import { List } from 'linqts';
 
-let groupLoading = false;
 const selectedKeys = ref<number[]>([]);
-const selectedGroup = ref<number>(0);
 const pagination = { pageSize: 50 };
-const groupStore = useGroupStore();
 const { loading, setLoading } = useLoading();
-const subscribeList = ref<SubscribeData[]>([]);
-const groupOptions = ref<SelectOptionData[]>([]);
+const memberList = ref<BanMemberData[]>([]);
 
 const columns: TableColumnData[] = [
   {
-    title: '画师ID',
-    dataIndex: 'subscribeCode',
+    title: 'QQ号',
+    dataIndex: 'memberId',
     ellipsis: true,
     tooltip: true,
     sortable: {
@@ -96,31 +85,8 @@ const columns: TableColumnData[] = [
     }
   },
   {
-    title: '画师名称',
-    dataIndex: 'subscribeName',
-    ellipsis: true,
-    tooltip: true,
-    sortable: {
-      sortDirections: ['ascend', 'descend']
-    },
-    filterable: {
-      filter: (value: any, record: any) => record.subscribeName.includes(value),
-      slotName: 'name-filter',
-      icon: () => h(IconSearch)
-    }
-  },
-  {
-    title: '目标群',
-    dataIndex: 'subscribeGroup',
-    ellipsis: true,
-    tooltip: true,
-    sortable: {
-      sortDirections: ['ascend', 'descend']
-    }
-  },
-  {
-    title: '订阅日期',
-    dataIndex: 'subscribeDate',
+    title: '添加日期',
+    dataIndex: 'createDate',
     ellipsis: true,
     tooltip: true,
     sortable: {
@@ -129,30 +95,11 @@ const columns: TableColumnData[] = [
   }
 ];
 
-const columnDatas = computed(() => {
-  if (window.innerWidth < 250) {
-    return [columns[1]];
-  }
-  if (window.innerWidth < 400) {
-    return [columns[1], columns[2]]
-  }
-  if (window.innerWidth < 550) {
-    return [columns[0], columns[1], columns[2]]
-  }
-  return [...columns];
-});
-
-const fetchSubscribes = async (groupId = 0) => {
+const fetchMembers = async () => {
   try {
     setLoading(true);
-    const groupInfos = await groupStore.loadGroupInfos();
-    const subscribeDatas = await getPixivUserSubscribe() as unknown as SubscribeData[];
-    for (let index = 0; index < subscribeDatas.length; index += 1) {
-      const data = subscribeDatas[index];
-      const groupName = new List<GroupInfo>(groupInfos).Where((o) => o?.groupId === data.groupId).FirstOrDefault()?.groupName ?? data.groupId;
-      data.subscribeGroup = data.groupId === 0 ? '订阅可用群' : `${groupName}(${data.groupId})`;
-    }
-    subscribeList.value = groupId === 0 ? subscribeDatas : new List<SubscribeData>(subscribeDatas).Where(o => o?.groupId === groupId).ToArray();
+    const banMembers = await getBanMembers() as unknown as BanMemberData[];
+    memberList.value = banMembers;
   } catch (error) {
     console.log(error);
   } finally {
@@ -160,36 +107,15 @@ const fetchSubscribes = async (groupId = 0) => {
   }
 };
 
-const fetchGroups = async () => {
-  try {
-    groupLoading = true;
-    groupOptions.value = await groupStore.loadGroupOptions();
-  } catch (error) {
-    console.log(error);
-  } finally {
-    groupLoading = false;
-  }
-};
-
-const groupChange = async () => {
-  try {
-    await fetchSubscribes(selectedGroup.value);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const unsubscribe = async () => {
+const delMembers = async () => {
   try {
     setLoading(true);
-    console.log('selectedKeys.value', selectedKeys.value);
     const selectedIds = selectedKeys.value;
     if (!selectedIds || selectedIds.length === 0) {
       Message.error({ content: '请至少选择一条记录' });
       return;
     }
-    await deleteSubscribe(selectedIds);
-    subscribeList.value = new List<SubscribeData>(subscribeList.value).Where(o => !selectedIds.includes(o!.id)).ToArray();
+    await delBanMember(selectedIds);
     selectedKeys.value.length = 0;
     Message.success('退订成功');
   } catch (error) {
@@ -200,12 +126,14 @@ const unsubscribe = async () => {
   }
 };
 
-fetchSubscribes();
-fetchGroups();
+fetchMembers();
 </script>
 
 <script lang="ts">
 export default {
-  name: 'PixivUserSubscribe',
+  name: 'MemberBlackList',
 };
 </script>
+
+
+

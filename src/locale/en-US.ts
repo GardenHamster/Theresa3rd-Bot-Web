@@ -14,6 +14,8 @@ export default {
   'menu.subscribe.pixiv.user': 'Pixiv User Subscription',
   'menu.subscribe.pixiv.tag': 'Pixiv Tag Subscription',
   'menu.subscribe.miyoushe.user': 'Miyoushe User Subscription',
+  'menu.blacklist': 'Blacklist',
+  'menu.blacklist.member': 'Member Blacklist',
   'menu.botWebsite': 'Bot Docs',
   'menu.server.dashboard': 'Dashboard-Server',
   'menu.server.workplace': 'Workplace-Server',

@@ -1,3 +1,18 @@
+<style scoped lang="less">
+.custom-filter {
+  padding: 20px;
+  background: var(--color-bg-5);
+  border: 1px solid var(--color-neutral-3);
+  border-radius: var(--border-radius-medium);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+}
+
+.custom-filter-footer {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
+
 <template>
   <div class="container">
     <a-card class="card">
@@ -170,7 +185,7 @@ const unsubscribe = async () => {
     console.log('selectedKeys.value', selectedKeys.value);
     const selectedIds = selectedKeys.value;
     if (!selectedIds || selectedIds.length === 0) {
-      Message.error({ content: '请至少选择一个项目' });
+      Message.error({ content: '请至少选择一条记录' });
       return;
     }
     await deleteSubscribe(selectedIds);
@@ -189,17 +204,8 @@ fetchSubscribes();
 fetchGroups();
 </script>
 
-<style scoped lang="less">
-.custom-filter {
-  padding: 20px;
-  background: var(--color-bg-5);
-  border: 1px solid var(--color-neutral-3);
-  border-radius: var(--border-radius-medium);
-  box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
-}
-
-.custom-filter-footer {
-  display: flex;
-  justify-content: space-between;
-}
-</style>
+<script lang="ts">
+export default {
+  name: 'MiyousheUserSubscribe',
+};
+</script>
