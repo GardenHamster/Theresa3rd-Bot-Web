@@ -33,50 +33,66 @@
 
         <a-tabs default-active-key="1">
           <a-tab-pane key="1" title="Cookie更新">
-            <a-form-item field="pixivCookieCommands" label="Pixiv" tooltip="更新Pixiv Cookie指令，需要私聊使用" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.pixivCookieCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+            <a-form-item field="pixivCookieCommands" label="Pixiv" tooltip="更新Pixiv Cookie指令，需要私聊使用"
+              extra="输入一个指令后按下Enter添加" feedback>
+              <a-input-tag v-model:model-value="formModel.pixivCookieCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
 
-            <a-form-item field="saucenaoCookieCommands" label="Saucenao" tooltip="更新Saucenao Cookie指令，需要私聊使用" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.saucenaoCookieCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+            <a-form-item field="saucenaoCookieCommands" label="Saucenao" tooltip="更新Saucenao Cookie指令，需要私聊使用"
+              extra="输入一个指令后按下Enter添加" feedback>
+              <a-input-tag v-model:model-value="formModel.saucenaoCookieCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="2" title="黑名单">
-            <a-form-item field="disableMemberCommands" label="拉黑成员" tooltip="将一个群员拉入黑名单，忽略该成员发送的所有指令" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.disableMemberCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+            <a-form-item field="disableMemberCommands" label="拉黑成员" tooltip="将一个群员拉入黑名单，忽略该成员发送的所有指令"
+              extra="输入一个指令后按下Enter添加" feedback>
+              <a-input-tag v-model:model-value="formModel.disableMemberCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
 
-            <a-form-item field="enableMemberCommands" label="解禁成员" tooltip="将一个群员从黑名单中移除，使其可以继续使用指令" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.enableMemberCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+            <a-form-item field="enableMemberCommands" label="解禁成员" tooltip="将一个群员从黑名单中移除，使其可以继续使用指令"
+              extra="输入一个指令后按下Enter添加" feedback>
+              <a-input-tag v-model:model-value="formModel.enableMemberCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
 
-            <a-form-item field="disableTagCommands" label="屏蔽标签" tooltip="屏蔽一个涩图标签，屏蔽后不允许被搜索，并且不会推送该作品" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.disableTagCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+            <a-form-item field="disableTagCommands" label="屏蔽标签" tooltip="屏蔽一个涩图标签，屏蔽后不允许被搜索，并且不会推送该作品"
+              extra="输入一个指令后按下Enter添加" feedback>
+              <a-input-tag v-model:model-value="formModel.disableTagCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
 
             <a-form-item field="enableTagCommands" label="解禁标签" tooltip="取消屏蔽一个涩图标签" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.enableTagCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+              <a-input-tag v-model:model-value="formModel.enableTagCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="3" title="订阅管理">
             <a-form-item field="listSubCommands" label="查询订阅" tooltip="列出所在群中的所有订阅信息" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.listSubCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+              <a-input-tag v-model:model-value="formModel.listSubCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
 
             <a-form-item field="removeSubCommands" label="取消订阅" tooltip="通过订阅Id移除一个订阅" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.removeSubCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+              <a-input-tag v-model:model-value="formModel.removeSubCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
           </a-tab-pane>
 
           <a-tab-pane key="4" title="标签绑定">
-            <a-form-item field="bindTagCommands" label="绑定标签" tooltip="将一个或多个Pixiv标签绑定到一个或多个关键词中，使用该关键词可以直接搜索与之绑定的Pixiv标签" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.bindTagCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+            <a-form-item field="bindTagCommands" label="绑定标签" tooltip="将一个或多个Pixiv标签绑定到一个或多个关键词中，使用该关键词可以直接搜索与之绑定的Pixiv标签"
+              extra="输入一个指令后按下Enter添加" feedback>
+              <a-input-tag v-model:model-value="formModel.bindTagCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
 
             <a-form-item field="unBindTagCommands" label="解绑标签" tooltip="解除关键词绑定" extra="输入一个指令后按下Enter添加" feedback>
-              <a-input-tag v-model:model-value="formModel.unBindTagCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+              <a-input-tag v-model:model-value="formModel.unBindTagCommands" :style="{ minHeight: '100px' }"
+                placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
           </a-tab-pane>
         </a-tabs>
@@ -130,7 +146,6 @@ const onSubmit = async () => {
 const onReset = async () => {
   try {
     setLoading(true);
-    console.log('formModel', formModel.value);
     formModel.value = { ...initModel.value };
     Message.info({ content: '重置完毕', position: 'top' });
   } catch (error) {

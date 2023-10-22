@@ -3,6 +3,7 @@ import axios from 'axios';
 export interface BanMemberData {
     id: number;
     memberId: number;
+    createAt: number;
     createDate: string;
 }
 
@@ -15,6 +16,10 @@ export interface BanTagData {
 }
 
 export interface AddMemberParam {
+    memberId: string;
+}
+
+export interface AddTagParam {
     keyword: string;
     tagMatchType: number;
 }
@@ -27,8 +32,8 @@ export function getBanTags() {
     return axios.get<BanTagData[]>('/api/blacklist/list/tag');
 }
 
-export function addBanMember(memberId: number) {
-    return axios.post<any>('/api/blacklist/add/member', memberId);
+export function addBanMember(param: AddMemberParam) {
+    return axios.post<any>('/api/blacklist/add/member', param);
 }
 
 export function addBanTag(param: AddMemberParam) {

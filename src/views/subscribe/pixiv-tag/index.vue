@@ -29,7 +29,7 @@
         </a-space>
         <a-table row-key="id" :columns="columnDatas" :data="subscribeList" :filter-icon-align-left="true"
           :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
-          v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading">
+          v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" only-current>
           <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
             <div class="custom-filter">
               <a-space direction="vertical">

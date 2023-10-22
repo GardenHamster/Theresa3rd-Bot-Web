@@ -171,7 +171,6 @@ const onSubmit = async () => {
 const onReset = async () => {
   try {
     setLoading(true);
-    console.log('formModel', formModel.value);
     formModel.value = { ...initModel.value };
     Message.info({ content: '重置完毕', position: 'top' });
   } catch (error) {

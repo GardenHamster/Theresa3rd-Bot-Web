@@ -5,36 +5,27 @@
         <a-avatar :size="54" class="col-avatar">
           <img alt="avatar" :src="face05" />
         </a-avatar>
-        <clock title="运行时间" :value="runTime"/>
+        <clock title="运行时间" :value="runTime" />
       </a-space>
     </a-grid-item>
 
-     <a-grid-item :span="gridSpan">
+    <a-grid-item :span="gridSpan">
       <a-space>
         <a-avatar :size="54" class="col-avatar">
           <img alt="avatar" :src="face06" />
         </a-avatar>
-        <a-statistic
-          title="累计处理指令"
-          :value="114514"
-          :value-from="0"
-          animation>
+        <a-statistic title="累计处理指令" :value="114514" :value-from="0" animation>
           <template #suffix><span class="unit">次</span></template>
         </a-statistic>
       </a-space>
     </a-grid-item>
-    
+
     <a-grid-item :span="gridSpan">
       <a-space>
         <a-avatar :size="54" class="col-avatar">
           <img alt="avatar" :src="face04" />
         </a-avatar>
-        <a-statistic
-          title="累计扫描作品"
-          :value="368"
-          :value-from="0"
-          animation
-          show-group-separator>
+        <a-statistic title="累计扫描作品" :value="368" :value-from="0" animation show-group-separator>
           <template #suffix><span class="unit">次</span></template>
         </a-statistic>
       </a-space>
@@ -45,12 +36,7 @@
         <a-avatar :size="54" class="col-avatar">
           <img alt="avatar" :src="face07" />
         </a-avatar>
-        <a-statistic
-          title="扫描错误次数"
-          :value="1"
-          :value-from="0"
-          animation
-          show-group-separator>
+        <a-statistic title="扫描错误次数" :value="1" :value-from="0" animation show-group-separator>
           <template #suffix><span class="unit">次</span></template>
         </a-statistic>
       </a-space>

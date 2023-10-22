@@ -47,10 +47,6 @@ body,
   padding: 0px;
 }
 
-.arco-layout.mobile .arco-card-body {
-  padding: 5px;
-}
-
 .arco-textarea-mirror {
   height: 100%;
 }
@@ -66,7 +62,21 @@ body,
   padding-right: 10px;
 }
 
+.arco-modal .arco-form-item-label-col {
+  min-width: 80px;
+}
+
+.mobile .arco-modal-body {
+  padding: 24px 5px;
+}
+
 .arco-select-view-tag {
   white-space: nowrap !important;
+}
+
+.arco-modal {
+  width: 50%;
+  min-width: 300px;
+  max-width: 500px;
 }
 </style>

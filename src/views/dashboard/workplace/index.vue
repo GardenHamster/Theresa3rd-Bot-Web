@@ -57,7 +57,7 @@ export default {
   height: 100%;
   overflow: auto;
   background-color: #fff;
-  opacity: .75;
+  opacity: .85;
   z-index: 1;
 }
 

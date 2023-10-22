@@ -14,7 +14,7 @@ export default {
   'menu.subscribe.pixiv.user': '画师订阅',
   'menu.subscribe.pixiv.tag': '标签订阅',
   'menu.subscribe.miyoushe.user': '米游社订阅',
-  'menu.blacklist': '黑名单',
+  'menu.blacklist': '黑名单管理',
   'menu.blacklist.member': '屏蔽成员',
   'menu.botWebsite': 'Bot文档',
   'menu.server.dashboard': '仪表盘-服务端',
