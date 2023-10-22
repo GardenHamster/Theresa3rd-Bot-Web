@@ -16,6 +16,7 @@ export default {
   'menu.subscribe.miyoushe.user': '米游社订阅',
   'menu.blacklist': '黑名单管理',
   'menu.blacklist.member': '屏蔽成员',
+  'menu.blacklist.pixivtag': '屏蔽标签',
   'menu.botWebsite': 'Bot文档',
   'menu.server.dashboard': '仪表盘-服务端',
   'menu.server.workplace': '工作台-服务端',

@@ -16,6 +16,7 @@ export default {
   'menu.subscribe.miyoushe.user': 'Miyoushe User Subscription',
   'menu.blacklist': 'Blacklist',
   'menu.blacklist.member': 'Member Blacklist',
+  'menu.blacklist.pixivtag': 'PixivTag Blacklist',
   'menu.botWebsite': 'Bot Docs',
   'menu.server.dashboard': 'Dashboard-Server',
   'menu.server.workplace': 'Workplace-Server',

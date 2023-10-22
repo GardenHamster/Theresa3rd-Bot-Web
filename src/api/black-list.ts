@@ -36,7 +36,7 @@ export function addBanMember(param: AddMemberParam) {
     return axios.post<any>('/api/blacklist/add/member', param);
 }
 
-export function addBanTag(param: AddMemberParam) {
+export function addBanTag(param: AddTagParam) {
     return axios.post<any>('/api/blacklist/add/tag', param);
 }
 
