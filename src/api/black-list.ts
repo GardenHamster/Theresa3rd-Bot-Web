@@ -9,7 +9,7 @@ export interface BanMemberData {
 
 export interface BanTagData {
     id: number;
-    keyWord: string;
+    keyword: string;
     fullMatch: boolean;
     isRegular: boolean;
     createDate: string;

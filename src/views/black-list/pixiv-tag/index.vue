@@ -24,7 +24,7 @@
           </a-popconfirm>
           <a-button type="outline" @click="handleAddTag">添加标签</a-button>
         </a-space>
-        <a-table row-key="id" :data="tagList" :columns="columns" :filter-icon-align-left="true"
+        <a-table row-key="id" :data="tagList" :columns="columnDatas" :filter-icon-align-left="true"
           :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
           v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" only-current>
           <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
@@ -55,13 +55,12 @@
     <a-modal v-model:visible="formVisible" title="添加屏蔽标签" @cancel="handleCancel" @before-ok="handleBeforeOk"
       @ok="handleOk">
       <a-form ref="formRef" layout="horizontal" size="small" :auto-label-width="true" :model="formModel">
-        <a-form-item field="keyWord" label="屏蔽标签" :rules="[{ required: true, message: '必须输入一个标签' }]" show-colon feedback>
+        <a-form-item field="keyword" label="屏蔽标签" :rules="[{ required: true, message: '必须输入一个标签' }]" show-colon feedback>
           <a-input v-model:model-value="formModel.keyword" placeholder="输入一个标签" allow-clear />
         </a-form-item>
         <a-form-item field="tagMatchType" label="匹配模式" :rules="[{ required: true, message: '必须选择一个模式' }]" show-colon
           feedback>
-          <a-select v-model:model-value="formModel.tagMatchType" placeholder="选择一个模式">
-            <a-option :value="0">0</a-option>
+          <a-select v-model:model-value="formModel.tagMatchType" :loading="optionLoading" :options="matchOptions" placeholder="选择一个模式">
           </a-select>
         </a-form-item>
       </a-form>
@@ -70,26 +69,32 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import useLoading from '@/hooks/loading';
+import { useOptionStore } from '@/store';
 import { getBanTags, addBanTag, delBanTag } from '@/api/black-list';
 import type { BanTagData, AddTagParam } from '@/api/black-list';
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
+import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { Message } from '@arco-design/web-vue';
+import dayjs from 'dayjs';
 import { List } from 'linqts';
 
 const formRef = ref();
+const optionLoading = ref<boolean>(false);
 const formVisible = ref<boolean>(false);
 const selectedKeys = ref<number[]>([]);
 const pagination = { pageSize: 50 };
+const optionStore = useOptionStore();
 const { loading, setLoading } = useLoading();
 const tagList = ref<BanTagData[]>([]);
 const formModel = ref<AddTagParam>({ keyword: '', tagMatchType: 0 });
+const matchOptions = ref<SelectOptionData[]>([]);
 
 const columns: TableColumnData[] = [
   {
     title: '标签',
-    dataIndex: 'keyWord',
+    dataIndex: 'keyword',
     ellipsis: true,
     tooltip: true
   },
@@ -97,21 +102,38 @@ const columns: TableColumnData[] = [
     title: '全词匹配',
     dataIndex: 'fullMatch',
     ellipsis: true,
-    tooltip: true
+    tooltip: true,
+    render: (record) => record.record.fullMatch ? '是' : '否'
   },
   {
     title: '正则匹配',
-    dataIndex: 'fullMatch',
+    dataIndex: 'isRegular',
     ellipsis: true,
-    tooltip: true
+    tooltip: true,
+    render: (record) => record.record.isRegular ? '是' : '否'
   },
   {
     title: '添加日期',
-    dataIndex: 'createDate',
+    dataIndex: 'createAt',
     ellipsis: true,
-    tooltip: true
+    tooltip: true,
+    render: (record) => dayjs.unix(record.record.createAt).format('YYYY-MM-DD HH:mm:ss')
   },
 ];
+
+const columnDatas = computed(() => {
+  if (window.innerWidth < 250) {
+    return [columns[1]];
+  }
+  if (window.innerWidth < 400) {
+    return [columns[1], columns[2]]
+  }
+  if (window.innerWidth < 450) {
+    return [columns[0], columns[1], columns[2]]
+  }
+  return [...columns];
+});
+
 const handleAddTag = async () => {
   formVisible.value = true;
 }
@@ -124,10 +146,10 @@ const handleCancel = async () => {
 const handleBeforeOk = async () => {
   const result = await formRef.value?.validate();
   if (result) return false;
-  const isExists = new List<BanTagData>(tagList.value).Any(o => o?.keyWord === formModel.value.keyword);
+  const isExists = new List<BanTagData>(tagList.value).Any(o => o?.keyword === formModel.value.keyword);
   if (isExists) {
     formRef.value.setFields({
-      keyWord: {
+      keyword: {
         status: 'error',
         message: '该标签已添加'
       }
@@ -149,12 +171,24 @@ const fetchTags = async () => {
   }
 };
 
+const fetchMatchOptions = async () => {
+  try {
+    optionLoading.value = true;
+    matchOptions.value = await optionStore.loadTagMatchOptions();
+  } catch (error) {
+    console.log(error);
+  } finally {
+    optionLoading.value = false;
+  }
+};
+
 const handleOk = async () => {
   try {
     setLoading(true);
     await addBanTag(formModel.value);
     await fetchTags();
     Message.success({ content: '添加成功', position: 'top' });
+    formRef.value?.resetFields();
   } catch (error) {
     console.log(error);
     Message.error({ content: '添加失败', position: 'top' });
@@ -185,6 +219,7 @@ const delTags = async () => {
 };
 
 fetchTags();
+fetchMatchOptions();
 </script>
 
 <script lang="ts">

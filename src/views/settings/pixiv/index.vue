@@ -39,7 +39,7 @@
           </a-switch>
         </a-form-item>
 
-        <a-form-item field="httpProxy" label="Http代理" tooltip="Pixiv代理地址，值为空时使用本地代理，免代理模式启用后失效，格式：http://127.0.0.1:7890"
+        <a-form-item field="httpProxy" label="网络代理" tooltip="Pixiv代理地址，值为空时使用本地代理，免代理模式启用后失效，格式：http://127.0.0.1:7890"
           feedback>
           <a-input v-model:model-value="formModel.httpProxy" placeholder="输入一个Http/Https地址" allow-clear />
         </a-form-item>

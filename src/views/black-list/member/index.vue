@@ -73,6 +73,7 @@ import type { BanMemberData, AddMemberParam } from '@/api/black-list';
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
 import { Message } from '@arco-design/web-vue';
 import { List } from 'linqts';
+import dayjs from 'dayjs';
 
 const formRef = ref();
 const formVisible = ref<boolean>(false);
@@ -91,9 +92,10 @@ const columns: TableColumnData[] = [
   },
   {
     title: '添加日期',
-    dataIndex: 'createDate',
+    dataIndex: 'createAt',
     ellipsis: true,
-    tooltip: true
+    tooltip: true,
+    render: (record) => dayjs.unix(record.record.createAt).format('YYYY-MM-DD HH:mm:ss')
   }
 ];
 const handleAddMember = async () => {
@@ -139,6 +141,7 @@ const handleOk = async () => {
     await addBanMember(formModel.value);
     await fetchMembers();
     Message.success({ content: '添加成功', position: 'top' });
+    formRef.value?.resetFields();
   } catch (error) {
     console.log(error);
     Message.error({ content: '添加失败', position: 'top' });

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getResendOptions, getImgSizes } from '@/api/option';
+import { getResendOptions, getImgSizes, getTagMatchOptions } from '@/api/option';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { OptionState, OptionInfo } from './types';
 
@@ -43,6 +43,16 @@ const useOptionStore = defineStore('option', {
     },
     async loadResendOptions(): Promise<SelectOptionData[]> {
       const optionInfos = await this.loadResendInfos();
+      return infoToOptions(optionInfos);
+    },
+    async loadTagMatchInfos(): Promise<OptionInfo[]> {
+      if (this.tagMatchOptions) return this.tagMatchOptions;
+      const optionInfos = (await getTagMatchOptions()) as unknown as OptionInfo[];
+      this.tagMatchOptions = optionInfos;
+      return optionInfos;
+    },
+    async loadTagMatchOptions(): Promise<SelectOptionData[]> {
+      const optionInfos = await this.loadTagMatchInfos();
       return infoToOptions(optionInfos);
     },
   },

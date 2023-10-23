@@ -8,3 +8,7 @@ export function getImgSizes() {
 export function getResendOptions() {
   return axios.get<OptionInfo[]>('/api/option/list/resend');
 }
+
+export function getTagMatchOptions() {
+  return axios.get<OptionInfo[]>('/api/option/list/tag/match');
+}

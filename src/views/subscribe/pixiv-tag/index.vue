@@ -19,7 +19,7 @@
       <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.tag']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
-          <a-select @change="groupChange" v-model.number="selectedGroup" :options="groupOptions"
+          <a-select @change="groupChange" v-model:model-value="selectedGroup" :options="groupOptions"
             :style="{ minWidth: '200px' }" placeholder="Please select ..." :loading="groupLoading" allow-search>
             <a-option :value="0">全部</a-option>
           </a-select>
@@ -70,8 +70,9 @@ import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { Message } from '@arco-design/web-vue';
 import { List } from 'linqts';
+import dayjs from 'dayjs';
 
-let groupLoading = false;
+const groupLoading = ref<boolean>(false);
 const selectedKeys = ref<number[]>([]);
 const selectedGroup = ref<number>(0);
 const pagination = { pageSize: 50 };
@@ -106,9 +107,10 @@ const columns: TableColumnData[] = [
   },
   {
     title: '订阅日期',
-    dataIndex: 'subscribeDate',
+    dataIndex: 'subscribeAt',
     ellipsis: true,
     tooltip: true,
+    render: (record) => dayjs.unix(record.record.subscribeAt).format('YYYY-MM-DD HH:mm:ss'),
     sortable: {
       sortDirections: ['ascend', 'descend']
     }
@@ -145,12 +147,12 @@ const fetchSubscribes = async (groupId = 0) => {
 
 const fetchGroups = async () => {
   try {
-    groupLoading = true;
+    groupLoading.value = true;
     groupOptions.value = await groupStore.loadGroupOptions();
   } catch (error) {
     console.log(error);
   } finally {
-    groupLoading = false;
+    groupLoading.value = false;
   }
 };
 
