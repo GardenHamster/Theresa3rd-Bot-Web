@@ -1,13 +1,14 @@
 <style scoped lang="less">
 .container {
+  height: 100%;
   margin-bottom: 50px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .card {
   padding-bottom: 25px;
   position: relative;
-  overflow: auto;
+  overflow: visible;
 }
 
 .actions {
@@ -23,7 +24,8 @@
 
 <template>
   <div class="container">
-    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true" :model="formModel">
+    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true"
+      :model="formModel">
       <a-card class="card">
 
         <save-warning :initModel="initModel" :formModel="formModel" />
@@ -43,7 +45,8 @@
         </a-form-item>
 
         <a-form-item field="repeatMode" label="复读模式" tooltip="复读模式" :disabled="!formModel.enable" feedback>
-          <a-select v-model:model-value="formModel.repeatMode" :style="{ maxWidth: '300px' }" placeholder="选择一个模式" :scrollbar="true">
+          <a-select v-model:model-value="formModel.repeatMode" :style="{ maxWidth: '300px' }" placeholder="选择一个模式"
+            :scrollbar="true">
             <a-option :value="0">普通模式</a-option>
           </a-select>
         </a-form-item>

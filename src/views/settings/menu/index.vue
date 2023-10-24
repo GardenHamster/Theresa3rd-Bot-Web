@@ -1,13 +1,14 @@
 <style scoped lang="less">
 .container {
+  height: 100%;
   margin-bottom: 50px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .card {
   padding-bottom: 25px;
   position: relative;
-  overflow: auto;
+  overflow: visible;
 }
 
 .actions {
@@ -23,7 +24,8 @@
 
 <template>
   <div class="container">
-    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true" :model="formModel">
+    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true"
+      :model="formModel">
       <a-card class="card">
 
         <save-warning :initModel="initModel" :formModel="formModel" />
@@ -37,12 +39,14 @@
           </a-switch>
         </a-form-item>
 
-        <a-form-item field="commands" label="指令" tooltip="菜单指令" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
-          <a-input-tag v-model:model-value="formModel.commands" :style="{ minHeight: '100px' }"
-            placeholder="输入指令后按下回车添加" allow-clear />
+        <a-form-item field="commands" label="指令" tooltip="菜单指令" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable"
+          feedback>
+          <a-input-tag v-model:model-value="formModel.commands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加"
+            allow-clear />
         </a-form-item>
 
-        <a-form-item field="template" label="模版" tooltip="自定义菜单内容" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
+        <a-form-item field="template" label="模版" tooltip="自定义菜单内容" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable"
+          feedback>
           <preview-textarea v-model:model-value="formModel.template" :facePaths="facePaths" placeholder="模版为空时将使用自动生成" />
         </a-form-item>
 

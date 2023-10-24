@@ -1,13 +1,14 @@
 <style scoped lang="less">
 .container {
+  height: 100%;
   margin-bottom: 50px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .card {
   padding-bottom: 25px;
   position: relative;
-  overflow: auto;
+  overflow: visible;
 }
 
 .actions {

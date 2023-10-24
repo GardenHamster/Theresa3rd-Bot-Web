@@ -13,7 +13,7 @@
     box-sizing: border-box;
     gap: 10px;
     position: absolute;
-    z-index: 100;
+    z-index: 10000;
     background-color: white;
 }
 
@@ -44,7 +44,7 @@
             type="textarea" :placeholder="placeholder" @focus="onFocus" @blur="onBlur" auto-size allow-clear />
         <transition name="preview">
             <p class="preview" v-show="preview">
-                <template v-for="( content, index ) in  contents  " :key="index">
+                <template v-for="(content, index) in contents" :key="index">
                     <span v-if="(content.type === PreviewType.Text)">{{ (content.value as PreviewText).text }}</span>
                     <a-image v-if="(content.type === PreviewType.Image)" width="100" :src="getImgHttpUrl(content)" />
                 </template>
@@ -93,8 +93,14 @@ const getImgHttpUrl = function (content: PreviewContent): string {
     return getFaceHttpUrl(path);
 }
 
+const initAnalysis = async () => {
+    contents.value = await analysis(props.facePaths, props.modelValue);
+}
+
 watch(modelValue, async (newValue) => {
     contents.value = await analysis(props.facePaths, newValue);
 });
+
+initAnalysis();
 
 </script>

@@ -1,13 +1,14 @@
 <style scoped lang="less">
 .container {
+  height: 100%;
   margin-bottom: 50px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .card {
-  position: relative;
-  overflow: auto;
   margin-bottom: 5px;
+  position: relative;
+  overflow: visible;
 }
 
 .actions {
@@ -30,11 +31,17 @@
   font-size: 16px;
   color: rgb(var(--primary-6));
 }
+
+.delCard {
+  cursor: pointer;
+  padding: 10px;
+}
 </style>
 
 <template>
   <div class="container">
-    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true" :model="formModel">
+    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true"
+      :model="formModel">
 
       <a-card class="card">
         <save-warning :initModel="initModel" :formModel="formModel" />
@@ -45,22 +52,26 @@
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
-        <a-form-item field="template" label="默认模版" tooltip="自定义欢迎模版" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
+        <a-form-item field="template" label="默认模版" tooltip="自定义欢迎模版" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable"
+          :rules="[{ required: true, message: '必须输入内容' }]" feedback>
           <preview-textarea v-model:model-value="formModel.template" :facePaths="facePaths" />
         </a-form-item>
       </a-card>
 
-      <a-card class="card" v-for="(item, index) in formModel.specials" :key="index" title="特殊模版">
-        <a-form-item field="groupIds" label="指定群" tooltip="指定使用该模版的群" :disabled="!formModel.enable" feedback>
+      <a-card class="card" v-for="(item, index) of formModel.specials" :key="index" title="指定模版">
+        <template #extra><span class="delCard">删除</span></template>
+        <a-form-item :field="`specials[${index}].groupIds`" label="指定群" tooltip="指定使用该模版的群" :disabled="!formModel.enable"
+          :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
           <group-select v-model:model-value="item.groupIds" :options="groupOptions" select-all />
         </a-form-item>
-        <a-form-item field="template" label="指定模版" tooltip="自定义欢迎模版" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
+        <a-form-item :field="`specials[${index}].template`" label="指定模版" tooltip="自定义欢迎模版" extra="输入“[”可以快速插入图片码"
+          :disabled="!formModel.enable" :rules="[{ required: true, message: '必须输入内容' }]" feedback>
           <preview-textarea v-model:model-value="item.template" :facePaths="facePaths" />
         </a-form-item>
       </a-card>
 
       <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }">
-        <p class="addTemp"><icon-plus-circle-fill/>点击添加一套模版</p>
+        <p class="addTemp"><icon-plus-circle-fill />点击添加一套模版</p>
       </a-card>
 
       <div class="actions">
