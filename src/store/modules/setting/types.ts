@@ -3,6 +3,9 @@ export interface SettingState {
   pixivSetting?: PixivSetting;
   permissionsSetting?: PermissionsSetting;
   manageSetting?: ManageSetting;
+  menuSetting?: MenuSetting;
+  repeaterSetting?: RepeaterSetting;
+  welcomeSetting?: WelcomeSetting;
 }
 
 export interface GeneralSetting {
@@ -72,4 +75,27 @@ export interface ManageSetting {
   removeSubCommands?: string[];
   bindTagCommands?: string[];
   unBindTagCommands?: string[];
+}
+
+export interface MenuSetting {
+  enable?: boolean;
+  commands?: string[];
+  template?: string;
+}
+
+export interface RepeaterSetting {
+  enable?: boolean;
+  repeatTime?: number;
+  repeatMode?: number;
+}
+
+export interface WelcomeSetting {
+  enable?: boolean;
+  template?: string;
+  specials?: WelcomeSpecial[];
+}
+
+export interface WelcomeSpecial {
+  groupIds?: number[];
+  template?: string;
 }

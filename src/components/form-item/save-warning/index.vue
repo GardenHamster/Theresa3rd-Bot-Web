@@ -1,6 +1,7 @@
 <style scoped lang="less">
 .alert {
     position: absolute;
+    z-index: 10;
     left: 0;
 }
 </style>

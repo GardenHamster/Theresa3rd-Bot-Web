@@ -56,6 +56,39 @@ const Settings: AppRouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: 'menu',
+      name: 'MenuSetting',
+      component: () => import('@/views/settings/menu/index.vue'),
+      meta: {
+        locale: 'menu.settings.menu',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
+    {
+      path: 'repeater',
+      name: 'repeaterSetting',
+      component: () => import('@/views/settings/repeater/index.vue'),
+      meta: {
+        locale: 'menu.settings.repeater',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
+    {
+      path: 'welcome',
+      name: 'WelcomeSetting',
+      component: () => import('@/views/settings/welcome/index.vue'),
+      meta: {
+        locale: 'menu.settings.welcome',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
   ],
 };
 

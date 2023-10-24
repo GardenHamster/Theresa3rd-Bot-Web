@@ -1,5 +1,4 @@
 import localeMessageBox from '@/components/message-box/locale/zh-CN';
-import localeLogin from '@/views/login/locale/zh-CN';
 import localeWorkplace from '@/views/dashboard/workplace/locale/zh-CN';
 import localeSettings from './zh-CN/settings';
 
@@ -10,6 +9,9 @@ export default {
   'menu.settings.pixiv': 'Pixiv配置',
   'menu.settings.permissions': '权限配置',
   'menu.settings.manage': '管理指令',
+  'menu.settings.menu': '菜单配置',
+  'menu.settings.repeater': '复读配置',
+  'menu.settings.welcome': '入群欢迎',
   'menu.subscribe': '订阅管理',
   'menu.subscribe.pixiv.user': '画师订阅',
   'menu.subscribe.pixiv.tag': '标签订阅',
@@ -36,6 +38,5 @@ export default {
   'button.restore': '还原',
   ...localeSettings,
   ...localeMessageBox,
-  ...localeLogin,
   ...localeWorkplace,
 };

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from '@/store/modules/setting/types';
+import { MenuSetting, RepeaterSetting, WelcomeSetting, WelcomeSpecial } from '@/store/modules/setting/types';
 
 export function getGeneralSetting() {
   return axios.get<GeneralSetting>('/api/config/get/general');
@@ -31,4 +32,28 @@ export function getManageSetting() {
 
 export function setManageSetting(setting: ManageSetting) {
   return axios.post<ManageSetting>('/api/config/set/manage', setting);
+}
+
+export function getMenuSetting() {
+  return axios.get<MenuSetting>('/api/config/get/menu');
+}
+
+export function setMenuSetting(setting: MenuSetting) {
+  return axios.post<MenuSetting>('/api/config/set/menu', setting);
+}
+
+export function getRepeaterSetting() {
+  return axios.get<RepeaterSetting>('/api/config/get/repeater');
+}
+
+export function setRepeaterSetting(setting: RepeaterSetting) {
+  return axios.post<RepeaterSetting>('/api/config/set/repeater', setting);
+}
+
+export function getWelcomeSetting() {
+  return axios.get<WelcomeSetting>('/api/config/get/welcome');
+}
+
+export function setWelcomeSetting(setting: WelcomeSetting) {
+  return axios.post<WelcomeSetting>('/api/config/set/welcome', setting);
 }

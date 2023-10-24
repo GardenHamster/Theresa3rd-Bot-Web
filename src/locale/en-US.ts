@@ -1,5 +1,4 @@
 import localeMessageBox from '@/components/message-box/locale/en-US';
-import localeLogin from '@/views/login/locale/en-US';
 import localeWorkplace from '@/views/dashboard/workplace/locale/en-US';
 import localeSettings from './en-US/settings';
 
@@ -10,6 +9,9 @@ export default {
   'menu.settings.pixiv': 'Pixiv Settings',
   'menu.settings.permissions': 'Permissions Settings',
   'menu.settings.manage': 'Manage Settings',
+  'menu.settings.menu': 'Menu Settings',
+  'menu.settings.repeater': 'Repeater Settings',
+  'menu.settings.welcome': 'Welcome Settings',
   'menu.subscribe': 'Subscription Management',
   'menu.subscribe.pixiv.user': 'Pixiv User Subscription',
   'menu.subscribe.pixiv.tag': 'Pixiv Tag Subscription',
@@ -36,6 +38,5 @@ export default {
   'button.restore': 'Restore',
   ...localeSettings,
   ...localeMessageBox,
-  ...localeLogin,
   ...localeWorkplace,
 };
