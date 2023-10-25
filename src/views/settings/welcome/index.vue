@@ -59,7 +59,11 @@
       </a-card>
 
       <a-card class="card" v-for="(item, index) of formModel.specials" :key="index" title="指定模版">
-        <template #extra><span class="delCard">删除</span></template>
+        <template #extra>
+          <a-popconfirm @ok="onDelete(index)" content="确定要删除这个模版吗？" type="warning" position="br">
+            <span class="delCard">删除</span>
+          </a-popconfirm>
+        </template>
         <a-form-item :field="`specials[${index}].groupIds`" label="指定群" tooltip="指定使用该模版的群" :disabled="!formModel.enable"
           :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
           <group-select v-model:model-value="item.groupIds" :options="groupOptions" select-all />
@@ -70,7 +74,7 @@
         </a-form-item>
       </a-card>
 
-      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }">
+      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }" @click="onCreate">
         <p class="addTemp"><icon-plus-circle-fill />点击添加一套模版</p>
       </a-card>
 
@@ -137,6 +141,14 @@ const onReset = async () => {
     setLoading(false);
   }
 };
+
+const onCreate = async () => {
+  formModel.value.specials?.push({});
+}
+
+const onDelete = async (index: number) => {
+  formModel.value.specials?.splice(index, 1)
+}
 
 const fetchFaces = async () => {
   try {
