@@ -27,14 +27,14 @@ const initJson = computed(() => {
     return JSON.stringify(initModel.value);
 })
 
-watch(formJson, (newJson, oldJson) => {
-    if (newJson === undefined) return;
-    if (oldJson === undefined) return;
-    if (newJson.length === 0) return;
-    if (oldJson.length === 0) return;
-    if (newJson === '{}') return;
-    if (oldJson === '{}') return;
-    saveWarning.value = newJson !== initJson.value;
+watch([formJson, initJson], ([newFormJson, newInitJson], [oldFormJson, oldInitJson]) => {
+    if (newFormJson === undefined) return;
+    if (newInitJson === undefined) return;
+    if (newFormJson.length === 0) return;
+    if (newInitJson.length === 0) return;
+    if (newFormJson === '{}') return;
+    if (newInitJson === '{}') return;
+    saveWarning.value = newFormJson !== newInitJson;
 }, { deep: true }
 )
 

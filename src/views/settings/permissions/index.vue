@@ -157,8 +157,7 @@ const onSubmit = async () => {
     }
     setLoading(true);
     await settingStore.savePermissionsSetting(formModel.value);
-    initModel.value = { ...formModel.value };
-    formModel.value = { ...formModel.value };
+    initModel.value = JSON.parse(JSON.stringify(formModel.value));
     Message.success({ content: '保存成功', position: 'top' });
   } catch (error) {
     console.log(error);
@@ -172,7 +171,7 @@ const onSubmit = async () => {
 const onReset = async () => {
   try {
     setLoading(true);
-    formModel.value = { ...initModel.value };
+    formModel.value = JSON.parse(JSON.stringify(initModel.value))
     Message.info({ content: '重置完毕', position: 'top' });
   } catch (error) {
     console.log(error);
@@ -192,8 +191,8 @@ const fetchGroups = async () => {
 
 const fetchSettings = async () => {
   try {
-    initModel.value = await settingStore.loadPermissionsSetting();
-    formModel.value = { ...initModel.value };
+    formModel.value = await settingStore.loadPermissionsSetting();
+    initModel.value = JSON.parse(JSON.stringify(formModel.value))
   } catch (error) {
     console.log(error);
   }
