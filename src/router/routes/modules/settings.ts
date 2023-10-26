@@ -89,6 +89,17 @@ const Settings: AppRouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: 'reminder',
+      name: 'ReminderSetting',
+      component: () => import('@/views/settings/reminder/index.vue'),
+      meta: {
+        locale: 'menu.settings.reminder',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
   ],
 };
 

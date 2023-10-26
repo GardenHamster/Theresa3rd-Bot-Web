@@ -6,6 +6,7 @@ export interface SettingState {
   menuSetting?: MenuSetting;
   repeaterSetting?: RepeaterSetting;
   welcomeSetting?: WelcomeSetting;
+  reminderSetting?: ReminderSetting;
 }
 
 export interface GeneralSetting {
@@ -98,4 +99,19 @@ export interface WelcomeSetting {
 export interface WelcomeSpecial {
   groupIds?: number[];
   template?: string;
+}
+
+export interface ReminderSetting {
+  enable?: boolean;
+  timers?: ReminderTimer[];
+}
+
+export interface ReminderTimer {
+  enable?: boolean;
+  name?: string;
+  cron?: string;
+  groups?: number[];
+  atAll?: boolean;
+  atMembers?: boolean;
+  templates?: string[];
 }

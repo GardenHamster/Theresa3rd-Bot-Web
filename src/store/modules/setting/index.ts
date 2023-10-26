@@ -6,15 +6,14 @@ import { getManageSetting, setManageSetting } from '@/api/settings';
 import { getMenuSetting, setMenuSetting } from '@/api/settings';
 import { getRepeaterSetting, setRepeaterSetting } from '@/api/settings';
 import { getWelcomeSetting, setWelcomeSetting } from '@/api/settings';
+import { getReminderSetting, setReminderSetting } from '@/api/settings';
 import { SettingState, GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from './types';
-import { MenuSetting, RepeaterSetting, WelcomeSetting } from './types';
+import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting } from './types';
 
 const useSettingStore = defineStore('setting', {
   state: (): SettingState => ({}),
   actions: {
-
     async loadGeneralSetting(): Promise<GeneralSetting> {
-      if (this.generalSetting) return this.generalSetting;
       this.generalSetting = (await getGeneralSetting()) as unknown as GeneralSetting;
       return this.generalSetting;
     },
@@ -24,7 +23,6 @@ const useSettingStore = defineStore('setting', {
     },
 
     async loadPixivSetting(): Promise<PixivSetting> {
-      if (this.pixivSetting) return this.pixivSetting;
       this.pixivSetting = (await getPixivSetting()) as unknown as PixivSetting;
       return this.pixivSetting;
     },
@@ -34,7 +32,6 @@ const useSettingStore = defineStore('setting', {
     },
 
     async loadPermissionsSetting(): Promise<PermissionsSetting> {
-      if (this.permissionsSetting) return this.permissionsSetting;
       this.permissionsSetting = (await getPermissionsSetting()) as unknown as PermissionsSetting;
       return this.permissionsSetting;
     },
@@ -44,7 +41,6 @@ const useSettingStore = defineStore('setting', {
     },
 
     async loadManageSetting(): Promise<ManageSetting> {
-      if (this.manageSetting) return this.manageSetting;
       this.manageSetting = (await getManageSetting()) as unknown as ManageSetting;
       return this.manageSetting;
     },
@@ -54,7 +50,6 @@ const useSettingStore = defineStore('setting', {
     },
 
     async loadMenuSetting(): Promise<MenuSetting> {
-      if (this.menuSetting) return this.menuSetting;
       this.menuSetting = (await getMenuSetting()) as unknown as MenuSetting;
       return this.menuSetting;
     },
@@ -64,7 +59,6 @@ const useSettingStore = defineStore('setting', {
     },
 
     async loadRepeaterSetting(): Promise<RepeaterSetting> {
-      if (this.repeaterSetting) return this.repeaterSetting;
       this.repeaterSetting = (await getRepeaterSetting()) as unknown as RepeaterSetting;
       return this.repeaterSetting;
     },
@@ -74,13 +68,21 @@ const useSettingStore = defineStore('setting', {
     },
 
     async loadWelcomeSetting(): Promise<WelcomeSetting> {
-      if (this.welcomeSetting) return this.welcomeSetting;
       this.welcomeSetting = (await getWelcomeSetting()) as unknown as WelcomeSetting;
       return this.welcomeSetting;
     },
     async saveWelcomeSetting(setting: WelcomeSetting) {
       await setWelcomeSetting(setting);
       this.welcomeSetting = setting;
+    },
+
+    async loadReminderSetting(): Promise<ReminderSetting> {
+      this.reminderSetting = (await getReminderSetting()) as unknown as ReminderSetting;
+      return this.reminderSetting;
+    },
+    async setReminderSetting(setting: ReminderSetting) {
+      await setReminderSetting(setting);
+      this.reminderSetting = setting;
     },
 
   },
