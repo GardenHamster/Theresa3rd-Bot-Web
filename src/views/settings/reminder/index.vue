@@ -54,53 +54,55 @@
         </a-form-item>
       </a-card>
 
-      <a-card class="card" v-for="(item, timerIndex) of formModel.timers" :key="timerIndex" title="指定模版">
+      <a-card class="card" v-for="(item, timerIndex) of formModel.timers" :key="timerIndex" title="提醒模板">
         <template #extra>
           <a-popconfirm @ok="onDelete(timerIndex)" content="确定要删除这个模版吗？" type="warning" position="br">
             <span class="delCard">删除</span>
           </a-popconfirm>
         </template>
 
-        <a-form-item :field="`timers[${timerIndex}].enable`" label="是否启用" tooltip="是否启用该定时器" :disabled="!formModel.enable || !item.enable" feedback>
+        <a-form-item :field="`timers[${timerIndex}].enable`" label="开启" tooltip="是否启用该定时器" :disabled="!formModel.enable"
+          feedback>
           <a-switch v-model:model-value="item.enable">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
 
-         <a-form-item :field="`timers[${timerIndex}].name`" label="名称" tooltip="定时器名称" :disabled="!formModel.enable || !item.enable"
-          :rules="[{ required: true, message: '必须输入名称' }]" feedback>
+        <a-form-item :field="`timers[${timerIndex}].name`" label="名称" tooltip="定时器名称"
+          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入名称' }]" feedback>
           <a-input v-model:model-value="item.name" placeholder="输入一个名称" allow-clear />
         </a-form-item>
 
-         <a-form-item :field="`timers[${timerIndex}].cron`" label="Corn" tooltip="定时器Cron表达式，详细可以百度Cron在线生成" :disabled="!formModel.enable || !item.enable"
-          :rules="[{ required: true, message: '必须输入一个Cron表达式' }]" feedback>
+        <a-form-item :field="`timers[${timerIndex}].cron`" label="Corn" tooltip="定时器Cron表达式，详细可以百度Cron在线生成"
+          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入一个Cron表达式' }]" feedback>
           <a-input v-model:model-value="item.cron" placeholder="输入一个Cron表达式" allow-clear />
         </a-form-item>
 
-        <a-form-item :field="`timers[${timerIndex}].groups`" label="指定群" tooltip="将提醒内容发送到群" :disabled="!formModel.enable || !item.enable"
-          :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
-          <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
-        </a-form-item>
-
-        <a-form-item :field="`timers[${timerIndex}].atAll`" label="@全体" tooltip="是否艾特全体" :disabled="!formModel.enable || !item.enable" feedback>
+        <a-form-item :field="`timers[${timerIndex}].atAll`" label="艾特全体" tooltip="是否艾特全体"
+          :disabled="!formModel.enable || !item.enable" feedback>
           <a-switch v-model:model-value="item.atAll">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
 
-        <a-form-item :field="`timers[${timerIndex}].atMembers`" label="指定群" tooltip="指定使用该模版的群" :disabled="!formModel.enable"
-          :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
-          <a-select v-model:model-value="item.atMembers"
-            :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择一个或多个成员" allow-search allow-clear
-            multiple allow-create>
+        <a-form-item :field="`timers[${timerIndex}].groups`" label="指定群" tooltip="将提醒内容发送到群"
+          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
+          <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
+        </a-form-item>
+
+        <a-form-item :field="`timers[${timerIndex}].atMembers`" label="艾特成员" tooltip="指定使用该模版的群"
+          :disabled="!formModel.enable || !item.enable" feedback>
+          <a-select v-model:model-value="item.atMembers" :style="{ minHeight: '100px' }" :scrollbar="true"
+            placeholder="选择一个或多个成员" allow-search allow-clear multiple allow-create>
           </a-select>
         </a-form-item>
 
-        <a-form-item v-for="(temp, tempIndex) of item.templates" :key="tempIndex" :field="`timers[${timerIndex}].templates[${tempIndex}]`" label="提醒消息" tooltip="提醒模版" extra="输入“[”可以快速插入图片码"
-          :disabled="!formModel.enable" :rules="[{ required: true, message: '必须输入内容' }]" feedback>
-          <preview-textarea v-model:model-value="temp[tempIndex]" :facePaths="facePaths" />
+        <a-form-item v-for="(temp, tempIndex) of item.templates" :key="tempIndex"
+          :field="`timers[${timerIndex}].templates[${tempIndex}]`" label="提醒消息" tooltip="提醒模版" extra="输入“[”可以快速插入图片码"
+          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入内容' }]" feedback>
+          <preview-textarea v-model:model-value="temp" :facePaths="facePaths" />
         </a-form-item>
       </a-card>
 
