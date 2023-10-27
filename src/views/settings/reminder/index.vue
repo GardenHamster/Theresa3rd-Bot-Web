@@ -36,6 +36,17 @@
   cursor: pointer;
   padding: 10px;
 }
+
+.delContent {
+  cursor: pointer;
+  color: var(--color-text-2);
+}
+
+.addContent {
+  cursor: pointer;
+  color: rgb(var(--primary-6));
+  margin-right: 10px;
+}
 </style>
 
 <template>
@@ -46,7 +57,7 @@
       <a-card class="card">
         <save-warning :initModel="initModel" :formModel="formModel" />
         <Breadcrumb :items="['menu.settings', 'menu.settings.reminder']" />
-        <a-form-item field="enable" label="是否启用" tooltip="是否启用该功能" feedback>
+        <a-form-item field="enable" label="是否启用" tooltip="是否启用该功能" :style="{ marginBottom: '0px' }" feedback>
           <a-switch v-model:model-value="formModel.enable">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
@@ -54,9 +65,9 @@
         </a-form-item>
       </a-card>
 
-      <a-card class="card" v-for="(item, timerIndex) of formModel.timers" :key="timerIndex" title="提醒模板">
+      <a-card class="card" v-for="(item, timerIndex) of  formModel.timers " :key="timerIndex" :title="`模板${padLeft((timerIndex + 1).toString(), (0).toString(), 2)}`">
         <template #extra>
-          <a-popconfirm @ok="onDelete(timerIndex)" content="确定要删除这个模版吗？" type="warning" position="br">
+          <a-popconfirm @ok="onDeleteCard(timerIndex)" content="确定要删除这个模版吗？" type="warning" position="br">
             <span class="delCard">删除</span>
           </a-popconfirm>
         </template>
@@ -79,17 +90,17 @@
           <a-input v-model:model-value="item.cron" placeholder="输入一个Cron表达式" allow-clear />
         </a-form-item>
 
+        <a-form-item :field="`timers[${timerIndex}].groups`" label="发送群" tooltip="将提醒内容发送到群"
+          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
+          <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
+        </a-form-item>
+
         <a-form-item :field="`timers[${timerIndex}].atAll`" label="艾特全体" tooltip="是否艾特全体"
           :disabled="!formModel.enable || !item.enable" feedback>
           <a-switch v-model:model-value="item.atAll">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
-        </a-form-item>
-
-        <a-form-item :field="`timers[${timerIndex}].groups`" label="指定群" tooltip="将提醒内容发送到群"
-          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
-          <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
         </a-form-item>
 
         <a-form-item :field="`timers[${timerIndex}].atMembers`" label="艾特成员" tooltip="指定使用该模版的群"
@@ -99,14 +110,21 @@
           </a-select>
         </a-form-item>
 
-        <a-form-item v-for="(temp, tempIndex) of item.templates" :key="tempIndex"
-          :field="`timers[${timerIndex}].templates[${tempIndex}]`" label="提醒消息" tooltip="提醒模版" extra="输入“[”可以快速插入图片码"
+        <a-form-item v-for="(temp, tempIndex) of  item.templates " :key="tempIndex"
+          :field="`timers[${timerIndex}].templates[${tempIndex}].template`" :label="`内容${padLeft((tempIndex + 1).toString(), (0).toString(), 2)}`" tooltip="提醒内容模版" extra="输入“[”可以快速插入图片码"
           :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入内容' }]" feedback>
-          <preview-textarea v-model:model-value="temp" :facePaths="facePaths" />
+          <template #extra>
+            <div :style="{ marginTop: '5px' }">
+              <span class="addContent" @click="onCreateContent(timerIndex, tempIndex)">新增内容</span>
+              <span class="delContent" @click="onDeleteContent(timerIndex, tempIndex)">删除内容</span>
+            </div>
+          </template>
+          <preview-textarea v-model:model-value="temp.template" :facePaths="facePaths" />
         </a-form-item>
+        
       </a-card>
 
-      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }" @click="onCreate">
+      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }" :style="{ marginTop: '5px' }" @click="onCreateCard">
         <p class="addTemp"><icon-plus-circle-fill />点击添加一套模版</p>
       </a-card>
 
@@ -123,6 +141,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { padLeft } from '@/utils/string';
 import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useGroupStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
@@ -173,12 +192,30 @@ const onReset = async () => {
   }
 };
 
-const onCreate = async () => {
-  formModel.value.timers?.push({});
+const onCreateCard = async () => {
+  formModel.value.timers?.push({ templates: [{ template: '' }] });
 }
 
-const onDelete = async (index: number) => {
+const onDeleteCard = async (index: number) => {
   formModel.value.timers?.splice(index, 1)
+}
+
+const onCreateContent = async (timerIndex: number, tempIndex: number) => {
+  if (!formModel.value.timers) return;
+  if (formModel.value.timers.length <= timerIndex) return;
+  formModel.value.timers[timerIndex].templates?.splice(tempIndex + 1, 0, { template: '' })
+}
+
+const onDeleteContent = async (timerIndex: number, tempIndex: number) => {
+  if (!formModel.value.timers) return;
+  if (formModel.value.timers.length <= timerIndex) return;
+  const templateItems = formModel.value.timers[timerIndex].templates;
+  if (!templateItems || templateItems.length <= 1) {
+    Message.error({ content: '必须至少保留一条内容', position: 'top' });
+  }
+  else {
+    templateItems.splice(tempIndex, 1);
+  }
 }
 
 const fetchFaces = async () => {

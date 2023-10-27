@@ -58,9 +58,9 @@
         </a-form-item>
       </a-card>
 
-      <a-card class="card" v-for="(item, index) of formModel.specials" :key="index" title="指定模版">
+      <a-card class="card" v-for="(item, index) of formModel.specials" :key="index" :title="`模板${padLeft((index + 1).toString(), (0).toString(), 2)}`">
         <template #extra>
-          <a-popconfirm @ok="onDelete(index)" content="确定要删除这个模版吗？" type="warning" position="br">
+          <a-popconfirm @ok="onDeleteCard(index)" content="确定要删除这个模版吗？" type="warning" position="br">
             <span class="delCard">删除</span>
           </a-popconfirm>
         </template>
@@ -74,7 +74,7 @@
         </a-form-item>
       </a-card>
 
-      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }" @click="onCreate">
+      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }" @click="onCreateCard">
         <p class="addTemp"><icon-plus-circle-fill />点击添加一套模版</p>
       </a-card>
 
@@ -91,6 +91,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { padLeft } from '@/utils/string';
 import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useGroupStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
@@ -141,11 +142,11 @@ const onReset = async () => {
   }
 };
 
-const onCreate = async () => {
+const onCreateCard = async () => {
   formModel.value.specials?.push({});
 }
 
-const onDelete = async (index: number) => {
+const onDeleteCard = async (index: number) => {
   formModel.value.specials?.splice(index, 1)
 }
 

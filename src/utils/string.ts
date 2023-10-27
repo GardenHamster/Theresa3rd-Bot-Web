@@ -1,8 +1,10 @@
-export const padLeft = (content: string, value: string, length: number): string => {
-    content = content ?? '';
-    value = value ?? '';
+export const padLeft = (content: string, symbol: string, length: number): string => {
+    if (!content) content = '';
+    content = content.toString();
+    if (!symbol) symbol = '';
+    symbol = symbol.toString();
     for (let i = 0; i < length - content.length; i += 1) {
-        content = value + content;
+        content = symbol + content;
     }
     return content;
 }

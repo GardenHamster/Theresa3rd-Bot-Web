@@ -113,5 +113,9 @@ export interface ReminderTimer {
   groups?: number[];
   atAll?: boolean;
   atMembers?: boolean;
-  templates?: string[];
+  templates?: ReminderTemplate[];
+}
+
+export interface ReminderTemplate {
+  template: string;
 }
