@@ -8,8 +8,14 @@ import { getRepeaterSetting, setRepeaterSetting } from '@/api/settings';
 import { getWelcomeSetting, setWelcomeSetting } from '@/api/settings';
 import { getReminderSetting, setReminderSetting } from '@/api/settings';
 import { getSetuSetting, setSetuSetting } from '@/api/settings';
+import { getSaucenaoSetting, setSaucenaoSetting } from '@/api/settings';
+import { getSubscribeSetting, setSubscribeSetting } from '@/api/settings';
+import { getTimingSetuSetting, setTimingSetuSetting } from '@/api/settings';
+import { getPixivRankingSetting, setPixivRankingSetting } from '@/api/settings';
+import { getWordCloudSetting, setWordCloudSetting } from '@/api/settings';
 import { SettingState, GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from './types';
 import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting, SetuSetting } from './types';
+import { SaucenaoSetting, SubscribeSetting, TimingSetuSetting, PixivRankingSetting, WordCloudSetting } from './types';
 
 const useSettingStore = defineStore('setting', {
   state: (): SettingState => ({}),
@@ -99,6 +105,51 @@ const useSettingStore = defineStore('setting', {
     async saveSetuSetting(setting: SetuSetting) {
       await setSetuSetting(setting);
       this.setuSetting = setting;
+    },
+
+    async loadSaucenaoSetting(): Promise<SaucenaoSetting> {
+      this.saucenaoSetting = (await getSaucenaoSetting()) as unknown as SaucenaoSetting;
+      return this.saucenaoSetting;
+    },
+    async saveSaucenaoSetting(setting: SaucenaoSetting) {
+      await setSaucenaoSetting(setting);
+      this.saucenaoSetting = setting;
+    },
+
+    async loadSubscribeSetting(): Promise<SubscribeSetting> {
+      this.subscribeSetting = (await getSubscribeSetting()) as unknown as SubscribeSetting;
+      return this.subscribeSetting;
+    },
+    async saveSubscribeSetting(setting: SubscribeSetting) {
+      await setSubscribeSetting(setting);
+      this.subscribeSetting = setting;
+    },
+
+    async loadTimingSetuSetting(): Promise<TimingSetuSetting> {
+      this.timingSetuSetting = (await getTimingSetuSetting()) as unknown as TimingSetuSetting;
+      return this.timingSetuSetting;
+    },
+    async saveTimingSetuSetting(setting: TimingSetuSetting) {
+      await setTimingSetuSetting(setting);
+      this.timingSetuSetting = setting;
+    },
+
+    async loadPixivRankingSetting(): Promise<PixivRankingSetting> {
+      this.pixivRankingSetting = (await getPixivRankingSetting()) as unknown as PixivRankingSetting;
+      return this.pixivRankingSetting;
+    },
+    async savePixivRankingSetting(setting: PixivRankingSetting) {
+      await setPixivRankingSetting(setting);
+      this.pixivRankingSetting = setting;
+    },
+
+    async loadWordCloudSetting(): Promise<WordCloudSetting> {
+      this.wordCloudSetting = (await getWordCloudSetting()) as unknown as WordCloudSetting;
+      return this.wordCloudSetting;
+    },
+    async saveWordCloudSetting(setting: WordCloudSetting) {
+      await setWordCloudSetting(setting);
+      this.wordCloudSetting = setting;
     },
 
   },

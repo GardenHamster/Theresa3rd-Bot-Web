@@ -8,6 +8,11 @@ export interface SettingState {
   welcomeSetting?: WelcomeSetting;
   reminderSetting?: ReminderSetting;
   setuSetting?: SetuSetting;
+  saucenaoSetting?: SaucenaoSetting;
+  subscribeSetting?: SubscribeSetting;
+  timingSetuSetting?: TimingSetuSetting;
+  pixivRankingSetting?: PixivRankingSetting;
+  wordCloudSetting?: WordCloudSetting;
 }
 
 export interface GeneralSetting {
@@ -176,4 +181,203 @@ export interface PixivUserSetuSetting {
   maxScan?: number
   previewInPage?: number
   cacheSeconds?: number
+}
+
+export interface SaucenaoSetting {
+  enable?: boolean
+  commands?: string[]
+  notFoundMsg?: string
+  processingMsg?: string
+  template?: string
+  memberCD?: number
+  maxDaily?: number
+  maxReceive?: number
+  minSimilarity?: number
+  saucenaoReadCount?: number
+  pixivPriority?: number
+  singlePriority?: number
+  imagePriority?: number
+  pullOrigin?: boolean
+  sendPrivate?: boolean
+  revokeInterval?: number
+  revokeSearched?: boolean
+  continueAscii2d?: boolean
+  ascii2dWithIp?: boolean
+  ascii2dReadCount?: number
+}
+
+export interface SubscribeSetting {
+  miyoushe?: MiyousheSubscribeSetting
+  pixivUser?: PixivUserSubscribeSetting
+  pixivTag?: PixivTagSubscribeSetting
+}
+
+export interface MiyousheSubscribeSetting {
+  enable?: boolean
+  addCommands?: string[]
+  rmCommands?: string[]
+  template?: string
+  scanInterval?: number
+  shelfLife?: number
+}
+
+export interface PixivUserSubscribeSetting {
+  enable?: boolean
+  scanMode?: number
+  addCommands?: string[]
+  rmCommands?: string[]
+  syncCommands?: string[]
+  template?: string
+  scanInterval?: number
+  shelfLife?: number
+  sendMerge?: boolean
+}
+
+export interface PixivTagSubscribeSetting {
+  enable?: boolean
+  addCommands?: string[]
+  rmCommands?: string[]
+  template?: string
+  scanInterval?: number
+  shelfLife?: number
+  maxScan?: number
+  minBookmark?: number
+  minBookPerHour?: number
+  minBookRate?: number
+  sendMerge?: string
+}
+
+export interface TimingSetuSetting {
+  enable?: boolean
+  localPath?: string
+  fromOneDir?: boolean
+  lolisukiLevel?: string
+  timers?: TimingSetuTimer[]
+}
+
+export interface TimingSetuTimer {
+  enable?: boolean
+  cron?: boolean
+  name?: boolean
+  groups?: number[]
+  source?: number
+  sendMerge?: boolean
+  tags?: string[]
+  quantity?: number
+  atAll?: boolean
+  timingMsg?: string
+}
+
+export interface PixivRankingSetting {
+  enable?: boolean
+  processingMsg?: string
+  template?: string
+  maxScan?: number
+  previewInPage?: number
+  sortType?: number
+  groupCD?: number
+  cacheSeconds?: number
+  sendDetail?: number
+  daily?: DailyPixivRankingSetting
+  dailyAI?: DailyAIPixivRankingSetting
+  male?: MalePixivRankingSetting
+  weekly?: WeeklyPixivRankingSetting
+  monthly?: MonthlyPixivRankingSetting
+  subscribes?: SubscribesPixivRankingSetting[]
+}
+
+export interface DailyPixivRankingSetting {
+  enable?: boolean
+  commands?: string[]
+  r18Commands?: string[]
+  minRatingCount?: number
+  minRatingRate?: number
+  minBookCount?: number
+  minBookRate?: number
+}
+
+export interface DailyAIPixivRankingSetting {
+  enable?: boolean
+  commands?: string[]
+  r18Commands?: string[]
+  minRatingCount?: number
+  minRatingRate?: number
+  minBookCount?: number
+  minBookRate?: number
+}
+
+export interface MalePixivRankingSetting {
+  enable?: boolean
+  commands?: string[]
+  r18Commands?: string[]
+  minRatingCount?: number
+  minRatingRate?: number
+  minBookCount?: number
+  minBookRate?: number
+}
+
+export interface WeeklyPixivRankingSetting {
+  enable?: boolean
+  commands?: string[]
+  r18Commands?: string[]
+  minRatingCount?: number
+  minRatingRate?: number
+  minBookCount?: number
+  minBookRate?: number
+}
+
+export interface MonthlyPixivRankingSetting {
+  enable?: boolean
+  commands?: string[]
+  minRatingCount?: number
+  minRatingRate?: number
+  minBookCount?: number
+  minBookRate?: number
+}
+
+export interface SubscribesPixivRankingSetting {
+  enable?: boolean
+  cron?: string
+  groups?: number[]
+  contents?: string[]
+  sendDetail?: number
+}
+
+export interface WordCloudSetting {
+  enable?: boolean
+  groupCD?: number
+  maxWords?: number
+  defaultWidth?: number
+  defaultHeitht?: number
+  fontPath?: string
+  processingMsg?: string
+  basicCommands?: string[]
+  dailyCommands?: string[]
+  weeklyCommands?: string[]
+  monthlyCommands?: string[]
+  yearlyCommands?: string[]
+  yesterdayCommands?: string[]
+  lastWeekCommands?: string[]
+  lastMonthCommands?: string[]
+  addWordCommands?: string[]
+  hideWordCommands?: string[]
+  defaultMasks?: string[]
+  masks?: WordCloudMask[]
+  subscribes?: WordCloudSubscribes[]
+}
+
+export interface WordCloudMask {
+  name?: string
+  path?: string
+  width?: number
+}
+
+export interface WordCloudSubscribes {
+  enable?: boolean
+  name?: string
+  cron?: string
+  masks?: string[]
+  groups?: number[]
+  hourRange?: number
+  template?: string
 }

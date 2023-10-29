@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from '@/store/modules/setting/types';
 import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting } from '@/store/modules/setting/types';
-import { SetuSetting } from '@/store/modules/setting/types';
+import { SetuSetting, SaucenaoSetting, SubscribeSetting, TimingSetuSetting, } from '@/store/modules/setting/types';
+import { PixivRankingSetting, WordCloudSetting } from '@/store/modules/setting/types';
 
 export function getGeneralSetting() {
   return axios.get<GeneralSetting>('/api/config/get/general');
@@ -73,4 +74,44 @@ export function getSetuSetting() {
 
 export function setSetuSetting(setting: SetuSetting) {
   return axios.post<SetuSetting>('/api/config/set/setu', setting);
+}
+
+export function getSaucenaoSetting() {
+  return axios.get<SaucenaoSetting>('/api/config/get/saucenao');
+}
+
+export function setSaucenaoSetting(setting: SaucenaoSetting) {
+  return axios.post<SaucenaoSetting>('/api/config/set/saucenao', setting);
+}
+
+export function getSubscribeSetting() {
+  return axios.get<SubscribeSetting>('/api/config/get/subscribe');
+}
+
+export function setSubscribeSetting(setting: SubscribeSetting) {
+  return axios.post<SubscribeSetting>('/api/config/set/subscribe', setting);
+}
+
+export function getTimingSetuSetting() {
+  return axios.get<TimingSetuSetting>('/api/config/get/timing/setu');
+}
+
+export function setTimingSetuSetting(setting: TimingSetuSetting) {
+  return axios.post<TimingSetuSetting>('/api/config/set/timing/setu', setting);
+}
+
+export function getPixivRankingSetting() {
+  return axios.get<PixivRankingSetting>('/api/config/get/pixiv/ranking');
+}
+
+export function setPixivRankingSetting(setting: PixivRankingSetting) {
+  return axios.post<PixivRankingSetting>('/api/config/set/pixiv/ranking', setting);
+}
+
+export function getWordCloudSetting() {
+  return axios.get<WordCloudSetting>('/api/config/get/wordcloud');
+}
+
+export function setWordCloudSetting(setting: WordCloudSetting) {
+  return axios.post<WordCloudSetting>('/api/config/set/wordcloud', setting);
 }
