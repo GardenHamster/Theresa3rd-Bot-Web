@@ -7,8 +7,9 @@ import { getMenuSetting, setMenuSetting } from '@/api/settings';
 import { getRepeaterSetting, setRepeaterSetting } from '@/api/settings';
 import { getWelcomeSetting, setWelcomeSetting } from '@/api/settings';
 import { getReminderSetting, setReminderSetting } from '@/api/settings';
+import { getSetuSetting, setSetuSetting } from '@/api/settings';
 import { SettingState, GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from './types';
-import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting } from './types';
+import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting, SetuSetting } from './types';
 
 const useSettingStore = defineStore('setting', {
   state: (): SettingState => ({}),
@@ -80,9 +81,24 @@ const useSettingStore = defineStore('setting', {
       this.reminderSetting = (await getReminderSetting()) as unknown as ReminderSetting;
       return this.reminderSetting;
     },
-    async setReminderSetting(setting: ReminderSetting) {
+    async saveReminderSetting(setting: ReminderSetting) {
       await setReminderSetting(setting);
       this.reminderSetting = setting;
+    },
+
+    async loadSetuSetting(): Promise<SetuSetting> {
+      const setuSetting = (await getSetuSetting()) as unknown as SetuSetting;
+      if (!setuSetting.pixiv) setuSetting.pixiv = { enable: false };
+      if (!setuSetting.lolicon) setuSetting.lolicon = { enable: false };
+      if (!setuSetting.lolisuki) setuSetting.lolisuki = { enable: false };
+      if (!setuSetting.local) setuSetting.local = { enable: false };
+      if (!setuSetting.pixivUser) setuSetting.pixivUser = { enable: false };
+      this.setuSetting = setuSetting
+      return this.setuSetting;
+    },
+    async saveSetuSetting(setting: SetuSetting) {
+      await setSetuSetting(setting);
+      this.setuSetting = setting;
     },
 
   },

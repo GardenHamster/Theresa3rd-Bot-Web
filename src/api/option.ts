@@ -12,3 +12,7 @@ export function getResendOptions() {
 export function getTagMatchOptions() {
   return axios.get<OptionInfo[]>('/api/option/list/tag/match');
 }
+
+export function getPixivRandomOptions() {
+  return axios.get<OptionInfo[]>('/api/option/list/pixiv/random');
+}

@@ -13,6 +13,7 @@ export default {
   'menu.settings.repeater': 'Repeater Settings',
   'menu.settings.welcome': 'Welcome Settings',
   'menu.settings.reminder': 'Reminder Settings',
+  'menu.settings.setu': 'Setu Settings',
   'menu.subscribe': 'Subscription Management',
   'menu.subscribe.pixiv.user': 'Pixiv User Subscription',
   'menu.subscribe.pixiv.tag': 'Pixiv Tag Subscription',

@@ -100,6 +100,17 @@ const Settings: AppRouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: 'setu',
+      name: 'SetuSetting',
+      component: () => import('@/views/settings/setu/index.vue'),
+      meta: {
+        locale: 'menu.settings.setu',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
   ],
 };
 

@@ -7,6 +7,7 @@ export interface SettingState {
   repeaterSetting?: RepeaterSetting;
   welcomeSetting?: WelcomeSetting;
   reminderSetting?: ReminderSetting;
+  setuSetting?: SetuSetting;
 }
 
 export interface GeneralSetting {
@@ -118,4 +119,61 @@ export interface ReminderTimer {
 
 export interface ReminderTemplate {
   template: string;
+}
+
+export interface SetuSetting {
+  groupCD?: number
+  memberCD?: number
+  disableTagsMsg?: string
+  notFoundMsg?: number
+  processingMsg?: number
+  maxDaily?: number
+  revokeInterval?: number
+  sendPrivate?: boolean
+  pixiv?: PixivSetuSetting
+  lolicon?: LoliconSetuSetting
+  lolisuki?: LolisukiSetuSetting
+  local?: LocalSetuSetting
+  pixivUser?: PixivUserSetuSetting
+}
+
+export interface PixivSetuSetting {
+  enable?: boolean
+  commands?: string[]
+  randomMode?: number
+  randomTags?: string[]
+  template?: string
+  maxScan?: number
+  minBookmark?: number
+  minBookRate?: number
+}
+
+export interface LoliconSetuSetting {
+  enable?: boolean
+  commands?: string[]
+  template?: string
+}
+
+export interface LolisukiSetuSetting {
+  enable?: boolean
+  commands?: string[]
+  level?: string
+  template?: string
+}
+
+export interface LocalSetuSetting {
+  enable?: boolean
+  commands?: string[]
+  localPath?: string
+  template?: string
+}
+
+export interface PixivUserSetuSetting {
+  enable?: boolean
+  commands?: string[]
+  processingMsg?: string
+  template?: string
+  maxScan?: number
+  previewInPage?: number
+  cacheSeconds?: number
 }

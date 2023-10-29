@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from '@/store/modules/setting/types';
 import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting } from '@/store/modules/setting/types';
+import { SetuSetting } from '@/store/modules/setting/types';
 
 export function getGeneralSetting() {
   return axios.get<GeneralSetting>('/api/config/get/general');
@@ -64,4 +65,12 @@ export function getReminderSetting() {
 
 export function setReminderSetting(setting: ReminderSetting) {
   return axios.post<ReminderSetting>('/api/config/set/reminder', setting);
+}
+
+export function getSetuSetting() {
+  return axios.get<SetuSetting>('/api/config/get/setu');
+}
+
+export function setSetuSetting(setting: SetuSetting) {
+  return axios.post<SetuSetting>('/api/config/set/setu', setting);
 }

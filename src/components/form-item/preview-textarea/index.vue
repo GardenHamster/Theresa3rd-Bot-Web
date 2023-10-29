@@ -13,7 +13,7 @@
     box-sizing: border-box;
     gap: 10px;
     position: absolute;
-    z-index: 10000;
+    z-index: 99999999;
     background-color: white;
 }
 

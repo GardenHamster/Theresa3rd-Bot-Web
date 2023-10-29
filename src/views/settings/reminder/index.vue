@@ -65,7 +65,8 @@
         </a-form-item>
       </a-card>
 
-      <a-card class="card" v-for="(item, timerIndex) of  formModel.timers " :key="timerIndex" :title="`模板${padLeft((timerIndex + 1).toString(), (0).toString(), 2)}`">
+      <a-card class="card" v-for="(item, timerIndex) of  formModel.timers " :key="timerIndex"
+        :title="`模板${padLeft((timerIndex + 1).toString(), (0).toString(), 2)}`">
         <template #extra>
           <a-popconfirm @ok="onDeleteCard(timerIndex)" content="确定要删除这个模版吗？" type="warning" position="br">
             <span class="delCard">删除</span>
@@ -111,7 +112,8 @@
         </a-form-item>
 
         <a-form-item v-for="(temp, tempIndex) of  item.templates " :key="tempIndex"
-          :field="`timers[${timerIndex}].templates[${tempIndex}].template`" :label="`内容${padLeft((tempIndex + 1).toString(), (0).toString(), 2)}`" tooltip="提醒内容模版" extra="输入“[”可以快速插入图片码"
+          :field="`timers[${timerIndex}].templates[${tempIndex}].template`"
+          :label="`内容${padLeft((tempIndex + 1).toString(), (0).toString(), 2)}`" tooltip="提醒内容模版" extra="输入“[”可以快速插入图片码"
           :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入内容' }]" feedback>
           <template #extra>
             <div :style="{ marginTop: '5px' }">
@@ -121,10 +123,11 @@
           </template>
           <preview-textarea v-model:model-value="temp.template" :facePaths="facePaths" />
         </a-form-item>
-        
+
       </a-card>
 
-      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }" :style="{ marginTop: '5px' }" @click="onCreateCard">
+      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }"
+        :style="{ marginTop: '5px' }" @click="onCreateCard">
         <p class="addTemp"><icon-plus-circle-fill />点击添加一套模版</p>
       </a-card>
 
@@ -167,7 +170,7 @@ const onSubmit = async () => {
       return;
     }
     setLoading(true);
-    await settingStore.saveWelcomeSetting(formModel.value);
+    await settingStore.saveReminderSetting(formModel.value);
     initModel.value = JSON.parse(JSON.stringify(formModel.value));
     Message.success({ content: '保存成功', position: 'top' });
   } catch (error) {

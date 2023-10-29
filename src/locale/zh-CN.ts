@@ -13,6 +13,7 @@ export default {
   'menu.settings.repeater': '复读配置',
   'menu.settings.welcome': '入群欢迎',
   'menu.settings.reminder': '定时提醒',
+  'menu.settings.setu': '涩图配置',
   'menu.subscribe': '订阅管理',
   'menu.subscribe.pixiv.user': '画师订阅',
   'menu.subscribe.pixiv.tag': '标签订阅',
