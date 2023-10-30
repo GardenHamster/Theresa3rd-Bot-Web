@@ -111,6 +111,17 @@ const Settings: AppRouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: 'saucenao',
+      name: 'SaucenaoSetting',
+      component: () => import('@/views/settings/saucenao/index.vue'),
+      meta: {
+        locale: 'menu.settings.saucenao',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
   ],
 };
 
