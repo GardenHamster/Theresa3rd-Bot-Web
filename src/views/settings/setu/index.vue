@@ -33,7 +33,7 @@
 
         <a-tabs default-active-key="1">
           <a-tab-pane key="1" title="基本">
-            <a-form-item field="sendPrivate" label="同时私聊发送" tooltip="发送到群后同时私聊发送" feedback>
+            <a-form-item field="sendPrivate" label="同时私发" tooltip="发送到群后同时私聊发送" feedback>
               <a-switch v-model:model-value="formModel.sendPrivate">
                 <template #checked>ON</template>
                 <template #unchecked>OFF</template>
@@ -75,7 +75,7 @@
             </a-form-item>
           </a-tab-pane>
           <a-tab-pane key="2" title="Pixiv">
-            <a-form-item field="pixiv.enable" label="是否启用" tooltip="是否启用该功能" feedback>
+            <a-form-item field="pixiv.enable" label="启用功能" tooltip="是否启用该功能" feedback>
               <a-switch v-model:model-value="formModel.pixiv!.enable">
                 <template #checked>ON</template>
                 <template #unchecked>OFF</template>
@@ -121,7 +121,7 @@
             </a-form-item>
           </a-tab-pane>
           <a-tab-pane key="3" title="Lolicon">
-            <a-form-item field="lolicon.enable" label="是否启用" tooltip="是否启用该功能" feedback>
+            <a-form-item field="lolicon.enable" label="启用功能" tooltip="是否启用该功能" feedback>
               <a-switch v-model:model-value="formModel.lolicon!.enable">
                 <template #checked>ON</template>
                 <template #unchecked>OFF</template>
@@ -139,7 +139,7 @@
             </a-form-item>
           </a-tab-pane>
           <a-tab-pane key="4" title="Lolisuki">
-            <a-form-item field="lolisuki.enable" label="是否启用" tooltip="是否启用该功能" feedback>
+            <a-form-item field="lolisuki.enable" label="启用功能" tooltip="是否启用该功能" feedback>
               <a-switch v-model:model-value="formModel.lolisuki!.enable">
                 <template #checked>ON</template>
                 <template #unchecked>OFF</template>
@@ -170,7 +170,7 @@
             </a-form-item>
           </a-tab-pane>
           <a-tab-pane key="5" title="本地涩图">
-            <a-form-item field="local.enable" label="是否启用" tooltip="是否启用该功能" feedback>
+            <a-form-item field="local.enable" label="启用功能" tooltip="是否启用该功能" feedback>
               <a-switch v-model:model-value="formModel.local!.enable">
                 <template #checked>ON</template>
                 <template #unchecked>OFF</template>
@@ -192,7 +192,7 @@
             </a-form-item>
           </a-tab-pane>
           <a-tab-pane key="6" title="画师作品预览">
-            <a-form-item field="pixivUser.enable" label="是否启用" tooltip="是否启用该功能" feedback>
+            <a-form-item field="pixivUser.enable" label="启用功能" tooltip="是否启用该功能" feedback>
               <a-switch v-model:model-value="formModel.pixivUser!.enable">
                 <template #checked>ON</template>
                 <template #unchecked>OFF</template>

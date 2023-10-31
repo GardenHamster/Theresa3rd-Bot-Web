@@ -58,7 +58,7 @@ body,
 
 .arco-form-item-label-col {
   min-width: 100px;
-  flex-basis: 102px;
+  flex-basis: 105px;
   padding-right: 10px;
 }
 

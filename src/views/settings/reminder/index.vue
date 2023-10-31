@@ -57,7 +57,7 @@
       <a-card class="card">
         <save-warning :initModel="initModel" :formModel="formModel" />
         <Breadcrumb :items="['menu.settings', 'menu.settings.reminder']" />
-        <a-form-item field="enable" label="是否启用" tooltip="是否启用该功能" :style="{ marginBottom: '0px' }" feedback>
+        <a-form-item field="enable" label="启用功能" tooltip="是否启用该功能" :style="{ marginBottom: '0px' }" feedback>
           <a-switch v-model:model-value="formModel.enable">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
