@@ -69,7 +69,7 @@
             <a-form-item field="notFoundMsg" label="无结果提示" tooltip="找不到相应色图时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
               <preview-textarea v-model:model-value="formModel.notFoundMsg" :facePaths="facePaths" />
             </a-form-item>
-            <a-form-item field="processingMsg" label="执行提示" tooltip="开始查找前返回的消息，不填表示不发送" extra="输入“[”可以快速插入图片码"
+            <a-form-item field="processingMsg" label="执行前提示" tooltip="开始查找前返回的消息，不填表示不发送" extra="输入“[”可以快速插入图片码"
               :style="{ marginBottom: '200px' }" feedback>
               <preview-textarea v-model:model-value="formModel.processingMsg" :facePaths="facePaths" />
             </a-form-item>
@@ -203,7 +203,7 @@
               <a-input-tag v-model:model-value="formModel.pixivUser!.commands" :style="{ minHeight: '100px' }"
                 placeholder="输入指令后按下回车添加" allow-clear />
             </a-form-item>
-            <a-form-item field="pixivUser.processingMsg" label="执行提示" tooltip="开始执行前返回的消息" extra="输入“[”可以快速插入图片码"
+            <a-form-item field="pixivUser.processingMsg" label="执行前提示" tooltip="开始执行前返回的消息" extra="输入“[”可以快速插入图片码"
               :disabled="!formModel.pixivUser?.enable" feedback>
               <preview-textarea v-model:model-value="formModel.pixivUser!.processingMsg" :facePaths="facePaths" />
             </a-form-item>

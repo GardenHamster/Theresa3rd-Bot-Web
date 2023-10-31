@@ -117,7 +117,11 @@ const useSettingStore = defineStore('setting', {
     },
 
     async loadSubscribeSetting(): Promise<SubscribeSetting> {
-      this.subscribeSetting = (await getSubscribeSetting()) as unknown as SubscribeSetting;
+      const subscribeSetting = (await getSubscribeSetting()) as unknown as SubscribeSetting;
+      if (!subscribeSetting.miyoushe) subscribeSetting.miyoushe = { enable: false };
+      if (!subscribeSetting.pixivUser) subscribeSetting.pixivUser = { enable: false };
+      if (!subscribeSetting.pixivTag) subscribeSetting.pixivTag = { enable: false };
+      this.subscribeSetting = subscribeSetting
       return this.subscribeSetting;
     },
     async saveSubscribeSetting(setting: SubscribeSetting) {

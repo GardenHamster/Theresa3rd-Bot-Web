@@ -16,3 +16,7 @@ export function getTagMatchOptions() {
 export function getPixivRandomOptions() {
   return axios.get<OptionInfo[]>('/api/option/list/pixiv/random');
 }
+
+export function getPixivUserScanOptions() {
+  return axios.get<OptionInfo[]>('/api/option/list/pixiv/user/scan');
+}

@@ -122,6 +122,17 @@ const Settings: AppRouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: 'subscribe',
+      name: 'SubscribeSetting',
+      component: () => import('@/views/settings/subscribe/index.vue'),
+      meta: {
+        locale: 'menu.settings.subscribe',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
   ],
 };
 

@@ -8,4 +8,5 @@ export interface OptionState {
   resendOptions?: OptionInfo[];
   tagMatchOptions?: OptionInfo[];
   pixivRandomOptions?: OptionInfo[];
+  pixivUserScanOptions?: OptionInfo[];
 }

@@ -27,7 +27,8 @@
 
 <template>
   <div class="container">
-    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true" :model="formModel">
+    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true"
+      :model="formModel">
       <a-card class="card">
         <save-warning :initModel="initModel" :formModel="formModel" />
         <Breadcrumb :items="['menu.settings', 'menu.settings.saucenao']" />
@@ -54,22 +55,25 @@
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
-        <a-form-item field="revokeSearched" label="撤回搜索" tooltip="完成图片搜索后，是否撤回被查找的图片" :disabled="!formModel.enable" feedback>
+        <a-form-item field="revokeSearched" label="撤回搜索" tooltip="完成图片搜索后，是否撤回被查找的图片" :disabled="!formModel.enable"
+          feedback>
           <a-switch v-model:model-value="formModel.revokeSearched">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
-        <a-form-item field="revokeInterval" label="撤回结果" tooltip="完成图片搜索后，撤回搜索结果的时间，0表示不撤回" :disabled="!formModel.enable" feedback>
-          <a-input-number v-model:model-value="formModel.revokeInterval" :style="{ maxWidth: '300px' }" :min="0" :max="120"
-            placeholder="输入一个数字" mode="button" size="large">
+        <a-form-item field="revokeInterval" label="撤回结果" tooltip="完成图片搜索后，撤回搜索结果的时间，0表示不撤回" :disabled="!formModel.enable"
+          feedback>
+          <a-input-number v-model:model-value="formModel.revokeInterval" :style="{ maxWidth: '300px' }" :min="0"
+            :max="120" placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>秒</template>
           </a-input-number>
         </a-form-item>
       </a-card>
 
       <a-card class="card" title="限制配置">
-        <a-form-item field="memberCD" label="独立CD" tooltip="独立CD(秒)，单个群员使用命令后需要等待CD后才能再次使用" :disabled="!formModel.enable" feedback>
+        <a-form-item field="memberCD" label="独立CD" tooltip="独立CD(秒)，单个群员使用命令后需要等待CD后才能再次使用" :disabled="!formModel.enable"
+          feedback>
           <a-input-number v-model:model-value="formModel.memberCD" :style="{ maxWidth: '300px' }" :min="0" :max="100000"
             placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>秒</template>
@@ -83,7 +87,8 @@
           </a-input-number>
         </a-form-item>
 
-        <a-form-item field="maxReceive" label="单次搜索" tooltip="每次最多接收并搜索多少张图片，0表示无限制" :disabled="!formModel.enable" feedback>
+        <a-form-item field="maxReceive" label="单次搜索" tooltip="每次最多接收并搜索多少张图片，0表示无限制" :disabled="!formModel.enable"
+          feedback>
           <a-input-number v-model:model-value="formModel.maxReceive" :style="{ maxWidth: '300px' }" :min="1" :max="100"
             placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>张</template>
@@ -92,19 +97,22 @@
       </a-card>
 
       <a-card class="card" title="相似度配置">
-        <a-form-item field="pixivPriority" label="Pixiv优先" tooltip="优先返回相似度高于该值的Pixiv结果" :disabled="!formModel.enable" feedback>
+        <a-form-item field="pixivPriority" label="Pixiv优先" tooltip="优先返回相似度高于该值的Pixiv结果" :disabled="!formModel.enable"
+          feedback>
           <a-input-number v-model:model-value="formModel.pixivPriority" :style="{ maxWidth: '300px' }" :min="0" :max="100"
             :precision="2" :step="0.1" placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>%</template>
           </a-input-number>
         </a-form-item>
-        <a-form-item field="singlePriority" label="仅最优结果" tooltip="相似度高于该值时，仅返回头一个匹配度最高的结果" :disabled="!formModel.enable" feedback>
-          <a-input-number v-model:model-value="formModel.singlePriority" :style="{ maxWidth: '300px' }" :min="0" :max="100"
-            :precision="2" :step="0.1" placeholder="输入一个数字" mode="button" size="large">
+        <a-form-item field="singlePriority" label="仅最优结果" tooltip="相似度高于该值时，仅返回头一个匹配度最高的结果" :disabled="!formModel.enable"
+          feedback>
+          <a-input-number v-model:model-value="formModel.singlePriority" :style="{ maxWidth: '300px' }" :min="0"
+            :max="100" :precision="2" :step="0.1" placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>%</template>
           </a-input-number>
         </a-form-item>
-        <a-form-item field="imagePriority" label="显示结果图" tooltip="仅当相似度高于该值时显示图片，否则不显示结果图" :disabled="!formModel.enable" feedback>
+        <a-form-item field="imagePriority" label="显示结果图" tooltip="仅当相似度高于该值时显示图片，否则不显示结果图" :disabled="!formModel.enable"
+          feedback>
           <a-input-number v-model:model-value="formModel.imagePriority" :style="{ maxWidth: '300px' }" :min="0" :max="100"
             :precision="2" :step="0.1" placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>%</template>
@@ -113,42 +121,48 @@
       </a-card>
 
       <a-card class="card" title="Saucenao配置">
-         <a-form-item field="pullOrigin" label="拉取详情" tooltip="尝试从源网站中获取图片和详细信息，否则只显示相似度和图片来源" :disabled="!formModel.enable" feedback>
+        <a-form-item field="pullOrigin" label="拉取详情" tooltip="尝试从源网站中获取图片和详细信息，否则只显示相似度和图片来源"
+          :disabled="!formModel.enable" feedback>
           <a-switch v-model:model-value="formModel.pullOrigin">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
-        <a-form-item field="minSimilarity" label="最低相似度" tooltip="最低相似度，低于该值的结果将不再显示" :disabled="!formModel.enable" feedback>
-          <a-input-number v-model:model-value="formModel.minSimilarity" :style="{ maxWidth: '300px' }" :min="0" :max="100" 
+        <a-form-item field="minSimilarity" label="最低相似度" tooltip="最低相似度，低于该值的结果将不再显示" :disabled="!formModel.enable"
+          feedback>
+          <a-input-number v-model:model-value="formModel.minSimilarity" :style="{ maxWidth: '300px' }" :min="0" :max="100"
             :precision="2" :step="0.1" placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>%</template>
           </a-input-number>
         </a-form-item>
-        <a-form-item field="saucenaoReadCount" label="读取结果" tooltip="根据相似度从高到低读取读取前N个Saucenao中的匹配结果" :disabled="!formModel.enable" feedback>
-          <a-input-number v-model:model-value="formModel.saucenaoReadCount" :style="{ maxWidth: '300px' }" :min="0" :max="100" 
-            placeholder="输入一个数字" mode="button" size="large">
+        <a-form-item field="saucenaoReadCount" label="读取结果" tooltip="根据相似度从高到低读取读取前N个Saucenao中的匹配结果"
+          :disabled="!formModel.enable" feedback>
+          <a-input-number v-model:model-value="formModel.saucenaoReadCount" :style="{ maxWidth: '300px' }" :min="0"
+            :max="100" placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>条</template>
           </a-input-number>
         </a-form-item>
       </a-card>
 
       <a-card class="card" title="Ascii2d配置">
-        <a-form-item field="continueAscii2d" label="二次搜索" tooltip="Saucenao没有匹配结果时，继续使用Ascii2d进行二次搜索" :disabled="!formModel.enable" feedback>
+        <a-form-item field="continueAscii2d" label="二次搜索" tooltip="Saucenao没有匹配结果时，继续使用Ascii2d进行二次搜索"
+          :disabled="!formModel.enable" feedback>
           <a-switch v-model:model-value="formModel.continueAscii2d">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
-        <a-form-item field="ascii2dWithIp" label="通过IP请求" tooltip="使用IP请求Ascii2d，遇到403等错误时可以尝试开启此项" :disabled="!formModel.enable" feedback>
+        <a-form-item field="ascii2dWithIp" label="通过IP请求" tooltip="使用IP请求Ascii2d，遇到403等错误时可以尝试开启此项"
+          :disabled="!formModel.enable" feedback>
           <a-switch v-model:model-value="formModel.ascii2dWithIp">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
-        <a-form-item field="ascii2dReadCount" label="读取结果" tooltip="从Ascii2d的搜索结果中读取前N条搜索结果，0表示无限制" :disabled="!formModel.enable" feedback>
-          <a-input-number v-model:model-value="formModel.ascii2dReadCount" :style="{ maxWidth: '300px' }" :min="0" :max="100"
-          placeholder="输入一个数字" mode="button" size="large" >
+        <a-form-item field="ascii2dReadCount" label="读取结果" tooltip="从Ascii2d的搜索结果中读取前N条搜索结果，0表示无限制"
+          :disabled="!formModel.enable" feedback>
+          <a-input-number v-model:model-value="formModel.ascii2dReadCount" :style="{ maxWidth: '300px' }" :min="0"
+            :max="100" placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>条</template>
           </a-input-number>
         </a-form-item>
@@ -160,15 +174,15 @@
           <preview-textarea v-model:model-value="formModel.notFoundMsg" :facePaths="facePaths"
             placeholder="模版为空时将使用自动生成" />
         </a-form-item>
-        <a-form-item field="processingMsg" label="执行提示" tooltip="开始查找前返回的消息" extra="输入“[”可以快速插入图片码"
+        <a-form-item field="processingMsg" label="执行前提示" tooltip="开始查找前返回的消息" extra="输入“[”可以快速插入图片码"
           :disabled="!formModel.enable" feedback>
           <preview-textarea v-model:model-value="formModel.processingMsg" :facePaths="facePaths"
             placeholder="模版为空时将使用自动生成" />
         </a-form-item>
         <a-form-item field="template" label="消息模版" tooltip="搜索结果消息模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.enable"
           feedback>
-          <a-mention v-model:model-value="formModel.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="templatePlaceholders" 
-            type="textarea" placeholder="随便写点什么吧..." auto-size allow-clear />
+          <a-mention v-model:model-value="formModel.template" :style="{ minHeight: '120px' }" :prefix="['{']"
+            :data="templatePlaceholders" type="textarea" placeholder="随便写点什么吧..." auto-size allow-clear />
         </a-form-item>
       </a-card>
 
