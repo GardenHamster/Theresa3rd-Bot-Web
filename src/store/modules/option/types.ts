@@ -9,4 +9,5 @@ export interface OptionState {
   tagMatchOptions?: OptionInfo[];
   pixivRandomOptions?: OptionInfo[];
   pixivUserScanOptions?: OptionInfo[];
+  setuSourceOptions?: OptionInfo[];
 }

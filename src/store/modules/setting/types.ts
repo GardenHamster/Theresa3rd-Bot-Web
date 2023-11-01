@@ -257,8 +257,8 @@ export interface TimingSetuSetting {
 
 export interface TimingSetuTimer {
   enable?: boolean
-  cron?: boolean
-  name?: boolean
+  cron?: string
+  name?: string
   groups?: number[]
   source?: number
   sendMerge?: boolean

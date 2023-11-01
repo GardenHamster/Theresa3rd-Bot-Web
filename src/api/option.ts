@@ -20,3 +20,7 @@ export function getPixivRandomOptions() {
 export function getPixivUserScanOptions() {
   return axios.get<OptionInfo[]>('/api/option/list/pixiv/user/scan');
 }
+
+export function getSetuSourceOptions() {
+  return axios.get<OptionInfo[]>('/api/option/list/timing/setu/source');
+}

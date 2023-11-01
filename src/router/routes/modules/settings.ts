@@ -133,6 +133,17 @@ const Settings: AppRouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: 'timingsetu',
+      name: 'TimingSetuSetting',
+      component: () => import('@/views/settings/timingsetu/index.vue'),
+      meta: {
+        locale: 'menu.settings.timingsetu',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
   ],
 };
 
