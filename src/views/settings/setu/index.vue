@@ -32,7 +32,7 @@
         <Breadcrumb :items="['menu.settings', 'menu.settings.setu']" />
 
         <a-tabs default-active-key="1">
-          <a-tab-pane key="1" title="基本">
+          <a-tab-pane key="1" title="全局">
             <a-form-item field="sendPrivate" label="同时私发" tooltip="发送到群后同时私聊发送" feedback>
               <a-switch v-model:model-value="formModel.sendPrivate">
                 <template #checked>ON</template>

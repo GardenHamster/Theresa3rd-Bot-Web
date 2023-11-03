@@ -136,9 +136,20 @@ const Settings: AppRouteRecordRaw = {
     {
       path: 'timingsetu',
       name: 'TimingSetuSetting',
-      component: () => import('@/views/settings/timingsetu/index.vue'),
+      component: () => import('@/views/settings/timing-setu/index.vue'),
       meta: {
         locale: 'menu.settings.timingsetu',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
+    {
+      path: 'pixivranking',
+      name: 'PixivRankingSetting',
+      component: () => import('@/views/settings/pixiv-ranking/index.vue'),
+      meta: {
+        locale: 'menu.settings.pixivranking',
         requiresAuth: true,
         roles: ['admin'],
         keepAlive: true,

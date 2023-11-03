@@ -24,3 +24,7 @@ export function getPixivUserScanOptions() {
 export function getSetuSourceOptions() {
   return axios.get<OptionInfo[]>('/api/option/list/timing/setu/source');
 }
+
+export function getPixivRankingSortOptions() {
+  return axios.get<OptionInfo[]>('/api/option/list/pixiv/ranking/sort');
+}

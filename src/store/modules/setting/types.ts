@@ -278,15 +278,15 @@ export interface PixivRankingSetting {
   groupCD?: number
   cacheSeconds?: number
   sendDetail?: number
-  daily?: DailyPixivRankingSetting
-  dailyAI?: DailyAIPixivRankingSetting
-  male?: MalePixivRankingSetting
-  weekly?: WeeklyPixivRankingSetting
-  monthly?: MonthlyPixivRankingSetting
+  daily?: R18PixivRankingSetting
+  dailyAI?: R18PixivRankingSetting
+  male?: R18PixivRankingSetting
+  weekly?: R18PixivRankingSetting
+  monthly?: SafePixivRankingSetting
   subscribes?: SubscribesPixivRankingSetting[]
 }
 
-export interface DailyPixivRankingSetting {
+export interface R18PixivRankingSetting {
   enable?: boolean
   commands?: string[]
   r18Commands?: string[]
@@ -296,37 +296,7 @@ export interface DailyPixivRankingSetting {
   minBookRate?: number
 }
 
-export interface DailyAIPixivRankingSetting {
-  enable?: boolean
-  commands?: string[]
-  r18Commands?: string[]
-  minRatingCount?: number
-  minRatingRate?: number
-  minBookCount?: number
-  minBookRate?: number
-}
-
-export interface MalePixivRankingSetting {
-  enable?: boolean
-  commands?: string[]
-  r18Commands?: string[]
-  minRatingCount?: number
-  minRatingRate?: number
-  minBookCount?: number
-  minBookRate?: number
-}
-
-export interface WeeklyPixivRankingSetting {
-  enable?: boolean
-  commands?: string[]
-  r18Commands?: string[]
-  minRatingCount?: number
-  minRatingRate?: number
-  minBookCount?: number
-  minBookRate?: number
-}
-
-export interface MonthlyPixivRankingSetting {
+export interface SafePixivRankingSetting {
   enable?: boolean
   commands?: string[]
   minRatingCount?: number

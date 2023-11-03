@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
-import { getResendOptions, getImgSizes, getTagMatchOptions, getPixivRandomOptions, getPixivUserScanOptions, getSetuSourceOptions } from '@/api/option';
+import { getResendOptions, getImgSizes, getTagMatchOptions, getPixivRandomOptions, getPixivUserScanOptions } from '@/api/option';
+import { getSetuSourceOptions, getPixivRankingSortOptions } from '@/api/option';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { OptionState, OptionInfo } from './types';
 
@@ -88,6 +89,17 @@ const useOptionStore = defineStore('option', {
     },
     async loadSetuSourceOptions(): Promise<SelectOptionData[]> {
       const optionInfos = await this.loadSetuSourceInfos();
+      return infoToOptions(optionInfos);
+    },
+
+    async loadPixivRankingSortInfos(): Promise<OptionInfo[]> {
+      if (this.pixivRankingSortOptions) return this.pixivRankingSortOptions;
+      const optionInfos = (await getPixivRankingSortOptions()) as unknown as OptionInfo[];
+      this.pixivRankingSortOptions = optionInfos;
+      return optionInfos;
+    },
+    async loadPixivRankingSortOptions(): Promise<SelectOptionData[]> {
+      const optionInfos = await this.loadPixivRankingSortInfos();
       return infoToOptions(optionInfos);
     },
 

@@ -10,4 +10,5 @@ export interface OptionState {
   pixivRandomOptions?: OptionInfo[];
   pixivUserScanOptions?: OptionInfo[];
   setuSourceOptions?: OptionInfo[];
+  pixivRankingSortOptions?: OptionInfo[];
 }

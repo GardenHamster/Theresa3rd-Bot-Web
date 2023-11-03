@@ -103,13 +103,6 @@
                 :prefix="['{']" :data="pixivUserPlaceholders" type="textarea" placeholder="不填写将使用默认模板..." auto-size
                 allow-clear />
             </a-form-item>
-            <a-form-item field="pixivUser.shelfLife" label="保质期" tooltip="超过保质期的作品将不会再推送，0表示永不过期"
-              :disabled="!formModel.pixivUser?.enable" feedback>
-              <a-input-number v-model:model-value="formModel.pixivUser!.shelfLife" :style="{ maxWidth: '300px' }" :min="0"
-                :max="100000000" placeholder="输入一个数字" mode="button" size="large">
-                <template #suffix>秒</template>
-              </a-input-number>
-            </a-form-item>
             <a-form-item field="pixivUser.scanMode" label="扫描模式" tooltip="扫描Pixiv画师作品的模式"
               :disabled="!formModel.pixivUser!.enable" feedback>
               <a-select v-model:model-value="formModel.pixivUser!.scanMode" :options="scanOptions" placeholder="选择一个模式"
@@ -119,6 +112,13 @@
               :disabled="!formModel.pixivUser?.enable" feedback>
               <a-input-number v-model:model-value="formModel.pixivUser!.scanInterval" :style="{ maxWidth: '300px' }"
                 :min="60" :max="100000000" placeholder="输入一个数字" mode="button" size="large">
+                <template #suffix>秒</template>
+              </a-input-number>
+            </a-form-item>
+            <a-form-item field="pixivUser.shelfLife" label="保质期" tooltip="超过保质期的作品将不会再推送，0表示永不过期"
+              :disabled="!formModel.pixivUser?.enable" feedback>
+              <a-input-number v-model:model-value="formModel.pixivUser!.shelfLife" :style="{ maxWidth: '300px' }" :min="0"
+                :max="100000000" placeholder="输入一个数字" mode="button" size="large">
                 <template #suffix>秒</template>
               </a-input-number>
             </a-form-item>
