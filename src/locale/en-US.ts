@@ -5,7 +5,7 @@ import localeSettings from './en-US/settings';
 export default {
   'menu.dashboard': 'Dashboard',
   'menu.settings': 'Bot Settings',
-  'menu.settings.general': 'General Settings',
+  'menu.settings.general': 'Global Settings',
   'menu.settings.pixiv': 'Pixiv Settings',
   'menu.settings.permissions': 'Permissions Settings',
   'menu.settings.manage': 'Manage Settings',

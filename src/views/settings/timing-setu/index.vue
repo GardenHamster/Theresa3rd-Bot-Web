@@ -57,8 +57,8 @@
       </a-card>
 
       <a-card class="card" title="本地图源配置">
-        <a-form-item field="fromOneDir" label="相同目录" tooltip="从同一个目录中读取涩图，否则从不同的文件夹中读取" 
-           :disabled="!formModel?.enable" feedback>
+        <a-form-item field="fromOneDir" label="相同目录" tooltip="从同一个目录中读取涩图，否则从不同的文件夹中读取" :disabled="!formModel?.enable"
+          feedback>
           <a-switch v-model:model-value="formModel.fromOneDir">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
@@ -85,31 +85,32 @@
         </a-form-item>
       </a-card>
 
-      <a-card class="card" v-for="(item, index) of formModel.timers" :key="index" :title="`定时任务${padLeft((index + 1).toString(), (0).toString(), 2)}`">
+      <a-card class="card" v-for="(item, index) of formModel.timers" :key="index"
+        :title="`定时任务${padLeft((index + 1).toString(), (0).toString(), 2)}`">
         <template #extra>
           <a-popconfirm @ok="onDeleteCard(index)" content="确定要删除这个定时任务吗？" type="warning" position="br">
             <span class="delCard">删除</span>
           </a-popconfirm>
         </template>
 
-        <a-form-item :field="`timers[${index}].enable`" label="是否启用" tooltip="是否启用这个定时任务" 
-        :disabled="!formModel.enable" feedback>
+        <a-form-item :field="`timers[${index}].enable`" label="是否启用" tooltip="是否启用这个定时任务" :disabled="!formModel.enable"
+          feedback>
           <a-switch v-model:model-value="item.enable">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
 
-        <a-form-item :field="`timers[${index}].sendMerge`" label="合并发送" tooltip="合并消息发送" 
-        :disabled="!formModel.enable || !item.enable" feedback>
+        <a-form-item :field="`timers[${index}].sendMerge`" label="合并发送" tooltip="合并消息发送"
+          :disabled="!formModel.enable || !item.enable" feedback>
           <a-switch v-model:model-value="item.sendMerge">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
 
-        <a-form-item :field="`timers[${index}].atAll`" label="艾特全体" tooltip="是否艾特全体" 
-        :disabled="!formModel.enable || !item.enable" feedback>
+        <a-form-item :field="`timers[${index}].atAll`" label="艾特全体" tooltip="是否艾特全体"
+          :disabled="!formModel.enable || !item.enable" feedback>
           <a-switch v-model:model-value="item.atAll">
             <template #checked>ON</template>
             <template #unchecked>OFF</template>
@@ -118,13 +119,13 @@
 
         <a-form-item :field="`timers[${index}].quantity`" label="数量" tooltip="推送涩图数量"
           :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入一个数量' }]" feedback>
-          <a-input-number v-model:model-value="item.quantity" :style="{ maxWidth: '300px' }"
-            :min="1" :max="20" placeholder="输入一个数字" mode="button" size="large">
+          <a-input-number v-model:model-value="item.quantity" :style="{ maxWidth: '300px' }" :min="1" :max="20"
+            placeholder="输入一个数字" mode="button" size="large">
             <template #suffix>张</template>
           </a-input-number>
         </a-form-item>
 
-         <a-form-item :field="`timers[${index}].name`" label="任务名" tooltip="定时器名称"
+        <a-form-item :field="`timers[${index}].name`" label="任务名" tooltip="定时器名称"
           :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入一个名称' }]" feedback>
           <a-input v-model:model-value="item.name" placeholder="输入一个名称" allow-clear />
         </a-form-item>
@@ -145,13 +146,13 @@
           <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
         </a-form-item>
 
-        <a-form-item :field="`timers[${index}].tags`" label="指定标签" tooltip="涩图标签，不填表示随机，图片来源为Lolicon或Lolisuki时可用" extra="输入一个指令后按下Enter添加"
-          :disabled="!formModel.enable || !item.enable" feedback>
+        <a-form-item :field="`timers[${index}].tags`" label="指定标签" tooltip="涩图标签，不填表示随机，图片来源为Lolicon或Lolisuki时可用"
+          extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable || !item.enable" feedback>
           <a-input-tag v-model:model-value="item.tags" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加"
             allow-clear />
         </a-form-item>
 
-        <a-form-item :field="`timers[${index}].atAll`" label="消息模板" tooltip="是否艾特全体" extra="输入“{”可以快速插入占位符"
+        <a-form-item :field="`timers[${index}].atAll`" label="消息模板" tooltip="涩图消息推送模板" extra="输入“{”可以快速插入占位符"
           :disabled="!formModel.enable || !item.enable" feedback>
           <a-mention v-model:model-value="item.timingMsg" :style="{ minHeight: '120px' }" :prefix="['{']"
             :data="placeholders" type="textarea" placeholder="随便写点什么吧..." auto-size allow-clear />

@@ -5,7 +5,7 @@ import localeSettings from './zh-CN/settings';
 export default {
   'menu.dashboard': '运行状态',
   'menu.settings': 'Bot配置',
-  'menu.settings.general': '基本配置',
+  'menu.settings.general': '全局配置',
   'menu.settings.pixiv': 'Pixiv配置',
   'menu.settings.permissions': '权限配置',
   'menu.settings.manage': '管理指令',

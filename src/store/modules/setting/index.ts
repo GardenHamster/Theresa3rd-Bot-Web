@@ -139,7 +139,14 @@ const useSettingStore = defineStore('setting', {
     },
 
     async loadPixivRankingSetting(): Promise<PixivRankingSetting> {
-      this.pixivRankingSetting = (await getPixivRankingSetting()) as unknown as PixivRankingSetting;
+      const pixivRankingSetting = (await getPixivRankingSetting()) as unknown as PixivRankingSetting;
+      if (!pixivRankingSetting.daily) pixivRankingSetting.daily = { enable: false };
+      if (!pixivRankingSetting.dailyAI) pixivRankingSetting.dailyAI = { enable: false };
+      if (!pixivRankingSetting.weekly) pixivRankingSetting.weekly = { enable: false };
+      if (!pixivRankingSetting.monthly) pixivRankingSetting.monthly = { enable: false };
+      if (!pixivRankingSetting.male) pixivRankingSetting.male = { enable: false };
+      if (!pixivRankingSetting.subscribes) pixivRankingSetting.subscribes = [];
+      this.pixivRankingSetting = pixivRankingSetting;
       return this.pixivRankingSetting;
     },
     async savePixivRankingSetting(setting: PixivRankingSetting) {

@@ -127,7 +127,7 @@
       </a-card>
 
       <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }"
-        :style="{ marginTop: '5px' }" @click="onCreateCard">
+        :style="{ marginTop: '5px', marginBottom: '20px' }" @click="onCreateCard">
         <p class="addTemp"><icon-plus-circle-fill />点击添加一套模版</p>
       </a-card>
 
