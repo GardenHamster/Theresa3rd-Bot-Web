@@ -73,8 +73,6 @@
               </a-input-number>
             </a-form-item>
 
-
-
             <a-form-item field="groupCD" label="共享CD" tooltip="群共享CD，使用指令后全群需要CD才能重新使用该功能" :disabled="!formModel!.enable"
               feedback>
               <a-input-number v-model:model-value="formModel.groupCD" :style="{ maxWidth: '300px' }" :min="0"
@@ -378,9 +376,9 @@
             <template #unchecked>OFF</template>
           </a-switch>
         </a-form-item>
-        <a-form-item :field="`subscribes[${index}].cron`" label="Corn" tooltip="定时器Cron表达式，详细可以百度Cron在线生成"
-          :disabled="!formModel?.enable || !item?.enable" :rules="[{ required: true, message: '必须输入一个Cron表达式' }]"
-          feedback>
+        <a-form-item :field="`subscribes[${index}].cron`" label="Cron" tooltip="定时器Cron表达式，详细可以百度Cron在线生成"
+          :disabled="!formModel?.enable || !item?.enable"
+          :rules="[{ ...cronRule }, { required: true, message: '必须输入一个Cron表达式' }]" feedback>
           <a-input v-model:model-value="item.cron" placeholder="输入一个Cron表达式" allow-clear />
         </a-form-item>
         <a-form-item :field="`subscribes[${index}].groups`" label="指定群" tooltip="指定需要推送的群"
@@ -425,6 +423,7 @@ import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useGroupStore, useOptionStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
+import { cronRule } from '@/utils/validator'
 import type { PixivRankingSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 

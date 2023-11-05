@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, toRefs } from 'vue';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { FacePath } from '@/store/modules/path/types';
 import { getFaceHttpUrl } from '@/utils/url'
@@ -62,8 +62,9 @@ import { PreviewType, PreviewText, PreviewImage, PreviewContent, analysis } from
 
 const preview = ref(false);
 const contents = ref<PreviewContent[]>([]);
-const props = withDefaults(defineProps<{ modelValue: string, facePaths: FacePath[], placeholder?: string }>(), { modelValue: '', placeholder: '随便写点什么吧...' })
+const props = withDefaults(defineProps<{ modelValue?: string, facePaths: FacePath[], placeholder?: string }>(), { modelValue: '', placeholder: '随便写点什么吧...' })
 const emit = defineEmits<{ (e: "update:modelValue", value: string): void }>();
+const { facePaths } = toRefs(props)
 
 const modelValue = computed({
     get: () => props.modelValue,
@@ -72,8 +73,8 @@ const modelValue = computed({
 
 const imgMentions = computed(() => {
     const optionList: SelectOptionData[] = [];
-    for (let i = 0; i < props.facePaths.length; i += 1) {
-        const face = props.facePaths[i];
+    for (let i = 0; i < facePaths.value.length; i += 1) {
+        const face = facePaths.value[i];
         const optionItem: SelectOptionData = { label: `[image:${face.serverPath}]`, value: `image:${face.serverPath}]` };
         optionList.push(optionItem);
     }
@@ -87,18 +88,23 @@ const onBlur = async () => {
     preview.value = false;
 }
 
-const getImgHttpUrl = function (content: PreviewContent): string {
+const getImgHttpUrl = (content: PreviewContent): string => {
     const image = content.value as PreviewImage;
     const path = image?.path ?? '';
-    return getFaceHttpUrl(path);
+    const httpUrl = getFaceHttpUrl(path);
+    return httpUrl;
 }
 
 const initAnalysis = async () => {
-    contents.value = await analysis(props.facePaths, props.modelValue);
+    contents.value = await analysis(facePaths.value, props.modelValue);
 }
 
 watch(modelValue, async (newValue) => {
-    contents.value = await analysis(props.facePaths, newValue);
+    contents.value = await analysis(facePaths.value, newValue);
+});
+
+watch(facePaths, async (newValue) => {
+    contents.value = await analysis(facePaths.value, modelValue.value);
 });
 
 initAnalysis();

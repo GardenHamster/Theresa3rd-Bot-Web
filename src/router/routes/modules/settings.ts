@@ -155,6 +155,17 @@ const Settings: AppRouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: 'wordcloud',
+      name: 'WordCloudSetting',
+      component: () => import('@/views/settings/wordcloud/index.vue'),
+      meta: {
+        locale: 'menu.settings.wordcloud',
+        requiresAuth: true,
+        roles: ['admin'],
+        keepAlive: true,
+      },
+    },
   ],
 };
 

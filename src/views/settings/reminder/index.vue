@@ -86,8 +86,9 @@
           <a-input v-model:model-value="item.name" placeholder="输入一个名称" allow-clear />
         </a-form-item>
 
-        <a-form-item :field="`timers[${timerIndex}].cron`" label="Corn" tooltip="定时器Cron表达式，详细可以百度Cron在线生成"
-          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入一个Cron表达式' }]" feedback>
+        <a-form-item :field="`timers[${timerIndex}].cron`" label="Cron" tooltip="定时器Cron表达式，详细可以百度Cron在线生成"
+          :disabled="!formModel.enable || !item.enable"
+          :rules="[{ ...cronRule }, { required: true, message: '必须输入一个Cron表达式' }]" feedback>
           <a-input v-model:model-value="item.cron" placeholder="输入一个Cron表达式" allow-clear />
         </a-form-item>
 
@@ -149,6 +150,7 @@ import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useGroupStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
+import { cronRule } from '@/utils/validator'
 import type { ReminderSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 

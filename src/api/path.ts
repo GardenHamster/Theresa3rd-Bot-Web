@@ -7,3 +7,7 @@ export function getFontPaths() {
 export function getFacePaths() {
   return axios.get<string[]>('/api/path/list/face');
 }
+
+export function getMaskPaths() {
+  return axios.get<string[]>('/api/path/list/mask');
+}

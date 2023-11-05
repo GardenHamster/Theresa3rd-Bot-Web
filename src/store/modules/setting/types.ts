@@ -318,7 +318,7 @@ export interface WordCloudSetting {
   groupCD?: number
   maxWords?: number
   defaultWidth?: number
-  defaultHeitht?: number
+  defaultHeight?: number
   fontPath?: string
   processingMsg?: string
   basicCommands?: string[]

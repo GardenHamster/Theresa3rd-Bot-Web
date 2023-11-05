@@ -10,7 +10,7 @@ import { computed } from 'vue';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
 let initValues: number[] = [];
-const props = withDefaults(defineProps<{ modelValue?: number[], options: SelectOptionData[], placeholder?: string, selectAll: boolean }>(), { placeholder: '选择任意群' })
+const props = withDefaults(defineProps<{ modelValue?: number[], options: SelectOptionData[], placeholder?: string, selectAll?: boolean }>(), { placeholder: '选择任意群', selectAll: false })
 const emit = defineEmits<{ (e: "update:modelValue", value: number[]): void }>();
 const modelValue = computed({
     get: () => props.modelValue ?? [],
@@ -63,5 +63,3 @@ const groupOptions = computed(() => {
 })
 
 </script>
-
-<style scoped></style>

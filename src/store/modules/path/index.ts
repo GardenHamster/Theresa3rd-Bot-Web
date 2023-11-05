@@ -1,6 +1,6 @@
 import { List } from 'linqts';
 import { defineStore } from 'pinia';
-import { getFontPaths, getFacePaths } from '@/api/path';
+import { getFontPaths, getFacePaths, getMaskPaths } from '@/api/path';
 import { PathState, FacePath } from './types';
 
 const usePathStore = defineStore('path', {
@@ -16,9 +16,10 @@ const usePathStore = defineStore('path', {
       this.facePaths = (await getFacePaths()) as unknown as FacePath[];
       return this.facePaths;
     },
-    async loadFaceServerPaths(): Promise<string[]> {
-      const facePaths = await this.loadFacePaths();
-      return new List<FacePath>(facePaths).Select(o => o.serverPath).ToArray();
+    async loadMaskPaths(): Promise<FacePath[]> {
+      if (this.maskPaths) return this.maskPaths;
+      this.maskPaths = (await getMaskPaths()) as unknown as FacePath[];
+      return this.maskPaths;
     },
   },
 });
