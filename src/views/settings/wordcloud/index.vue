@@ -153,7 +153,8 @@
             placeholder="输入指令后按下回车添加" allow-clear />
         </a-form-item>
 
-        <a-form-item field="defaultMasks" label="默认蒙版" tooltip="默认蒙版，对应下放设置的蒙版名称" :disabled="!formModel.enable" feedback>
+        <a-form-item field="defaultMasks" label="默认蒙版" tooltip="默认蒙版，对应下面设置的蒙版名称，不设置默认使用矩形" :disabled="!formModel.enable"
+          feedback>
           <a-select v-model:model-value="formModel.defaultMasks" :options="maskOptions" :style="{ minHeight: '100px' }"
             :scrollbar="true" placeholder="选择一个或多个蒙版" allow-search allow-clear multiple>
           </a-select>
@@ -168,7 +169,7 @@
       <a-card class="card" v-for="(item, index) of formModel.masks" :key="index"
         :title="`蒙版${padLeft((index + 1).toString(), (0).toString(), 2)}`">
         <template #extra>
-          <a-popconfirm @ok="onDeleteMask(index)" content="确定要删除这个定时任务吗？" type="warning" position="br">
+          <a-popconfirm @ok="onDeleteMask(index)" content="确定要删除这个蒙版吗？" type="warning" position="br">
             <span class="delCard">删除</span>
           </a-popconfirm>
         </template>
@@ -190,11 +191,69 @@
           :rules="[{ required: true, message: '必须输入一个路径' }]" feedback>
           <image-input v-model:model-value="item.path" :imgPaths="maskPaths" />
         </a-form-item>
-
       </a-card>
 
       <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }" @click="onCreateMask">
-        <p class="addTemp"><icon-plus-circle-fill />点击添加一个定时任务</p>
+        <p class="addTemp"><icon-plus-circle-fill />点击添加一个蒙版</p>
+      </a-card>
+
+      <a-card class="card" v-for="(item, index) of formModel.subscribes" :key="index"
+        :title="`推送任务${padLeft((index + 1).toString(), (0).toString(), 2)}`">
+        <template #extra>
+          <a-popconfirm @ok="onDeleteSubscribe(index)" content="确定要删除这个推送任务吗？" type="warning" position="br">
+            <span class="delCard">删除</span>
+          </a-popconfirm>
+        </template>
+
+        <a-form-item :field="`subscribes[${index}].enable`" label="开启任务" tooltip="是否启用该推送任务" :disabled="!formModel.enable"
+          feedback>
+          <a-switch v-model:model-value="item.enable">
+            <template #checked>ON</template>
+            <template #unchecked>OFF</template>
+          </a-switch>
+        </a-form-item>
+
+        <a-form-item :field="`subscribes[${index}].hourRange`" label="时间范围" tooltip="读取触发时间至触发时间前N个小时内的聊天记录"
+          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入一个数量' }]" feedback>
+          <a-input-number v-model:model-value="item.hourRange" :style="{ maxWidth: '300px' }" :min="1"
+            placeholder="输入一个数字" mode="button" size="large">
+            <template #suffix>小时</template>
+          </a-input-number>
+        </a-form-item>
+
+        <a-form-item :field="`subscribes[${index}].name`" label="任务名称" tooltip="任务名称"
+          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入一个名称' }]" feedback>
+          <a-input v-model:model-value="item.name" placeholder="输入一个名称" allow-clear />
+        </a-form-item>
+
+        <a-form-item :field="`subscribes[${index}].cron`" label="Cron" tooltip="定时器Cron表达式，详细可以百度Cron在线生成"
+          :disabled="!formModel.enable || !item.enable"
+          :rules="[{ ...cronRule }, { required: true, message: '必须输入一个Cron表达式' }]" feedback>
+          <a-input v-model:model-value="item.cron" placeholder="输入一个Cron表达式" allow-clear />
+        </a-form-item>
+
+        <a-form-item :field="`subscribes[${index}].groups`" label="推送群" tooltip="指定需要推送的群"
+          :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
+          <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
+        </a-form-item>
+
+        <a-form-item :field="`subscribes[${index}].masks`" label="指定蒙版" tooltip="词云蒙版，对应上面设置的蒙版名称,不设置默认使用矩形"
+          :disabled="!formModel.enable || !item.enable" feedback>
+          <a-select v-model:model-value="item.masks" :options="maskOptions" :style="{ minHeight: '100px' }"
+            :scrollbar="true" placeholder="选择一个或多个蒙版" allow-search allow-clear multiple>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item :field="`subscribes[${index}].template`" label="消息模板" tooltip="消息模板" extra="输入“[”可以快速插入图片码"
+          :disabled="!formModel.enable || !item.enable" feedback>
+          <preview-textarea v-model:model-value="item.template" :facePaths="facePaths" />
+        </a-form-item>
+
+      </a-card>
+
+      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }"
+        @click="onCreateSubscribe">
+        <p class="addTemp"><icon-plus-circle-fill />点击添加一个推送任务</p>
       </a-card>
 
       <div class="actions">
@@ -214,6 +273,7 @@ import { padLeft } from '@/utils/string';
 import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useGroupStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
+import { cronRule } from '@/utils/validator'
 import { FacePath } from '@/store/modules/path/types';
 import type { WordCloudSetting, WordCloudMask } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
