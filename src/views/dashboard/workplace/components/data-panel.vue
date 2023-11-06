@@ -1,51 +1,61 @@
 <template>
-  <a-grid :cols="24" :row-gap="16" class="panel">
-    <a-grid-item :span="gridSpan">
-      <a-space>
-        <a-avatar :size="54" class="col-avatar">
-          <img alt="avatar" :src="face05" />
-        </a-avatar>
-        <clock title="运行时间" :value="runTime" />
-      </a-space>
-    </a-grid-item>
-
-    <a-grid-item :span="gridSpan">
-      <a-space>
-        <a-avatar :size="54" class="col-avatar">
-          <img alt="avatar" :src="face06" />
-        </a-avatar>
-        <a-statistic title="累计处理指令" :value="114514" :value-from="0" animation>
-          <template #suffix><span class="unit">次</span></template>
-        </a-statistic>
-      </a-space>
-    </a-grid-item>
-
-    <a-grid-item :span="gridSpan">
-      <a-space>
-        <a-avatar :size="54" class="col-avatar">
-          <img alt="avatar" :src="face04" />
-        </a-avatar>
-        <a-statistic title="累计扫描作品" :value="368" :value-from="0" animation show-group-separator>
-          <template #suffix><span class="unit">次</span></template>
-        </a-statistic>
-      </a-space>
-    </a-grid-item>
-
-    <a-grid-item :span="gridSpan">
-      <a-space>
-        <a-avatar :size="54" class="col-avatar">
-          <img alt="avatar" :src="face07" />
-        </a-avatar>
-        <a-statistic title="扫描错误次数" :value="1" :value-from="0" animation show-group-separator>
-          <template #suffix><span class="unit">次</span></template>
-        </a-statistic>
-      </a-space>
-    </a-grid-item>
-
-    <a-grid-item :span="24">
-      <a-divider class="panel-border" />
-    </a-grid-item>
-  </a-grid>
+  <a-card title="运行统计" :bordered="false" >
+    <a-grid :cols="24" :row-gap="16" class="panel">
+      <a-grid-item :span="mediumSpan">
+        <a-space>
+          <a-avatar :size="54" class="col-avatar">
+            <img alt="avatar" :src="face05" />
+          </a-avatar>
+          <clock title="本次运行时间" :value="runTime" />
+        </a-space>
+      </a-grid-item>
+      <a-grid-item :span="smallSpan">
+        <a-space>
+          <a-avatar :size="54" class="col-avatar">
+            <img alt="avatar" :src="face06" />
+          </a-avatar>
+          <a-statistic title="累计处理指令" :value="114514" :value-from="0" animation>
+            <template #suffix><span class="unit">次</span></template>
+          </a-statistic>
+        </a-space>
+      </a-grid-item>
+    </a-grid>
+  </a-card>
+  <a-card title="Pixiv推送统计" :bordered="false" >
+    <a-grid :cols="24" :row-gap="16" class="panel">
+      <a-grid-item :span="smallSpan">
+        <a-space>
+          <a-avatar :size="54" class="col-avatar">
+            <img alt="avatar" :src="face04" />
+          </a-avatar>
+          <a-statistic title="累计推送作品" :value="368" :value-from="0" animation show-group-separator>
+            <template #suffix><span class="unit">个</span></template>
+          </a-statistic>
+        </a-space>
+      </a-grid-item>
+       <a-grid-item :span="smallSpan">
+        <a-space>
+          <a-avatar :size="54" class="col-avatar">
+            <img alt="avatar" :src="face04" />
+          </a-avatar>
+          <a-statistic title="累计扫描作品" :value="368" :value-from="0" animation show-group-separator>
+            <template #suffix><span class="unit">次</span></template>
+          </a-statistic>
+        </a-space>
+      </a-grid-item>
+      <a-grid-item :span="smallSpan">
+        <a-space>
+          <a-avatar :size="54" class="col-avatar">
+            <img alt="avatar" :src="face07" />
+          </a-avatar>
+          <a-statistic title="累计扫描错误" :value="1" :value-from="0" animation show-group-separator>
+            <template #suffix><span class="unit">次</span></template>
+          </a-statistic>
+        </a-space>
+      </a-grid-item>
+    </a-grid>
+  </a-card>
+  
 </template>
 
 <script lang="ts" setup>
@@ -58,7 +68,8 @@ import face06 from '@/assets/images/face/c0c08cd4aaec.gif';
 import face07 from '@/assets/images/face/25c77bdb7331.gif';
 import { computed, ref } from 'vue';
 
-const gridSpan = { xs: 12, sm: 12, md: 8, lg: 8, xl: 8, xxl: 6 };
+const mediumSpan = { xs: 18, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12 };
+const smallSpan = { xs: 12, sm: 12, md: 8, lg: 8, xl: 8, xxl: 6 };
 const runTime = ref<number>(86400);
 </script>
 
