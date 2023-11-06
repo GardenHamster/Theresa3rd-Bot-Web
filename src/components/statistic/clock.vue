@@ -18,21 +18,21 @@ import { onBeforeUnmount, onMounted, ref, toRefs, watch } from 'vue';
 import { getTimeStr } from '@/utils/date'
 
 interface Props {
-  title: string;
-  value: number;
+  title?: string;
+  value?: number;
 }
 
 const timer = ref<number>(0);
 const props = defineProps<Props>();
 const { title } = toRefs(props);
-const value = ref<number>(props.value);
+const value = ref<number>(props?.value ?? 0);
 
 const getDateString = (val: number): string => {
   return getTimeStr(val);
 }
 
 const displayValue = ref(
-  getDateString(props.value)
+  getDateString(value.value)
 );
 
 watch(value, (newValue) => {

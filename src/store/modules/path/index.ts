@@ -1,4 +1,3 @@
-import { List } from 'linqts';
 import { defineStore } from 'pinia';
 import { getFontPaths, getFacePaths, getMaskPaths } from '@/api/path';
 import { PathState, FacePath } from './types';
