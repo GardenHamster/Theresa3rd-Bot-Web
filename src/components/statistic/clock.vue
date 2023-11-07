@@ -14,28 +14,27 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref, toRefs, watch } from 'vue';
+import { onBeforeUnmount, onMounted, ref, toRefs, watch, computed } from 'vue';
 import { getTimeStr } from '@/utils/date'
 
-interface Props {
-  title?: string;
-  value?: number;
-}
-
 const timer = ref<number>(0);
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<{ title: string; modelValue?: number; }>(), { modelValue: 0 });
+const emit = defineEmits<{ (e: "update:modelValue", value: number): void }>();
 const { title } = toRefs(props);
-const value = ref<number>(props?.value ?? 0);
+const modelValue = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value)
+});
 
 const getDateString = (val: number): string => {
   return getTimeStr(val);
 }
 
 const displayValue = ref(
-  getDateString(value.value)
+  getDateString(modelValue?.value ?? 0)
 );
 
-watch(value, (newValue) => {
+watch(modelValue, (newValue) => {
   displayValue.value = getDateString(newValue)
 });
 
@@ -46,7 +45,7 @@ const stopTimer = () => {
 
 const startTimer = () => {
   timer.value = window.setInterval(() => {
-    value.value += 1;
+    modelValue.value += 1;
   }, 1000);
 };
 

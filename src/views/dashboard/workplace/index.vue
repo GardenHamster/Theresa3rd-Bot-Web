@@ -5,6 +5,7 @@
         <div class="mask">
           <Banner />
           <DataPanel />
+          <div style="height:30px;"></div>
         </div>
       </div>
     </div>

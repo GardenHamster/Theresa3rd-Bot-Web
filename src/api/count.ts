@@ -2,12 +2,26 @@ import axios from 'axios';
 
 export interface RunningCount {
     runningSeconds?: number;
-    totalHandle?: number;
-    totalPixivPush?: number;
-    totalPixivScan?: number;
-    totalPixivScanError?: number;
+    handleTimes?: number;
+    pixivPushTimes?: number;
+    pixivScanTimes?: number;
+    pixivScanError?: number;
 }
 
-export const getRunningCount = function () {
-    return axios.get<RunningCount>('/api/count/running');
+export interface SubscribeCount {
+    pixivUserSubs?: number;
+    pixivTagSubs?: number;
+    mysUserSubs?: number;
+}
+
+export const getSingleCount = function () {
+    return axios.get<RunningCount>('/api/count/single');
+};
+
+export const getTotalCount = function () {
+    return axios.get<RunningCount>('/api/count/total');
+};
+
+export const getSubscribeCount = function () {
+    return axios.get<RunningCount>('/api/count/subscribe');
 };
