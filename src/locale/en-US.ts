@@ -1,4 +1,3 @@
-import localeMessageBox from '@/components/message-box/locale/en-US';
 import localeWorkplace from '@/views/dashboard/workplace/locale/en-US';
 import localeSettings from './en-US/settings';
 
@@ -44,6 +43,5 @@ export default {
   'button.reset': 'Reset',
   'button.restore': 'Restore',
   ...localeSettings,
-  ...localeMessageBox,
   ...localeWorkplace,
 };
