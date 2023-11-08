@@ -6,7 +6,6 @@ import router from './router';
 import store from './store';
 import i18n from './locale';
 import directive from './directive';
-import './mock';
 import App from './App.vue';
 import '@arco-themes/vue-mengtu/theme.less';
 import '@/api/interceptor';
