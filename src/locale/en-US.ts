@@ -1,4 +1,3 @@
-import localeWorkplace from '@/views/dashboard/workplace/locale/en-US';
 import localeSettings from './en-US/settings';
 
 export default {
@@ -43,5 +42,4 @@ export default {
   'button.reset': 'Reset',
   'button.restore': 'Restore',
   ...localeSettings,
-  ...localeWorkplace,
 };

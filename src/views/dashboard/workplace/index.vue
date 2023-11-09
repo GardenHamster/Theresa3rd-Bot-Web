@@ -1,29 +1,61 @@
 <template>
-  <div class="container">
-    <div class="left-side">
-      <div class="panel background">
-        <div class="mask">
-          <Banner />
-          <DataPanel />
-          <div style="height:30px;"></div>
+  <a-spin class="spin" :loading="loading" tip="加载中..." :size="35">
+    <div class="container">
+      <div class="left-side">
+        <div class="panel background">
+          <div class="mask">
+            <Banner />
+            <DataPanel :totalCount="totalCount" :subscribeCount="subscribeCount" />
+            <Instructions />
+            <div style="height:30px;"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </a-spin>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { RunningCount, SubscribeCount } from '@/api/count';
+import { getSingleCount, getTotalCount, getSubscribeCount } from '@/api/count';
+import useLoading from '@/hooks/loading';
+import Instructions from './components/instructions.vue';
 import Banner from './components/banner.vue';
 import DataPanel from './components/data-panel.vue';
+
+const { loading, setLoading } = useLoading();
+const totalCount = ref<RunningCount>({ runningSeconds: 0 });
+const subscribeCount = ref<SubscribeCount>({});
+
+const fetchDatas = async () => {
+  try {
+    setLoading(true);
+    totalCount.value = await getTotalCount() as unknown as RunningCount;
+    subscribeCount.value = await getSubscribeCount() as unknown as SubscribeCount;
+  } catch (error) {
+    console.log(error);
+  }
+  finally {
+    setLoading(false);
+  }
+};
+
+fetchDatas();
 </script>
 
-<script lang="ts">
+<script lang = "ts" >
 export default {
-  name: 'Dashboard', // If you want the include property of keep-alive to take effect, you must name the component
+  name: 'Workplace',
 };
 </script>
 
 <style lang="less" scoped>
+.spin {
+  height: 100%;
+  width: 100%;
+}
+
 .container {
   height: 100%;
   padding: 15px 20px 5px 20px;

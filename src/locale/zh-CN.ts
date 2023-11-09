@@ -1,4 +1,3 @@
-import localeWorkplace from '@/views/dashboard/workplace/locale/zh-CN';
 import localeSettings from './zh-CN/settings';
 
 export default {
@@ -43,5 +42,4 @@ export default {
   'button.reset': '重置',
   'button.restore': '还原',
   ...localeSettings,
-  ...localeWorkplace,
 };
