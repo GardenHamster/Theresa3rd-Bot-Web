@@ -1,4 +1,9 @@
 <style scoped lang="less">
+.spin {
+  height: 100%;
+  width: 100%;
+}
+
 .container {
   height: 100%;
   margin-bottom: 50px;
@@ -39,54 +44,53 @@
 </style>
 
 <template>
-  <div class="container">
-    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true"
-      :model="formModel">
+  <a-spin class="spin" :loading="loading" tip="加载中..." :size="35">
+    <div class="container">
+      <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true" :model="formModel">
+        <a-card class="card">
+          <save-warning :initModel="initModel" :formModel="formModel" />
+          <Breadcrumb :items="['menu.settings', 'menu.settings.welcome']" />
 
-      <a-card class="card">
-        <save-warning :initModel="initModel" :formModel="formModel" />
-        <Breadcrumb :items="['menu.settings', 'menu.settings.welcome']" />
-        <a-form-item field="enable" label="启用功能" tooltip="是否启用该功能" feedback>
-          <a-switch v-model:model-value="formModel.enable">
-            <template #checked>ON</template>
-            <template #unchecked>OFF</template>
-          </a-switch>
-        </a-form-item>
-        <a-form-item field="template" label="默认模版" tooltip="自定义欢迎模版" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable"
-          :rules="[{ required: true, message: '必须输入内容' }]" feedback>
-          <preview-textarea v-model:model-value="formModel.template" :facePaths="facePaths" />
-        </a-form-item>
-      </a-card>
+          <a-form-item field="enable" label="启用功能" tooltip="是否启用该功能" feedback>
+            <a-switch v-model:model-value="formModel.enable">
+              <template #checked>ON</template>
+              <template #unchecked>OFF</template>
+            </a-switch>
+          </a-form-item>
+          <a-form-item field="template" label="默认模版" tooltip="自定义欢迎模版" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" :rules="[{ required: true, message: '必须输入内容' }]" feedback>
+            <preview-textarea v-model:model-value="formModel.template" :facePaths="facePaths" />
+          </a-form-item>
+        </a-card>
 
-      <a-card class="card" v-for="(item, index) of formModel.specials" :key="index" :title="`模板${padLeft((index + 1).toString(), (0).toString(), 2)}`">
-        <template #extra>
-          <a-popconfirm @ok="onDeleteCard(index)" content="确定要删除这个模版吗？" type="warning" position="br">
-            <span class="delCard">删除</span>
-          </a-popconfirm>
-        </template>
-        <a-form-item :field="`specials[${index}].groupIds`" label="指定群" tooltip="指定使用该模版的群" :disabled="!formModel.enable"
-          :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
-          <group-select v-model:model-value="item.groupIds" :options="groupOptions" select-all />
-        </a-form-item>
-        <a-form-item :field="`specials[${index}].template`" label="指定模版" tooltip="自定义欢迎模版" extra="输入“[”可以快速插入图片码"
-          :disabled="!formModel.enable" :rules="[{ required: true, message: '必须输入内容' }]" feedback>
-          <preview-textarea v-model:model-value="item.template" :facePaths="facePaths" />
-        </a-form-item>
-      </a-card>
+        <a-card class="card" v-for="(item, index) of formModel.specials" :key="index" :title="`模板${padLeft((index + 1).toString(), (0).toString(), 2)}`">
+          <template #extra>
+            <a-popconfirm @ok="onDeleteCard(index)" content="确定要删除这个模版吗？" type="warning" position="br">
+              <span class="delCard">删除</span>
+            </a-popconfirm>
+          </template>
+          <a-form-item :field="`specials[${index}].groupIds`" label="指定群" tooltip="指定使用该模版的群" :disabled="!formModel.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
+            <group-select v-model:model-value="item.groupIds" :options="groupOptions" select-all />
+          </a-form-item>
+          <a-form-item :field="`specials[${index}].template`" label="指定模版" tooltip="自定义欢迎模版" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" :rules="[{ required: true, message: '必须输入内容' }]"
+            feedback>
+            <preview-textarea v-model:model-value="item.template" :facePaths="facePaths" />
+          </a-form-item>
+        </a-card>
 
-      <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }" @click="onCreateCard">
-        <p class="addTemp"><icon-plus-circle-fill />点击添加一套模版</p>
-      </a-card>
+        <a-card class="card addCard" size="small" :body-style="{ padding: '0px', height: '100%' }" @click="onCreateCard">
+          <p class="addTemp"><icon-plus-circle-fill />点击添加一套模版</p>
+        </a-card>
 
-      <div class="actions">
-        <a-space direction="horizontal" size="medium">
-          <a-button type="primary" :loading="loading" @click="onSubmit">{{ $t('button.submit') }}</a-button>
-          <a-button @click="onReset">{{ $t('button.reset') }}</a-button>
-        </a-space>
-      </div>
-    </a-form>
+        <div class="actions">
+          <a-space direction="horizontal" size="medium">
+            <a-button type="primary" :loading="loading" @click="onSubmit">{{ $t('button.submit') }}</a-button>
+            <a-button @click="onReset">{{ $t('button.reset') }}</a-button>
+          </a-space>
+        </div>
+      </a-form>
 
-  </div>
+    </div>
+  </a-spin>
 </template>
 
 <script lang="ts" setup>
@@ -168,10 +172,14 @@ const fetchGroups = async () => {
 
 const fetchSettings = async () => {
   try {
+    setLoading(true);
     formModel.value = await settingStore.loadWelcomeSetting();
     initModel.value = JSON.parse(JSON.stringify(formModel.value))
   } catch (error) {
     console.log(error);
+  }
+  finally {
+    setLoading(false);
   }
 };
 

@@ -19,16 +19,14 @@
       <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.user']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
-          <a-select @change="groupChange" v-model:model-value="selectedGroup" :options="groupOptions"
-            :style="{ minWidth: '200px' }" placeholder="Please select ..." :loading="groupLoading" allow-search>
+          <a-select @change="groupChange" v-model:model-value="selectedGroup" :options="groupOptions" :style="{ minWidth: '200px' }" placeholder="Please select ..." :loading="groupLoading" allow-search>
             <a-option :value="0">全部</a-option>
           </a-select>
           <a-popconfirm @ok="unsubscribe" content="将为所有群退订被选中的订阅，是否继续？" type="warning" position="br">
             <a-button type="primary">退订选中</a-button>
           </a-popconfirm>
         </a-space>
-        <a-table row-key="id" :columns="columnDatas" :data="subscribeList" :filter-icon-align-left="true"
-          :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
+        <a-table row-key="id" :columns="columnDatas" :data="subscribeList" :filter-icon-align-left="true" :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
           v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" only-current>
           <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
             <div class="custom-filter">

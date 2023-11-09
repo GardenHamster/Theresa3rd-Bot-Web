@@ -24,8 +24,7 @@
           </a-popconfirm>
           <a-button type="outline" @click="handleAddMember">添加成员</a-button>
         </a-space>
-        <a-table row-key="id" :data="memberList" :columns="columns" :filter-icon-align-left="true"
-          :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
+        <a-table row-key="id" :data="memberList" :columns="columns" :filter-icon-align-left="true" :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
           v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" only-current>
           <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
             <div class="custom-filter">
@@ -52,12 +51,9 @@
         </a-table>
       </a-space>
     </a-card>
-    <a-modal v-model:visible="formVisible" title="添加黑名单成员" @cancel="handleCancel" @before-ok="handleBeforeOk"
-      @ok="handleOk">
+    <a-modal v-model:visible="formVisible" title="添加黑名单成员" @cancel="handleCancel" @before-ok="handleBeforeOk" @ok="handleOk">
       <a-form ref="formRef" layout="horizontal" size="small" :auto-label-width="true" :model="formModel">
-        <a-form-item field="memberId" label="屏蔽QQ"
-          :rules="[{ required: true, message: '必须输入一个qq号' }, { type: 'number', positive: true, message: '必须输入一个正数' }]"
-          show-colon feedback>
+        <a-form-item field="memberId" label="屏蔽QQ" :rules="[{ required: true, message: '必须输入一个qq号' }, { type: 'number', positive: true, message: '必须输入一个正数' }]" show-colon feedback>
           <a-input v-model:model-value="formModel.memberId" placeholder="输入一个QQ号" allow-clear />
         </a-form-item>
       </a-form>

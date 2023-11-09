@@ -24,8 +24,7 @@
           </a-popconfirm>
           <a-button type="outline" @click="handleAddTag">添加标签</a-button>
         </a-space>
-        <a-table row-key="id" :data="tagList" :columns="columnDatas" :filter-icon-align-left="true"
-          :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
+        <a-table row-key="id" :data="tagList" :columns="columnDatas" :filter-icon-align-left="true" :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
           v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" only-current>
           <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
             <div class="custom-filter">
@@ -52,14 +51,12 @@
         </a-table>
       </a-space>
     </a-card>
-    <a-modal v-model:visible="formVisible" title="添加屏蔽标签" @cancel="handleCancel" @before-ok="handleBeforeOk"
-      @ok="handleOk">
+    <a-modal v-model:visible="formVisible" title="添加屏蔽标签" @cancel="handleCancel" @before-ok="handleBeforeOk" @ok="handleOk">
       <a-form ref="formRef" layout="horizontal" size="small" :auto-label-width="true" :model="formModel">
         <a-form-item field="keyword" label="屏蔽标签" :rules="[{ required: true, message: '必须输入一个标签' }]" show-colon feedback>
           <a-input v-model:model-value="formModel.keyword" placeholder="输入一个标签" allow-clear />
         </a-form-item>
-        <a-form-item field="tagMatchType" label="匹配模式" :rules="[{ required: true, message: '必须选择一个模式' }]" show-colon
-          feedback>
+        <a-form-item field="tagMatchType" label="匹配模式" :rules="[{ required: true, message: '必须选择一个模式' }]" show-colon feedback>
           <a-select v-model:model-value="formModel.tagMatchType" :loading="optionLoading" :options="matchOptions" placeholder="选择一个模式">
           </a-select>
         </a-form-item>

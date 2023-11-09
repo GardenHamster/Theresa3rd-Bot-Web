@@ -2,7 +2,9 @@
     <a-space direction="vertical" :style="{ width: '100%' }" size="small">
         <a-auto-complete v-model:model-value="modelValue" :data="faceOptions" placeholder="输入一个相对路径或者绝对路径" allow-clear
             @change="showErrorImg" />
-        <a-image width="100px" :src="imgHttpUrl" v-show="imgVisable" />
+        <template v-if="imgHttpUrl">
+            <a-image width="100px" :src="imgHttpUrl" v-show="imgVisable" />
+        </template>
     </a-space>
 </template>
 

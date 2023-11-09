@@ -1,4 +1,9 @@
 <style scoped lang="less">
+.spin {
+  height: 100%;
+  width: 100%;
+}
+
 .container {
   height: 100%;
   margin-bottom: 50px;
@@ -23,45 +28,42 @@
 </style>
 
 <template>
-  <div class="container">
-    <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true"
-      :model="formModel">
-      <a-card class="card">
+  <a-spin class="spin" :loading="loading" tip="加载中..." :size="35">
+    <div class="container">
+      <a-form ref="formRef" layout="horizontal" size="large" :auto-label-width="true" :scroll-to-first-error="true" :model="formModel">
+        <a-card class="card">
+          <save-warning :initModel="initModel" :formModel="formModel" />
+          <Breadcrumb :items="['menu.settings', 'menu.settings.repeater']" />
 
-        <save-warning :initModel="initModel" :formModel="formModel" />
+          <a-form-item field="enable" label="启用功能" tooltip="是否启用该功能" feedback>
+            <a-switch v-model:model-value="formModel.enable">
+              <template #checked>ON</template>
+              <template #unchecked>OFF</template>
+            </a-switch>
+          </a-form-item>
 
-        <Breadcrumb :items="['menu.settings', 'menu.settings.repeater']" />
+          <a-form-item field="repeatTime" label="触发次数" tooltip="触发复读的次数" :disabled="!formModel.enable" feedback>
+            <a-input-number v-model:model-value="formModel.repeatTime" :style="{ maxWidth: '300px' }" :min="1" placeholder="输入一个数字" mode="button" size="large" />
+          </a-form-item>
 
-        <a-form-item field="enable" label="启用功能" tooltip="是否启用该功能" feedback>
-          <a-switch v-model:model-value="formModel.enable">
-            <template #checked>ON</template>
-            <template #unchecked>OFF</template>
-          </a-switch>
-        </a-form-item>
+          <a-form-item field="repeatMode" label="复读模式" tooltip="复读模式" :disabled="!formModel.enable" feedback>
+            <a-select v-model:model-value="formModel.repeatMode" :style="{ maxWidth: '300px' }" placeholder="选择一个模式" :scrollbar="true">
+              <a-option :value="0">普通模式</a-option>
+            </a-select>
+          </a-form-item>
 
-        <a-form-item field="repeatTime" label="触发次数" tooltip="触发复读的次数" :disabled="!formModel.enable" feedback>
-          <a-input-number v-model:model-value="formModel.repeatTime" :style="{ maxWidth: '300px' }" :min="1"
-            placeholder="输入一个数字" mode="button" size="large" />
-        </a-form-item>
+        </a-card>
 
-        <a-form-item field="repeatMode" label="复读模式" tooltip="复读模式" :disabled="!formModel.enable" feedback>
-          <a-select v-model:model-value="formModel.repeatMode" :style="{ maxWidth: '300px' }" placeholder="选择一个模式"
-            :scrollbar="true">
-            <a-option :value="0">普通模式</a-option>
-          </a-select>
-        </a-form-item>
+        <div class="actions">
+          <a-space direction="horizontal" size="medium">
+            <a-button type="primary" :loading="loading" @click="onSubmit">{{ $t('button.submit') }}</a-button>
+            <a-button @click="onReset">{{ $t('button.reset') }}</a-button>
+          </a-space>
+        </div>
+      </a-form>
 
-      </a-card>
-
-      <div class="actions">
-        <a-space direction="horizontal" size="medium">
-          <a-button type="primary" :loading="loading" @click="onSubmit">{{ $t('button.submit') }}</a-button>
-          <a-button @click="onReset">{{ $t('button.reset') }}</a-button>
-        </a-space>
-      </div>
-    </a-form>
-
-  </div>
+    </div>
+  </a-spin>
 </template>
 
 <script lang="ts" setup>
@@ -112,10 +114,14 @@ const onReset = async () => {
 
 const fetchSettings = async () => {
   try {
+    setLoading(true);
     formModel.value = await settingStore.loadRepeaterSetting();
     initModel.value = JSON.parse(JSON.stringify(formModel.value))
   } catch (error) {
     console.log(error);
+  }
+  finally {
+    setLoading(false);
   }
 };
 

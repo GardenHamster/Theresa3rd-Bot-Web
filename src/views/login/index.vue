@@ -8,8 +8,7 @@
       <div class="login_title">欢迎使用TheresaBot</div>
       <div id="pwdDiv" class="input_outer">
         <span class="us_uer"></span>
-        <input id="login_pass" name="logpass" class="text" v-model="userInfo.password" type="password"
-          placeholder="输入配置文件中的后台密码" @keyup.enter="handleSubmit">
+        <input id="login_pass" name="logpass" class="text" v-model="userInfo.password" type="password" placeholder="输入配置文件中的后台密码" @keyup.enter="handleSubmit">
       </div>
       <div class="loginDiv">
         <a id="loginBtn" @click="handleSubmit" class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a>
