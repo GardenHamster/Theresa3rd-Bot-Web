@@ -51,7 +51,7 @@ export default {
 .background {
   height: 100%;
   overflow: auto;
-  background: url('../../../assets/images/background/112539581_p0.png') 80% 15% / cover;
+  background: url('../../../assets/images/background/112539581_p0.jpg') 80% 15% / cover;
 }
 
 .mask {
