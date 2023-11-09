@@ -16,7 +16,7 @@
 <template>
   <div class="container">
     <a-card class="card">
-      <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.tag']" />
+      <Breadcrumb :items="['menu.subscribe', 'menu.subscribe.pixiv.user']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
           <a-select @change="groupChange" v-model:model-value="selectedGroup" :options="groupOptions"
