@@ -36,7 +36,7 @@
           <Breadcrumb :items="['menu.settings', 'menu.settings.manage']" />
 
           <a-tabs default-active-key="1">
-            <a-tab-pane key="1" title="Cookie更新">
+            <a-tab-pane key="1" title="Cookie">
               <a-form-item field="pixivCookieCommands" label="Pixiv" tooltip="更新Pixiv Cookie指令，需要私聊使用" extra="输入一个指令后按下Enter添加" feedback>
                 <a-input-tag v-model:model-value="formModel.pixivCookieCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>

@@ -53,12 +53,12 @@
                   auto-size allow-clear />
               </a-form-item>
               <a-form-item field="miyoushe.scanInterval" label="扫描间隔" tooltip="扫描间隔时间" :disabled="!formModel.miyoushe?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.miyoushe!.scanInterval" :style="{ maxWidth: '300px' }" :min="10" :max="100000000" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.miyoushe!.scanInterval" :style="{ maxWidth: '300px' }" :min="10" :max="10000000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
-              <a-form-item field="miyoushe.shelfLife" label="保质期" tooltip="超过保质期的作品将不会再推送，0表示永不过期" :disabled="!formModel.miyoushe?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.miyoushe!.shelfLife" :style="{ maxWidth: '300px' }" :min="0" :max="100000000" placeholder="输入一个数字" mode="button" size="large">
+              <a-form-item field="miyoushe.shelfLife" label="保质期" tooltip="超过保质期的贴子将不会再推送，0表示永不过期" :disabled="!formModel.miyoushe?.enable" feedback>
+                <a-input-number v-model:model-value="formModel.miyoushe!.shelfLife" :style="{ maxWidth: '300px' }" :min="0" :max="10000000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
@@ -70,7 +70,7 @@
                   <template #unchecked>OFF</template>
                 </a-switch>
               </a-form-item>
-              <a-form-item field="pixivUser.sendMerge" label="合并推送" tooltip="所有最新作品扫描完毕后使用合并消息推送，每条合并消息最多包含10个作品" :disabled="!formModel.pixivUser!.enable" feedback>
+              <a-form-item field="pixivUser.sendMerge" label="合并推送" tooltip="所有作品扫描完毕后，使用合并方式推送，并且以每次10条的方式推送" :disabled="!formModel.pixivUser!.enable" feedback>
                 <a-switch v-model:model-value="formModel.pixivUser!.sendMerge">
                   <template #checked>ON</template>
                   <template #unchecked>OFF</template>
@@ -82,7 +82,7 @@
               <a-form-item field="pixivUser.rmCommands" label="退订指令" tooltip="退订指令，需要管理员执行" extra="输入一个指令后按下Enter添加" :disabled="!formModel.pixivUser!.enable" feedback>
                 <a-input-tag v-model:model-value="formModel.pixivUser!.rmCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
-              <a-form-item field="pixivUser.syncCommands" label="同步指令" tooltip="同步指令，从p站账号中获取关注画师列表并添加到订阅中，需要管理员执行" extra="输入一个指令后按下Enter添加" :disabled="!formModel.pixivUser!.enable" feedback>
+              <a-form-item field="pixivUser.syncCommands" label="同步指令" tooltip="同步指令，从p站账号中获取关注画师列表并添加到订阅列表中，需要管理员执行" extra="输入一个指令后按下Enter添加" :disabled="!formModel.pixivUser!.enable" feedback>
                 <a-input-tag v-model:model-value="formModel.pixivUser!.syncCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
               <a-form-item field="pixivUser.template" label="推送模板" tooltip="Pixiv用户最新作品推送模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.pixivUser!.enable" feedback>
@@ -93,12 +93,12 @@
                 <a-select v-model:model-value="formModel.pixivUser!.scanMode" :options="scanOptions" placeholder="选择一个模式" :scrollbar="true"></a-select>
               </a-form-item>
               <a-form-item field="pixivUser.scanInterval" label="扫描间隔" tooltip="扫描间隔时间" :disabled="!formModel.pixivUser?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.pixivUser!.scanInterval" :style="{ maxWidth: '300px' }" :min="60" :max="100000000" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.pixivUser!.scanInterval" :style="{ maxWidth: '300px' }" :min="60" :max="10000000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="pixivUser.shelfLife" label="保质期" tooltip="超过保质期的作品将不会再推送，0表示永不过期" :disabled="!formModel.pixivUser?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.pixivUser!.shelfLife" :style="{ maxWidth: '300px' }" :min="0" :max="100000000" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.pixivUser!.shelfLife" :style="{ maxWidth: '300px' }" :min="0" :max="10000000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
@@ -110,7 +110,7 @@
                   <template #unchecked>OFF</template>
                 </a-switch>
               </a-form-item>
-              <a-form-item field="pixivTag.sendMerge" label="合并推送" tooltip="所有最新作品扫描完毕后使用合并消息推送，每条合并消息最多包含10个作品" :disabled="!formModel.pixivTag!.enable" feedback>
+              <a-form-item field="pixivTag.sendMerge" label="合并推送" tooltip="所有作品扫描完毕后，使用合并方式推送，并且以每次10条的方式推送" :disabled="!formModel.pixivTag!.enable" feedback>
                 <a-switch v-model:model-value="formModel.pixivTag!.sendMerge">
                   <template #checked>ON</template>
                   <template #unchecked>OFF</template>
@@ -131,11 +131,11 @@
                 </a-input-number>
               </a-form-item>
               <a-form-item field="pixivTag.minBookmark" label="最低收藏数" tooltip="作品的最低收藏数，未符合该条件的作品将不会推送" :disabled="!formModel.pixivTag?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.pixivTag!.minBookmark" :style="{ maxWidth: '300px' }" :min="0" :max="1000" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.pixivTag!.minBookmark" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个数字" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
               <a-form-item field="pixivTag.minBookPerHour" label="每小时新增数" tooltip="距离作品发布后，每小时至少新增收藏数量，未符合该条件的作品将不会推送" :disabled="!formModel.pixivTag?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.pixivTag!.minBookPerHour" :style="{ maxWidth: '300px' }" :min="0" :max="1000" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.pixivTag!.minBookPerHour" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个数字" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
               <a-form-item field="pixivTag.minBookRate" label="最低收藏率" tooltip="最低收藏率(收藏数/浏览数)，未符合该条件的作品将不会推送" :disabled="!formModel.pixivTag?.enable" feedback>
@@ -144,12 +144,12 @@
                 </a-input-number>
               </a-form-item>
               <a-form-item field="pixivTag.scanInterval" label="扫描间隔" tooltip="扫描间隔时间" :disabled="!formModel.pixivTag?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.pixivTag!.scanInterval" :style="{ maxWidth: '300px' }" :min="60" :max="100000000" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.pixivTag!.scanInterval" :style="{ maxWidth: '300px' }" :min="60" :max="10000000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="pixivTag.shelfLife" label="保质期" tooltip="超过保质期的作品将不会再推送，0表示永不过期" :disabled="!formModel.pixivTag?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.pixivTag!.shelfLife" :style="{ maxWidth: '300px' }" :min="0" :max="100000000" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.pixivTag!.shelfLife" :style="{ maxWidth: '300px' }" :min="0" :max="10000000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>

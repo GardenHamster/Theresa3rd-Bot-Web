@@ -43,7 +43,7 @@
           </a-form-item>
 
           <a-form-item field="repeatTime" label="触发次数" tooltip="触发复读的次数" :disabled="!formModel.enable" feedback>
-            <a-input-number v-model:model-value="formModel.repeatTime" :style="{ maxWidth: '300px' }" :min="1" placeholder="输入一个数字" mode="button" size="large" />
+            <a-input-number v-model:model-value="formModel.repeatTime" :style="{ maxWidth: '300px' }" :min="1" :max="100" placeholder="输入一个数字" mode="button" size="large" />
           </a-form-item>
 
           <a-form-item field="repeatMode" label="复读模式" tooltip="复读模式" :disabled="!formModel.enable" feedback>

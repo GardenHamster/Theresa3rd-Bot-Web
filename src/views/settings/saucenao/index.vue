@@ -46,7 +46,7 @@
               <template #unchecked>OFF</template>
             </a-switch>
           </a-form-item>
-          <a-form-item field="commands" label="功能指令" tooltip="菜单指令" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
+          <a-form-item field="commands" label="搜图指令" tooltip="搜图指令" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
             <a-input-tag v-model:model-value="formModel.commands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
           </a-form-item>
         </a-card>
@@ -152,7 +152,7 @@
           <a-form-item field="notFoundMsg" label="无结果提示" tooltip="找不到原图时返回的消息" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
             <preview-textarea v-model:model-value="formModel.notFoundMsg" :facePaths="facePaths" placeholder="模版为空时将使用自动生成" />
           </a-form-item>
-          <a-form-item field="processingMsg" label="执行前提示" tooltip="开始查找前返回的消息" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
+          <a-form-item field="processingMsg" label="执行提示" tooltip="开始查找前返回的消息内容，不填表示不发送" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
             <preview-textarea v-model:model-value="formModel.processingMsg" :facePaths="facePaths" placeholder="模版为空时将使用自动生成" />
           </a-form-item>
           <a-form-item field="template" label="消息模版" tooltip="搜索结果消息模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.enable" feedback>

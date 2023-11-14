@@ -63,7 +63,7 @@
         </a-card>
 
         <a-card class="card" title="本地图源配置">
-          <a-form-item field="fromOneDir" label="相同目录" tooltip="从同一个目录中读取涩图，否则从不同的文件夹中读取" :disabled="!formModel?.enable" feedback>
+          <a-form-item field="fromOneDir" label="同一类型" tooltip="从同一个目录中读取涩图，否则从不同的文件夹中读取" :disabled="!formModel?.enable" feedback>
             <a-switch v-model:model-value="formModel.fromOneDir">
               <template #checked>ON</template>
               <template #unchecked>OFF</template>
@@ -100,7 +100,7 @@
             </a-switch>
           </a-form-item>
 
-          <a-form-item :field="`timers[${index}].sendMerge`" label="合并发送" tooltip="合并消息发送" :disabled="!formModel.enable || !item.enable" feedback>
+          <a-form-item :field="`timers[${index}].sendMerge`" label="合并发送" tooltip="使用合并方式推送，并且以每次5条的方式推送" :disabled="!formModel.enable || !item.enable" feedback>
             <a-switch v-model:model-value="item.sendMerge">
               <template #checked>ON</template>
               <template #unchecked>OFF</template>
@@ -114,7 +114,7 @@
             </a-switch>
           </a-form-item>
 
-          <a-form-item :field="`timers[${index}].quantity`" label="数量" tooltip="推送涩图数量" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入一个数量' }]" feedback>
+          <a-form-item :field="`timers[${index}].quantity`" label="推送数量" tooltip="推送涩图数量" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '必须输入一个数量' }]" feedback>
             <a-input-number v-model:model-value="item.quantity" :style="{ maxWidth: '300px' }" :min="1" :max="20" placeholder="输入一个数字" mode="button" size="large">
               <template #suffix>张</template>
             </a-input-number>
@@ -137,7 +137,7 @@
             <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
           </a-form-item>
 
-          <a-form-item :field="`timers[${index}].tags`" label="指定标签" tooltip="涩图标签，不填表示随机，图片来源为Lolicon或Lolisuki时可用" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable || !item.enable" feedback>
+          <a-form-item :field="`timers[${index}].tags`" label="指定标签" tooltip="指定需要推送的标签内容，不填表示随机" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable || !item.enable" feedback>
             <a-input-tag v-model:model-value="item.tags" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
           </a-form-item>
 

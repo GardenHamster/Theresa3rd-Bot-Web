@@ -47,7 +47,7 @@
                 </a-select>
               </a-form-item>
 
-              <a-form-item field="limitlessMembers" label="无限制成员" tooltip="功能冷却时间和每日次数无限制的成员" extra="输入QQ号后按下Enter可以添加一个成员" feedback>
+              <a-form-item field="limitlessMembers" label="无限制成员" tooltip="功能冷却时间和每日次数无限制的成员QQ号" extra="输入QQ号后按下Enter可以添加一个成员" feedback>
                 <a-select v-model:model-value="formModel.limitlessMembers" :options="memberOptions" :scrollbar="true" :style="{ minHeight: '100px' }" placeholder="选择一个或多个群" allow-search allow-clear
                   multiple allow-create>
                 </a-select>
@@ -67,7 +67,7 @@
                 <group-select v-model:model-value="formModel.setuShowAIGroups" :options="groupOptions" select-all />
               </a-form-item>
 
-              <a-form-item field="setuShowR18Groups" label="显示R18内容" tooltip="允许出现r18内容的群，图片将使用链接代替" feedback>
+              <a-form-item field="setuShowR18Groups" label="显示R18内容" tooltip="允许出现r18内容的群，但是图片会使用链接代替" feedback>
                 <group-select v-model:model-value="formModel.setuShowR18Groups" :options="groupOptions" select-all />
               </a-form-item>
 
@@ -93,7 +93,7 @@
                 <group-select v-model:model-value="formModel.saucenaoGroups" :options="groupOptions" select-all />
               </a-form-item>
 
-              <a-form-item field="saucenaoR18Groups" label="显示R18内容" tooltip="以图搜图允许发送r18结果的群" feedback>
+              <a-form-item field="saucenaoR18Groups" label="显示R18内容" tooltip="以图搜图允许发送r18结果的群，但是图片会使用链接代替" feedback>
                 <group-select v-model:model-value="formModel.saucenaoR18Groups" :options="groupOptions" select-all />
               </a-form-item>
             </a-tab-pane>

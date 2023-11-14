@@ -65,34 +65,34 @@
         <a-card class="card" title="功能配置">
 
           <a-form-item field="groupCD" label="共享CD" tooltip="群共享CD，使用指令后全群需要CD才能重新使用该功能" :disabled="!formModel!.enable" feedback>
-            <a-input-number v-model:model-value="formModel.groupCD" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+            <a-input-number v-model:model-value="formModel.groupCD" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个数字" mode="button" size="large">
               <template #suffix>秒</template>
             </a-input-number>
           </a-form-item>
 
           <a-form-item field="maxWords" label="词汇数量" tooltip="出现在词云中的最大词汇数量" :disabled="!formModel!.enable" feedback>
-            <a-input-number v-model:model-value="formModel.maxWords" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+            <a-input-number v-model:model-value="formModel.maxWords" :style="{ maxWidth: '300px' }" :min="0" :max="1000" placeholder="输入一个数字" mode="button" size="large">
               <template #suffix>个</template>
             </a-input-number>
           </a-form-item>
 
           <a-form-item field="defaultWidth" label="默认宽度" tooltip="矩形词云默认的宽度" :disabled="!formModel!.enable" feedback>
-            <a-input-number v-model:model-value="formModel.defaultWidth" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+            <a-input-number v-model:model-value="formModel.defaultWidth" :style="{ maxWidth: '300px' }" :min="0" :max="2000" placeholder="输入一个数字" mode="button" size="large">
               <template #suffix>像素</template>
             </a-input-number>
           </a-form-item>
 
-          <a-form-item field="defaultHeight" label="默认宽度" tooltip="矩形词云默认的高度" :disabled="!formModel!.enable" feedback>
-            <a-input-number v-model:model-value="formModel.defaultHeight" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+          <a-form-item field="defaultHeight" label="默认高度" tooltip="矩形词云默认的高度" :disabled="!formModel!.enable" feedback>
+            <a-input-number v-model:model-value="formModel.defaultHeight" :style="{ maxWidth: '300px' }" :min="0" :max="2000" placeholder="输入一个数字" mode="button" size="large">
               <template #suffix>像素</template>
             </a-input-number>
           </a-form-item>
 
-          <a-form-item field="fontPath" label="字体路径" tooltip="默认字体路径" feedback>
+          <a-form-item field="fontPath" label="字体路径" tooltip="指定绘制词云的字体路径" feedback>
             <a-auto-complete v-model:model-value="formModel.fontPath" :data="fontOptions" placeholder="输入一个相对路径或者绝对路径" allow-clear />
           </a-form-item>
 
-          <a-form-item field="basicCommands" label="通用指令" tooltip="自定义范围词云命令，未指定范围是默认获取24小时内的词云" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
+          <a-form-item field="basicCommands" label="范围指令" tooltip="自定义范围词云命令，未指定范围是默认获取24小时内的词云" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
             <a-input-tag v-model:model-value="formModel.basicCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
           </a-form-item>
 
@@ -132,12 +132,12 @@
             <a-input-tag v-model:model-value="formModel.hideWordCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
           </a-form-item>
 
-          <a-form-item field="defaultMasks" label="默认蒙版" tooltip="默认蒙版，对应下面设置的蒙版名称，不设置默认使用矩形" :disabled="!formModel.enable" feedback>
+          <a-form-item field="defaultMasks" label="默认蒙版" tooltip="默认蒙版，对应下面设置的蒙版名称，未指定任何蒙版时将使用默认蒙版，不存在任何默认蒙版时将使用矩形" :disabled="!formModel.enable" feedback>
             <a-select v-model:model-value="formModel.defaultMasks" :options="maskOptions" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择一个或多个蒙版" allow-search allow-clear multiple>
             </a-select>
           </a-form-item>
 
-          <a-form-item field="processingMsg" label="执行提示" tooltip="开始执行前返的提示内容" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
+          <a-form-item field="processingMsg" label="执行提示" tooltip="开始执行前返的提示内容，不填表示不发送" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
             <preview-textarea v-model:model-value="formModel.processingMsg" :facePaths="facePaths" />
           </a-form-item>
         </a-card>
@@ -149,8 +149,8 @@
             </a-popconfirm>
           </template>
 
-          <a-form-item :field="`masks[${index}].width`" label="图片宽度" tooltip="根据模板生成词语的宽度，高度将根据宽度等比例缩放" :disabled="!formModel!.enable" feedback>
-            <a-input-number v-model:model-value="item.width" :style="{ maxWidth: '300px' }" :min="500" placeholder="输入一个数字" mode="button" size="large">
+          <a-form-item :field="`masks[${index}].width`" label="图片宽度" tooltip="根据模板生成词语的宽度，高度将根据宽度等比例缩放" :disabled="!formModel!.enable" :rules="[{ required: true, message: '必须输入一个数字' }]" feedback>
+            <a-input-number v-model:model-value="item.width" :style="{ maxWidth: '300px' }" :min="500" :max="2000" placeholder="输入一个数字" mode="button" size="large">
               <template #suffix>像素</template>
             </a-input-number>
           </a-form-item>
@@ -184,7 +184,7 @@
 
           <a-form-item :field="`subscribes[${index}].hourRange`" label="时间范围" tooltip="读取触发时间至触发时间前N个小时内的聊天记录" :disabled="!formModel.enable || !item.enable"
             :rules="[{ required: true, message: '必须输入一个数量' }]" feedback>
-            <a-input-number v-model:model-value="item.hourRange" :style="{ maxWidth: '300px' }" :min="1" placeholder="输入一个数字" mode="button" size="large">
+            <a-input-number v-model:model-value="item.hourRange" :style="{ maxWidth: '300px' }" :min="1" :max="100000" placeholder="输入一个数字" mode="button" size="large">
               <template #suffix>小时</template>
             </a-input-number>
           </a-form-item>
@@ -198,11 +198,12 @@
             <a-input v-model:model-value="item.cron" placeholder="输入一个Cron表达式" allow-clear />
           </a-form-item>
 
-          <a-form-item :field="`subscribes[${index}].groups`" label="推送群" tooltip="指定需要推送的群" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
+          <a-form-item :field="`subscribes[${index}].groups`" label="推送群" tooltip="指定需要生成词云并推送的群" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]"
+            feedback>
             <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
           </a-form-item>
 
-          <a-form-item :field="`subscribes[${index}].masks`" label="指定蒙版" tooltip="词云蒙版，对应上面设置的蒙版名称,不设置默认使用矩形" :disabled="!formModel.enable || !item.enable" feedback>
+          <a-form-item :field="`subscribes[${index}].masks`" label="指定蒙版" tooltip="词云蒙版，对应上面设置的蒙版名称，不填将使用默认蒙版" :disabled="!formModel.enable || !item.enable" feedback>
             <a-select v-model:model-value="item.masks" :options="maskOptions" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择一个或多个蒙版" allow-search allow-clear multiple>
             </a-select>
           </a-form-item>

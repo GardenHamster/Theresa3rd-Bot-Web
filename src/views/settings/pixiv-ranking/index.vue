@@ -76,19 +76,19 @@
               </a-form-item>
 
               <a-form-item field="groupCD" label="共享CD" tooltip="群共享CD，使用指令后全群需要CD才能重新使用该功能" :disabled="!formModel!.enable" feedback>
-                <a-input-number v-model:model-value="formModel.groupCD" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.groupCD" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
 
               <a-form-item field="cacheSeconds" label="缓存时间" tooltip="预览图缓存时间" :disabled="!formModel!.enable" feedback>
-                <a-input-number v-model:model-value="formModel.cacheSeconds" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.cacheSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="86400" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
 
               <a-form-item field="sendDetail" label="发送详情" tooltip="同时发送前N个作品的图片和详情，0表示不发送" :disabled="!formModel!.enable" feedback>
-                <a-input-number v-model:model-value="formModel.sendDetail" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.sendDetail" :style="{ maxWidth: '300px' }" :min="0" :max="500" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>个</template>
                 </a-input-number>
               </a-form-item>
@@ -97,7 +97,7 @@
                 <a-select v-model:model-value="formModel.sortType" :options="sortOptions" placeholder="选择一个排序方式" :style="{ maxWidth: '300px' }" :scrollbar="true"></a-select>
               </a-form-item>
 
-              <a-form-item field="processingMsg" label="执行提示" tooltip="开始执行前返的提示内容" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
+              <a-form-item field="processingMsg" label="执行提示" tooltip="开始执行前返回的提示内容，不填表示不发送" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" feedback>
                 <preview-textarea v-model:model-value="formModel.processingMsg" :facePaths="facePaths" />
               </a-form-item>
 
@@ -125,7 +125,7 @@
               </a-form-item>
 
               <a-form-item field="daily.minBookCount" label="最低收藏数" tooltip="榜单作品中的最低收藏数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.daily?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.daily!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.daily!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -136,7 +136,7 @@
               </a-form-item>
 
               <a-form-item field="daily.minRatingCount" label="最低点赞数" tooltip="榜单作品中的最低点赞数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.daily?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.daily!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.daily!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -165,7 +165,7 @@
               </a-form-item>
 
               <a-form-item field="dailyAI.minBookCount" label="最低收藏数" tooltip="榜单作品中的最低收藏数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.dailyAI?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.dailyAI!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.dailyAI!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -176,7 +176,7 @@
               </a-form-item>
 
               <a-form-item field="dailyAI.minRatingCount" label="最低点赞数" tooltip="榜单作品中的最低点赞数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.dailyAI?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.dailyAI!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.dailyAI!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -205,7 +205,7 @@
               </a-form-item>
 
               <a-form-item field="male.minBookCount" label="最低收藏数" tooltip="榜单作品中的最低收藏数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.male?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.male!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.male!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -216,7 +216,7 @@
               </a-form-item>
 
               <a-form-item field="male.minRatingCount" label="最低点赞数" tooltip="榜单作品中的最低点赞数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.male?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.male!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.male!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -245,7 +245,7 @@
               </a-form-item>
 
               <a-form-item field="weekly.minBookCount" label="最低收藏数" tooltip="榜单作品中的最低收藏数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.weekly?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.weekly!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.weekly!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -256,7 +256,7 @@
               </a-form-item>
 
               <a-form-item field="weekly.minRatingCount" label="最低点赞数" tooltip="榜单作品中的最低点赞数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.weekly?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.weekly!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.weekly!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -281,7 +281,7 @@
               </a-form-item>
 
               <a-form-item field="monthly.minBookCount" label="最低收藏数" tooltip="榜单作品中的最低收藏数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.monthly?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.monthly!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.monthly!.minBookCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -292,7 +292,7 @@
               </a-form-item>
 
               <a-form-item field="monthly.minRatingCount" label="最低点赞数" tooltip="榜单作品中的最低点赞数，用于对作品进行过滤，未达到标准的作品将不显示在预览图中" :disabled="!formModel?.enable || !formModel.monthly?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.monthly!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.monthly!.minRatingCount" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个正整数" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
 
@@ -333,8 +333,8 @@
               multiple>
             </a-select>
           </a-form-item>
-          <a-form-item :field="`subscribes[${index}].sendDetail`" label="发送详情" tooltip="同时发送前N个作品的图片和详情" :disabled="!formModel.enable || !item.enable" feedback>
-            <a-input-number v-model:model-value="item.sendDetail" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+          <a-form-item :field="`subscribes[${index}].sendDetail`" label="发送详情" tooltip="同时发送前N个作品的图片和详情，0表示不发送" :disabled="!formModel.enable || !item.enable" feedback>
+            <a-input-number v-model:model-value="item.sendDetail" :style="{ maxWidth: '300px' }" :min="0" :max="500" placeholder="输入一个数字" mode="button" size="large">
               <template #suffix>个</template>
             </a-input-number>
           </a-form-item>

@@ -50,15 +50,9 @@
             <a-input v-model:model-value="formModel.httpProxy" placeholder="输入一个Http/Https地址" allow-clear />
           </a-form-item>
 
-          <a-form-item field="originUrlProxy" label="链接代理" tooltip="Pixiv图片链接的代理地址，默认：https://i.pixiv.re" feedback>
+          <a-form-item field="originUrlProxy" label="链接代理" tooltip="Pixiv图片链接的代理地址，方便在QQ内点击打开直接查看原图，格式：https://i.pximg.net。注意不要填写比如：https://i.pixiv.re 这类腾讯提示感叹号的地址，会有大概率触发风控或者冻结等可能"
+            :rules="[{ ...proxyRule }, { required: true, message: '必须输入一个代理地址' }]" feedback>
             <a-input v-model:model-value="formModel.originUrlProxy" placeholder="输入一个Http/Https地址" allow-clear />
-          </a-form-item>
-
-          <a-form-item field="sendImgBehind" label="图文分离" tooltip="将图片和详情分开发送，先发送作品信息，后发送图片，可以开启此项避免图片发送失败时整条消息被吞" feedback>
-            <a-switch v-model:model-value="formModel.sendImgBehind">
-              <template #checked>ON</template>
-              <template #unchecked>OFF</template>
-            </a-switch>
           </a-form-item>
 
           <a-form-item field="imgSize" label="图片尺寸" tooltip="发送图片的尺寸大小，从上到下表示从小到大。默认为thumb" feedback>
@@ -67,6 +61,13 @@
 
           <a-form-item field="imgResend" label="重发模式" tooltip="图片发送失败后的操作" feedback>
             <a-select v-model:model-value="formModel.imgResend" :options="resendOptions" :style="{ maxWidth: '300px' }" placeholder="选择一个模式" :scrollbar="true"></a-select>
+          </a-form-item>
+
+          <a-form-item field="sendImgBehind" label="图文分离" tooltip="将图片和详情分开发送，先发送作品信息，后发送图片，可以开启此项避免图片发送失败时整条消息被吞" feedback>
+            <a-switch v-model:model-value="formModel.sendImgBehind">
+              <template #checked>ON</template>
+              <template #unchecked>OFF</template>
+            </a-switch>
           </a-form-item>
 
           <a-form-item field="r18ImgBlur" label="高斯模糊" tooltip="R18图片高斯模糊处理程度" feedback>
@@ -85,7 +86,7 @@
             <a-input-number v-model:model-value="formModel.urlShowMaximum" :style="{ maxWidth: '300px' }" :min="0" :max="99" placeholder="输入一个数字" mode="button" size="large" />
           </a-form-item>
 
-          <a-form-item field="imgRetryTimes" label="图片重下次数" tooltip="图片下载失败后重试下载次数，0表示不重试" feedback>
+          <a-form-item field="imgRetryTimes" label="图片下载次数" tooltip="图片下载失败后重试下载次数，0表示不重试" feedback>
             <a-input-number v-model:model-value="formModel.imgRetryTimes" :style="{ maxWidth: '300px' }" :min="0" :max="10" placeholder="输入一个数字" mode="button" size="large" />
           </a-form-item>
 
@@ -93,20 +94,21 @@
             <a-input-number v-model:model-value="formModel.errRetryTimes" :style="{ maxWidth: '300px' }" :min="0" :max="10" placeholder="输入一个数字" mode="button" size="large" />
           </a-form-item>
 
-          <a-form-item field="generalTarget" label="普通作品标准" tooltip="非AI和非R18作品推送标准，收藏数需要达到(最低收藏数*指标)，其他相关参数同理" feedback>
-            <a-input-number v-model:model-value="formModel.generalTarget" :style="{ maxWidth: '300px' }" :min="0" :precision="2" :step="0.01" placeholder="输入一个数字" mode="button" size="large" />
+          <a-form-item field="generalTarget" label="普通作品标准" tooltip="非AI和非R18作品推送标准，收藏数需要达到(最低收藏数*标准)，其他相关参数同理" feedback>
+            <a-input-number v-model:model-value="formModel.generalTarget" :style="{ maxWidth: '300px' }" :min="0" :max="100" :precision="2" :step="0.01" placeholder="输入一个数字" mode="button"
+              size="large" />
           </a-form-item>
 
-          <a-form-item field="aiTarget" label="AI作品标准" tooltip="AI作品推送标准，收藏数需要达到(最低收藏数*指标)，其他相关参数同理" feedback>
-            <a-input-number v-model:model-value="formModel.aiTarget" :style="{ maxWidth: '300px' }" :min="0" :precision="2" :step="0.01" placeholder="输入一个数字" mode="button" size="large" />
+          <a-form-item field="aiTarget" label="AI作品标准" tooltip="AI作品推送标准，收藏数需要达到(最低收藏数*标准)，其他相关参数同理" feedback>
+            <a-input-number v-model:model-value="formModel.aiTarget" :style="{ maxWidth: '300px' }" :min="0" :max="100" :precision="2" :step="0.01" placeholder="输入一个数字" mode="button" size="large" />
           </a-form-item>
 
-          <a-form-item field="r18Target" label="R18作品标准" tooltip="R18作品推送标准，收藏数需要达到(最低收藏数*指标)，其他相关参数同理" feedback>
-            <a-input-number v-model:model-value="formModel.r18Target" :style="{ maxWidth: '300px' }" :min="0" :precision="2" :step="0.01" placeholder="输入一个数字" mode="button" size="large" />
+          <a-form-item field="r18Target" label="R18作品标准" tooltip="R18作品推送标准，收藏数需要达到(最低收藏数*标准)，其他相关参数同理" feedback>
+            <a-input-number v-model:model-value="formModel.r18Target" :style="{ maxWidth: '300px' }" :min="0" :max="100" :precision="2" :step="0.01" placeholder="输入一个数字" mode="button" size="large" />
           </a-form-item>
 
           <a-form-item field="cookieExpireDay" label="CK保质期" tooltip="Cookie失效时间，超过该时间后需要使用命令更新cookie，建议cookie每60天左右更新一次" feedback>
-            <a-input-number v-model:model-value="cookieExpireDay" :style="{ maxWidth: '300px' }" placeholder="输入一个数字" mode="button" size="large">
+            <a-input-number v-model:model-value="cookieExpireDay" :style="{ maxWidth: '300px' }" :min="1" :max="180" placeholder="输入一个数字" mode="button" size="large">
               <template #suffix>日</template>
             </a-input-number>
           </a-form-item>
@@ -133,11 +135,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useOptionStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
+import { proxyRule } from '@/utils/validator'
 import type { PixivSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 

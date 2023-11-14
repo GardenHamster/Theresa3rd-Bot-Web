@@ -43,22 +43,22 @@
                 </a-switch>
               </a-form-item>
               <a-form-item field="groupCD" label="共享CD" tooltip="群共享CD，使用指令后全群需要CD才能重新使用该功能" feedback>
-                <a-input-number v-model:model-value="formModel.groupCD" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.groupCD" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="memberCD" label="独立CD" tooltip="独立CD，每个群员使用命令后需要等待的CD" feedback>
-                <a-input-number v-model:model-value="formModel.memberCD" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.memberCD" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="maxDaily" label="次数限制" tooltip="每个成员每天最大使用次数，0表示无限制" feedback>
-                <a-input-number v-model:model-value="formModel.maxDaily" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.maxDaily" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>次</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="revokeInterval" label="撤回时间" tooltip="发送涩图后撤回的时间，0表示不撤回" feedback>
-                <a-input-number v-model:model-value="formModel.revokeInterval" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.revokeInterval" :style="{ maxWidth: '300px' }" :min="0" :max="120" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
@@ -68,7 +68,7 @@
               <a-form-item field="notFoundMsg" label="无结果提示" tooltip="找不到相应色图时返回的消息" extra="输入“[”可以快速插入图片码" feedback>
                 <preview-textarea v-model:model-value="formModel.notFoundMsg" :facePaths="facePaths" />
               </a-form-item>
-              <a-form-item field="processingMsg" label="执行前提示" tooltip="开始查找前返回的消息，不填表示不发送" extra="输入“[”可以快速插入图片码" :style="{ marginBottom: '200px' }" feedback>
+              <a-form-item field="processingMsg" label="执行提示" tooltip="开始执行前返回的提示内容，不填表示不发送" extra="输入“[”可以快速插入图片码" :style="{ marginBottom: '200px' }" feedback>
                 <preview-textarea v-model:model-value="formModel.processingMsg" :facePaths="facePaths" />
               </a-form-item>
             </a-tab-pane>
@@ -93,11 +93,11 @@
                   allow-clear />
               </a-form-item>
               <a-form-item field="pixiv.maxScan" label="扫描次数" tooltip="根据标签搜索时,最多扫描N个作品,不存在合格的作品时,将返回无结果提示" :disabled="!formModel.pixiv?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.pixiv!.maxScan" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.pixiv!.maxScan" :style="{ maxWidth: '300px' }" :min="0" :max="1000" placeholder="输入一个数字" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
               <a-form-item field="pixiv.minBookmark" label="最低收藏数" tooltip="最低收藏数，用于判断涩图是否合格(标签搜索时适用)" :disabled="!formModel.pixiv?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.pixiv!.minBookmark" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.pixiv!.minBookmark" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个数字" mode="button" size="large">
                 </a-input-number>
               </a-form-item>
               <a-form-item field="pixiv.minBookRate" label="最低收藏率" tooltip="最低收藏率(收藏数/浏览数)，用于判断涩图是否合格(标签搜索时适用)" :disabled="!formModel.pixiv?.enable" feedback>
@@ -173,7 +173,7 @@
               <a-form-item field="pixivUser.commands" label="指令" tooltip="生成画师作品预览图指令" extra="输入一个指令后按下Enter添加" :disabled="!formModel.pixivUser?.enable" feedback>
                 <a-input-tag v-model:model-value="formModel.pixivUser!.commands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
-              <a-form-item field="pixivUser.processingMsg" label="执行前提示" tooltip="开始执行前返回的消息" extra="输入“[”可以快速插入图片码" :disabled="!formModel.pixivUser?.enable" feedback>
+              <a-form-item field="pixivUser.processingMsg" label="执行提示" tooltip="开始执行前返回的消息，不填表示不发送" extra="输入“[”可以快速插入图片码" :disabled="!formModel.pixivUser?.enable" feedback>
                 <preview-textarea v-model:model-value="formModel.pixivUser!.processingMsg" :facePaths="facePaths" />
               </a-form-item>
               <a-form-item field="pixivUser.template" label="消息模板" tooltip="消息模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.pixivUser?.enable" feedback>
@@ -189,7 +189,7 @@
                 </a-input-number>
               </a-form-item>
               <a-form-item field="pixivUser.cacheSeconds" label="缓存时间" tooltip="预览图缓存时间" :disabled="!formModel.pixivUser?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.pixivUser!.cacheSeconds" :style="{ maxWidth: '300px' }" :min="0" placeholder="输入一个数字" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.pixivUser!.cacheSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="86400" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>

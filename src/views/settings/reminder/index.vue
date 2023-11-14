@@ -103,13 +103,13 @@
             </a-switch>
           </a-form-item>
 
-          <a-form-item :field="`timers[${timerIndex}].atMembers`" label="艾特成员" tooltip="指定使用该模版的群" :disabled="!formModel.enable || !item.enable" feedback>
+          <a-form-item :field="`timers[${timerIndex}].atMembers`" label="艾特成员" tooltip="艾特指定的QQ号" :disabled="!formModel.enable || !item.enable" feedback>
             <a-select v-model:model-value="item.atMembers" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择一个或多个成员" allow-search allow-clear multiple allow-create>
             </a-select>
           </a-form-item>
 
           <a-form-item v-for="(temp, tempIndex) of  item.templates " :key="tempIndex" :field="`timers[${timerIndex}].templates[${tempIndex}].template`"
-            :label="`内容${padLeft((tempIndex + 1).toString(), (0).toString(), 2)}`" tooltip="提醒内容模版" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable || !item.enable"
+            :label="`内容${padLeft((tempIndex + 1).toString(), (0).toString(), 2)}`" tooltip="提醒内容模版，可以添加多个，多个模版将会进行随机" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable || !item.enable"
             :rules="[{ required: true, message: '必须输入内容' }]" feedback>
             <template #extra>
               <div :style="{ marginTop: '5px' }">
