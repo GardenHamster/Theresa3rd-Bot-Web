@@ -74,8 +74,8 @@ import type { BanTagData, AddTagParam } from '@/api/black-list';
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { Message } from '@arco-design/web-vue';
-import dayjs from 'dayjs';
 import { List } from 'linqts';
+import dayjs from 'dayjs';
 
 const formRef = ref();
 const optionLoading = ref<boolean>(false);

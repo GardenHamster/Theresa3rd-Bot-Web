@@ -13,9 +13,10 @@ import { getSubscribeSetting, setSubscribeSetting } from '@/api/settings';
 import { getTimingSetuSetting, setTimingSetuSetting } from '@/api/settings';
 import { getPixivRankingSetting, setPixivRankingSetting } from '@/api/settings';
 import { getWordCloudSetting, setWordCloudSetting } from '@/api/settings';
+import { getGameSetting, setGameSetting } from '@/api/settings';
 import { SettingState, GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from './types';
-import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting, SetuSetting } from './types';
-import { SaucenaoSetting, SubscribeSetting, TimingSetuSetting, PixivRankingSetting, WordCloudSetting } from './types';
+import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting, SetuSetting, SaucenaoSetting } from './types';
+import { SubscribeSetting, TimingSetuSetting, PixivRankingSetting, WordCloudSetting, GameSetting } from './types';
 
 const useSettingStore = defineStore('setting', {
   state: (): SettingState => ({}),
@@ -161,6 +162,17 @@ const useSettingStore = defineStore('setting', {
     async saveWordCloudSetting(setting: WordCloudSetting) {
       await setWordCloudSetting(setting);
       this.wordCloudSetting = setting;
+    },
+
+    async loadGameSetting(): Promise<GameSetting> {
+      const gameSetting = (await getGameSetting()) as unknown as GameSetting;
+      if (!gameSetting.undercover) gameSetting.undercover = { enable: false };
+      this.gameSetting = gameSetting
+      return this.gameSetting;
+    },
+    async saveGameSetting(setting: GameSetting) {
+      await setGameSetting(setting);
+      this.gameSetting = setting;
     },
 
   },

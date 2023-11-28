@@ -13,6 +13,7 @@ export interface SettingState {
   timingSetuSetting?: TimingSetuSetting;
   pixivRankingSetting?: PixivRankingSetting;
   wordCloudSetting?: WordCloudSetting;
+  gameSetting?: GameSetting;
 }
 
 export interface GeneralSetting {
@@ -350,4 +351,24 @@ export interface WordCloudSubscribes {
   groups?: number[]
   hourRange?: number
   template?: string
+}
+
+export interface GameSetting {
+  enable?: boolean;
+  joinCommands?: string[];
+  stopCommands?: string[];
+  undercover?: UndercoverSetting;
+}
+
+export interface UndercoverSetting {
+  enable?: boolean;
+  createCommands?: string[];
+  addWordCommands?: string[];
+  sendWordCommands?: string[];
+  maxSimilarity?: number;
+  matchSeconds?: number;
+  prepareSeconds?: number;
+  speakingSeconds?: number;
+  votingSeconds?: number;
+  muteSeconds?: number;
 }

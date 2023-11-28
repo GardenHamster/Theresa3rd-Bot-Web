@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from '@/store/modules/setting/types';
 import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting } from '@/store/modules/setting/types';
 import { SetuSetting, SaucenaoSetting, SubscribeSetting, TimingSetuSetting, } from '@/store/modules/setting/types';
-import { PixivRankingSetting, WordCloudSetting } from '@/store/modules/setting/types';
+import { PixivRankingSetting, WordCloudSetting, GameSetting } from '@/store/modules/setting/types';
 
 export function getGeneralSetting() {
   return axios.get<GeneralSetting>('/api/config/get/general');
@@ -114,4 +114,12 @@ export function getWordCloudSetting() {
 
 export function setWordCloudSetting(setting: WordCloudSetting) {
   return axios.post<WordCloudSetting>('/api/config/set/wordcloud', setting);
+}
+
+export function getGameSetting() {
+  return axios.get<GameSetting>('/api/config/get/game');
+}
+
+export function setGameSetting(setting: GameSetting) {
+  return axios.post<GameSetting>('/api/config/set/game', setting);
 }
