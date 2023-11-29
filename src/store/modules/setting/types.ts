@@ -371,4 +371,5 @@ export interface UndercoverSetting {
   speakingSeconds?: number;
   votingSeconds?: number;
   muteSeconds?: number;
+  ruleMsg?: string;
 }

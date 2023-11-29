@@ -66,6 +66,9 @@
               <a-form-item field="undercover.sendWordCommands" label="查询词条指令" tooltip="游戏中获取词条命令" extra="输入一个指令后按下Enter添加" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
                 <a-input-tag v-model:model-value="formModel.undercover!.sendWordCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
+              <a-form-item field="undercover.ruleMsg" label="发送规则" tooltip="游戏开始后发送的游戏规则消息，不填表示不发送" extra="输入“[”可以快速插入图片码" feedback>
+                <preview-textarea v-model:model-value="formModel.undercover!.ruleMsg" :facePaths="facePaths" />
+              </a-form-item>
               <a-form-item field="undercover.matchSeconds" label="匹配时长" tooltip="等待玩家加入的时长(秒)" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
                 <a-input-number v-model:model-value="formModel.undercover!.matchSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="300" placeholder="输入一个正整数" mode="button" size="large">
                   <template #suffix>秒</template>
