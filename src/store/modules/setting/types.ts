@@ -356,6 +356,7 @@ export interface WordCloudSubscribes {
 export interface GameSetting {
   enable?: boolean;
   joinCommands?: string[];
+  startCommands?: string[];
   stopCommands?: string[];
   undercover?: UndercoverSetting;
 }
@@ -365,6 +366,9 @@ export interface UndercoverSetting {
   createCommands?: string[];
   addWordCommands?: string[];
   sendWordCommands?: string[];
+  addWordLimits?: number;
+  sendIdentity?: boolean;
+  firstRoundNonVoting?: number;
   maxSimilarity?: number;
   matchSeconds?: number;
   prepareSeconds?: number;

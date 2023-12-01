@@ -43,10 +43,13 @@
                   <template #unchecked>OFF</template>
                 </a-switch>
               </a-form-item>
-              <a-form-item field="joinCommands" label="加入游戏指令" tooltip="加入游戏命令" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
+              <a-form-item field="joinCommands" label="加入指令" tooltip="加入游戏命令" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
                 <a-input-tag v-model:model-value="formModel.joinCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
-              <a-form-item field="stopCommands" label="结束游戏指令" tooltip="结束游戏命令，需要管理员权限" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
+              <a-form-item field="startCommands" label="开始指令" tooltip="跳过匹配等待时间,强制开始游戏命令，自由加入模式下可用，需要管理员权限" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
+                <a-input-tag v-model:model-value="formModel.startCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+              </a-form-item>
+              <a-form-item field="stopCommands" label="结束指令" tooltip="强制结束游戏命令，需要管理员权限" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable" feedback>
                 <a-input-tag v-model:model-value="formModel.stopCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
             </a-tab-pane>
@@ -69,33 +72,50 @@
               <a-form-item field="undercover.ruleMsg" label="发送规则" tooltip="游戏开始后发送的游戏规则消息，不填表示不发送" extra="输入“[”可以快速插入图片码" feedback>
                 <preview-textarea v-model:model-value="formModel.undercover!.ruleMsg" :facePaths="facePaths" />
               </a-form-item>
+              <a-form-item field="undercover.sendIdentity" label="告知身份" tooltip="私聊发送词条的同时告知玩家身份" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
+                <a-switch v-model:model-value="formModel.undercover!.sendIdentity">
+                  <template #checked>ON</template>
+                  <template #unchecked>OFF</template>
+                </a-switch>
+              </a-form-item>
+              <a-form-item field="undercover.addWordLimits" label="添加词条限制" tooltip="非管理员限制添加的未审核词条数量，0表示不允许添加" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
+                <a-input-number v-model:model-value="formModel.undercover!.addWordLimits" :style="{ maxWidth: '300px' }" :min="0" :max="100" placeholder="输入一个正整数" mode="button" size="large">
+                  <template #suffix>个</template>
+                </a-input-number>
+              </a-form-item>
+              <a-form-item field="undercover.firstRoundNonVoting" label="首轮不投票" tooltip="当玩家人数小于等于该数量时，首轮不出现投票环节" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
+                <a-input-number v-model:model-value="formModel.undercover!.firstRoundNonVoting" :style="{ maxWidth: '300px' }" :min="0" :max="100" placeholder="输入一个正整数" mode="button" size="large">
+                  <template #prefix>玩家数量少于</template>
+                  <template #suffix>个时</template>
+                </a-input-number>
+              </a-form-item>
               <a-form-item field="undercover.matchSeconds" label="匹配时长" tooltip="等待玩家加入的时长(秒)" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.undercover!.matchSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="300" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.undercover!.matchSeconds" :style="{ maxWidth: '300px' }" :min="10" :max="600" placeholder="输入一个正整数" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="undercover.prepareSeconds" label="预备时长" tooltip="派发词条后，进入发言环节前的准备时长" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.undercover!.prepareSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="300" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.undercover!.prepareSeconds" :style="{ maxWidth: '300px' }" :min="5" :max="600" placeholder="输入一个正整数" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="undercover.speakingSeconds" label="发言时长" tooltip="每个玩家的发言时长" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.undercover!.speakingSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="300" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.undercover!.speakingSeconds" :style="{ maxWidth: '300px' }" :min="30" :max="600" placeholder="输入一个正整数" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
-              <a-form-item field="undercover.maxSimilarity" label="发言相似度" tooltip="限制发言与历史发言的最大相似度" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
+              <a-form-item field="undercover.maxSimilarity" label="发言相似度" tooltip="限制玩家发言与历史发言的最大相似度，0：表示不限制" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
                 <a-input-number v-model:model-value="formModel.undercover!.maxSimilarity" :style="{ maxWidth: '300px' }" :min="0" :max="100" placeholder="输入一个百分比" mode="button" size="large">
                   <template #suffix>%</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="undercover.votingSeconds" label="投票时长" tooltip="投票环节时长" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.undercover!.votingSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="300" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.undercover!.votingSeconds" :style="{ maxWidth: '300px' }" :min="10" :max="600" placeholder="输入一个正整数" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="undercover.muteSeconds" label="失败禁言" tooltip="失败方被禁言的时长，0：表示不禁言" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.undercover!.muteSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="300" placeholder="输入一个正整数" mode="button" size="large">
+                <a-input-number v-model:model-value="formModel.undercover!.muteSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="600" placeholder="输入一个正整数" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
