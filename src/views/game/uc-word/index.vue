@@ -147,13 +147,7 @@ const columns: TableColumnData[] = [
 ];
 
 const columnDatas = computed(() => {
-  if (window.innerWidth < 250) {
-    return [columns[1]];
-  }
   if (window.innerWidth < 400) {
-    return [columns[1], columns[2]]
-  }
-  if (window.innerWidth < 550) {
     return [columns[0], columns[1], columns[2]]
   }
   return [...columns];
