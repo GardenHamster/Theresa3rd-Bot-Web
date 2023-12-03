@@ -85,8 +85,7 @@
               </a-form-item>
               <a-form-item field="undercover.firstRoundNonVoting" label="首轮不投票" tooltip="当玩家人数小于等于该数量时，首轮不出现投票环节" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
                 <a-input-number v-model:model-value="formModel.undercover!.firstRoundNonVoting" :style="{ maxWidth: '300px' }" :min="0" :max="100" placeholder="输入一个正整数" mode="button" size="large">
-                  <template #prefix>玩家数量少于</template>
-                  <template #suffix>个时</template>
+                  <template #suffix>个</template>
                 </a-input-number>
               </a-form-item>
               <a-form-item field="undercover.matchSeconds" label="匹配时长" tooltip="等待玩家加入的时长(秒)" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
@@ -114,8 +113,14 @@
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>
-              <a-form-item field="undercover.muteSeconds" label="失败禁言" tooltip="失败方被禁言的时长，0：表示不禁言" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
-                <a-input-number v-model:model-value="formModel.undercover!.muteSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="600" placeholder="输入一个正整数" mode="button" size="large">
+              <a-form-item field="undercover.failedMuteSeconds" label="失败禁言" tooltip="失败方被禁言的时长，0：表示不禁言" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
+                <a-input-number v-model:model-value="formModel.undercover!.failedMuteSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="600" placeholder="输入一个正整数" mode="button" size="large">
+                  <template #suffix>秒</template>
+                </a-input-number>
+              </a-form-item>
+              <a-form-item field="undercover.violatedMuteSeconds" label="违规禁言" tooltip="未能在规定时间内投票发言或者发言中包含词条等违反游戏规定时的禁言时长，0：表示不禁言" :disabled="!formModel?.enable || !formModel.undercover?.enable"
+                feedback>
+                <a-input-number v-model:model-value="formModel.undercover!.violatedMuteSeconds" :style="{ maxWidth: '300px' }" :min="0" :max="600" placeholder="输入一个正整数" mode="button" size="large">
                   <template #suffix>秒</template>
                 </a-input-number>
               </a-form-item>

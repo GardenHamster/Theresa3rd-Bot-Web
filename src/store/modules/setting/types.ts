@@ -29,6 +29,7 @@ export interface GeneralSetting {
   managersRequiredMsg?: string;
   setuCustomDisableMsg?: string;
   sendRelevantCommands?: boolean;
+  acceptFriendRequest?: boolean;
 }
 
 export interface PixivSetting {
@@ -374,6 +375,7 @@ export interface UndercoverSetting {
   prepareSeconds?: number;
   speakingSeconds?: number;
   votingSeconds?: number;
-  muteSeconds?: number;
+  failedMuteSeconds?: number;
+  violatedMuteSeconds?: number;
   ruleMsg?: string;
 }

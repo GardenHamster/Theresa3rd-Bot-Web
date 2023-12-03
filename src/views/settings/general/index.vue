@@ -41,6 +41,12 @@
               <template #unchecked>OFF</template>
             </a-switch>
           </a-form-item>
+          <a-form-item field="acceptFriendRequest" label="自动通过好友" tooltip="自动通过添加好友请求" feedback>
+            <a-switch v-model:model-value="formModel.acceptFriendRequest">
+              <template #checked>ON</template>
+              <template #unchecked>OFF</template>
+            </a-switch>
+          </a-form-item>
           <a-form-item field="prefixs" label="指令前缀" tooltip="指令前缀，Bot只会处理带有前缀的指令，如：(#菜单)，你可以设置多个前缀，也可以不设置任何前缀" feedback>
             <a-input-tag v-model:model-value="formModel.prefixs" placeholder="输入后按下回车添加" allow-clear />
           </a-form-item>
