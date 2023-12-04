@@ -75,8 +75,7 @@ body,
 }
 
 .arco-modal {
-  width: 50%;
   min-width: 300px;
-  max-width: 500px;
+  max-width: 50%;
 }
 </style>
