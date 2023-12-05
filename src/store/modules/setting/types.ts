@@ -105,7 +105,7 @@ export interface WelcomeSetting {
 }
 
 export interface WelcomeSpecial {
-  groupIds?: number[];
+  groups?: number[];
   template?: string;
 }
 

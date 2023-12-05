@@ -68,8 +68,8 @@
               <span class="delCard">删除</span>
             </a-popconfirm>
           </template>
-          <a-form-item :field="`specials[${index}].groupIds`" label="指定群" tooltip="指定使用该模版的群" :disabled="!formModel.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
-            <group-select v-model:model-value="item.groupIds" :options="groupOptions" select-all />
+          <a-form-item :field="`specials[${index}].groups`" label="指定群" tooltip="指定使用该模版的群" :disabled="!formModel.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
+            <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
           </a-form-item>
           <a-form-item :field="`specials[${index}].template`" label="指定模版" tooltip="自定义欢迎模版" extra="输入“[”可以快速插入图片码" :disabled="!formModel.enable" :rules="[{ required: true, message: '必须输入内容' }]"
             feedback>
