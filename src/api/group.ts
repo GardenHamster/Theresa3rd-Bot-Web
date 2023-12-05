@@ -5,4 +5,8 @@ const getGroupList = function () {
   return axios.get<GroupInfo[]>('/api/group/list');
 };
 
-export default getGroupList;
+const loadGroupList = function () {
+  return axios.get<GroupInfo[]>('/api/group/load');
+}
+
+export { getGroupList, loadGroupList };

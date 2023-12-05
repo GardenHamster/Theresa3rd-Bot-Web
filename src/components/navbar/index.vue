@@ -3,10 +3,8 @@
     <div class="left-side">
       <a-space>
         <img alt="logo" :src="favicon" style="width: 25px; height: 25px;" />
-        <a-typography-title :style="{ margin: 0, fontSize: '18px', minWidth: '100px' }"
-          :heading="5">TheresaBot</a-typography-title>
-        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer"
-          @click="toggleDrawerMenu" />
+        <a-typography-title :style="{ margin: 0, fontSize: '18px', minWidth: '100px' }" :heading="5">TheresaBot</a-typography-title>
+        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer" @click="toggleDrawerMenu" />
       </a-space>
     </div>
     <div class="center-side">
@@ -34,25 +32,17 @@
         </a-dropdown>
       </li>
       <li>
-        <a-tooltip :content="theme === 'light'
-          ? $t('settings.navbar.theme.toDark')
-          : $t('settings.navbar.theme.toLight')
-          ">
-          <a-button class="nav-btn" type="outline" :shape="'circle'" @click="handleToggleTheme">
-            <template #icon>
-              <icon-moon-fill v-if="theme === 'dark'" />
-              <icon-sun-fill v-else />
-            </template>
-          </a-button>
-        </a-tooltip>
-      </li>
-
-      <li>
         <a-dropdown trigger="click">
           <a-avatar :size="32" :style="{ marginRight: '8px', cursor: 'pointer' }">
             <img alt="avatar" :src="avatarImg" />
           </a-avatar>
           <template #content>
+            <a-doption>
+              <a-space @click="handleRefreshGroups">
+                <icon-sync />
+                <span>刷新群列表</span>
+              </a-space>
+            </a-doption>
             <a-doption>
               <a-space @click="handleLogout">
                 <icon-export />
@@ -62,7 +52,6 @@
           </template>
         </a-dropdown>
       </li>
-
     </ul>
   </div>
 </template>
@@ -71,36 +60,32 @@
 import favicon from '@/assets/favicon.ico';
 import avatarImg from '@/assets/images/avatar.jpg';
 import { computed, ref, inject } from 'vue';
-import { useDark, useToggle } from '@vueuse/core';
-import { useAppStore } from '@/store';
+import { useAppStore, useGroupStore } from '@/store';
 import { LOCALE_OPTIONS } from '@/locale';
+import { Modal } from '@arco-design/web-vue';
 import useLocale from '@/hooks/locale';
 import useUser from '@/hooks/user';
 import Menu from '@/components/menu/index.vue';
 
 const appStore = useAppStore();
 const { logout } = useUser();
+const { loadGroupInfos } = useGroupStore();
 const { changeLocale, currentLocale } = useLocale();
 const locales = [...LOCALE_OPTIONS];
-const theme = computed(() => {
-  return appStore.theme;
-});
 const topMenu = computed(() => appStore.topMenu && appStore.menu);
-const isDark = useDark({
-  selector: 'body',
-  attribute: 'arco-theme',
-  valueDark: 'dark',
-  valueLight: 'light',
-  storageKey: 'arco-theme',
-  onChanged(dark: boolean) {
-    appStore.toggleTheme(dark);
-  },
-});
-const toggleTheme = useToggle(isDark);
-const handleToggleTheme = () => {
-  toggleTheme();
-};
 const triggerBtn = ref();
+const handleRefreshGroups = async () => {
+  let groupInfoStr = '';
+  const groupInfos = await loadGroupInfos();
+  for (let index = 0; index < groupInfos.length; index += 1) {
+    if (groupInfoStr.length > 0) groupInfoStr += '、';
+    groupInfoStr += `${groupInfos[index].groupName}(${groupInfos[index].groupId})`
+  }
+  Modal.success({
+    title: '刷新完毕',
+    content: `共获取${groupInfos.length}个所在群：${groupInfoStr}`
+  });
+}
 const handleLogout = () => {
   logout();
 };

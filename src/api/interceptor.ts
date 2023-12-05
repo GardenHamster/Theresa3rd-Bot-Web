@@ -47,7 +47,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse<unknown>>) => {
     const result = response.data;
-    if (result.code !== 0) {
+    if (result.code < 0) {
       Message.error({
         content: result.message || 'Error',
         duration: 5 * 1000,

@@ -145,7 +145,7 @@ const columnDatas = computed(() => {
 const fetchSubscribes = async (groupId = 0) => {
   try {
     setLoading(true);
-    const groupInfos = await groupStore.loadGroupInfos();
+    const groupInfos = await groupStore.getGroupInfos();
     const subscribeDatas = await getPixivUserSubscribe() as unknown as SubscribeData[];
     for (let index = 0; index < subscribeDatas.length; index += 1) {
       const data = subscribeDatas[index];
@@ -163,7 +163,7 @@ const fetchSubscribes = async (groupId = 0) => {
 const fetchGroups = async () => {
   try {
     groupLoading.value = true;
-    groupOptions.value = await groupStore.loadGroupOptions();
+    groupOptions.value = await groupStore.getGroupOptions();
   } catch (error) {
     console.log(error);
   } finally {

@@ -257,7 +257,7 @@ const fetchPixivUserScanOptions = async () => {
 
 const fetchGroups = async () => {
   try {
-    groupOptions.value = await groupStore.loadGroupOptions();
+    groupOptions.value = await groupStore.getGroupOptions();
   } catch (error) {
     console.log(error);
   }

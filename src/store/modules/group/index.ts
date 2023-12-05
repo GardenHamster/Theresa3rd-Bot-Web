@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import getGroupList from '@/api/group';
+import { getGroupList, loadGroupList } from '@/api/group';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { GroupState, GroupInfo } from './types';
 
@@ -16,13 +16,17 @@ const toOptions = (groupInfos: GroupInfo[]) => {
 const useGroupStore = defineStore('group', {
   state: (): GroupState => ({}),
   actions: {
-    async loadGroupInfos(): Promise<GroupInfo[]> {
+    async getGroupInfos(): Promise<GroupInfo[]> {
       if (this.groupInfos) return this.groupInfos;
       this.groupInfos = (await getGroupList()) as unknown as GroupInfo[];
       return this.groupInfos;
     },
-    async loadGroupOptions(): Promise<SelectOptionData[]> {
-      const groupInfos = await this.loadGroupInfos();
+    async loadGroupInfos(): Promise<GroupInfo[]> {
+      this.groupInfos = (await loadGroupList()) as unknown as GroupInfo[];
+      return this.groupInfos;
+    },
+    async getGroupOptions(): Promise<SelectOptionData[]> {
+      const groupInfos = await this.getGroupInfos();
       const groupOptions = toOptions(groupInfos);
       return groupOptions;
     },
