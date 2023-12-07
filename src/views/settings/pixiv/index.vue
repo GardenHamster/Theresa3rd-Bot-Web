@@ -47,7 +47,7 @@
           </a-form-item>
 
           <a-form-item field="imgProxy" label="图片代理" tooltip="图片代理地址，值为空时使用本地代理，免代理模式启用后使用该值下载图片，默认：https://i.pixiv.re" feedback>
-            <a-input v-model:model-value="formModel.httpProxy" placeholder="输入一个Http/Https地址" allow-clear />
+            <a-input v-model:model-value="formModel.imgProxy" placeholder="输入一个Http/Https地址" allow-clear />
           </a-form-item>
 
           <a-form-item field="originUrlProxy" label="链接代理" tooltip="Pixiv图片链接的代理地址，方便在QQ内点击打开直接查看原图，格式：https://i.pximg.net。注意不要填写比如：https://i.pixiv.re 这类腾讯提示感叹号的地址，会有大概率触发风控或者冻结等可能"
