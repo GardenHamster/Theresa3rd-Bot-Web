@@ -37,18 +37,18 @@
 
           <a-tabs default-active-key="1">
             <a-tab-pane key="1" title="全局">
-              <a-form-item field="acceptGroups" label="可用群" tooltip="白名单，只处理这些群的消息" extra="输入群号后按下Enter可以添加一个群" feedback>
+              <a-form-item field="acceptGroups" label="可用群" tooltip="白名单，只处理这些群的消息" extra="输入群号后按下Enter添加" feedback>
                 <group-select v-model:model-value="formModel.acceptGroups" :options="groupOptions" select-all />
               </a-form-item>
 
-              <a-form-item field="superManagers" label="超级管理员" tooltip="超级管理员QQ号，超级管理可以使用管理员指令" extra="输入群号后按下Enter可以添加一个群" feedback>
+              <a-form-item field="superManagers" label="超级管理员" tooltip="超级管理员，可以使用管理员指令" extra="输入QQ号后按下Enter添加" feedback>
                 <a-select v-model:model-value="formModel.superManagers" :options="memberOptions" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择一个或多个成员" allow-search allow-clear
                   multiple allow-create>
                 </a-select>
               </a-form-item>
 
-              <a-form-item field="limitlessMembers" label="无限制成员" tooltip="功能冷却时间和每日次数无限制的成员QQ号" extra="输入QQ号后按下Enter可以添加一个成员" feedback>
-                <a-select v-model:model-value="formModel.limitlessMembers" :options="memberOptions" :scrollbar="true" :style="{ minHeight: '100px' }" placeholder="选择一个或多个群" allow-search allow-clear
+              <a-form-item field="limitlessMembers" label="无限制成员" tooltip="功能冷却时间和次数无限制的成员" extra="输入QQ号后按下Enter添加" feedback>
+                <a-select v-model:model-value="formModel.limitlessMembers" :options="memberOptions" :scrollbar="true" :style="{ minHeight: '100px' }" placeholder="选择一个或多个成员" allow-search allow-clear
                   multiple allow-create>
                 </a-select>
               </a-form-item>

@@ -141,7 +141,7 @@
             <a-input-tag v-model:model-value="item.tags" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
           </a-form-item>
 
-          <a-form-item :field="`timers[${index}].atAll`" label="消息模板" tooltip="涩图消息推送模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.enable || !item.enable" feedback>
+          <a-form-item :field="`timers[${index}].timingMsg`" label="消息模板" tooltip="涩图消息推送模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.enable || !item.enable" feedback>
             <a-mention v-model:model-value="item.timingMsg" :style="{ minHeight: '120px' }" :prefix="['{']" :data="placeholders" type="textarea" placeholder="随便写点什么吧..." auto-size allow-clear />
           </a-form-item>
         </a-card>
