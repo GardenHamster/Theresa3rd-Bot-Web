@@ -116,6 +116,12 @@
               </a-form-item>
             </a-tab-pane>
 
+            <a-tab-pane key="7" title="群游戏">
+              <a-form-item field="gameGroups" label="可用群" tooltip="拥有创建群游戏权限的群" feedback>
+                <group-select v-model:model-value="formModel.gameGroups" :options="groupOptions" select-all />
+              </a-form-item>
+            </a-tab-pane>
+
           </a-tabs>
         </a-card>
 

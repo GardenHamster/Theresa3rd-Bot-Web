@@ -71,6 +71,7 @@ export interface PermissionsSetting {
   subscribeGroups?: number[];
   pixivRankingGroups?: number[];
   wordCloudGroups?: number[];
+  gameGroups?: number[];
 }
 
 export interface ManageSetting {
