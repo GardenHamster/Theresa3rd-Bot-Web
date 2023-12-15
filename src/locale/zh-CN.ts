@@ -27,6 +27,8 @@ export default {
   'menu.game': '游戏管理',
   'menu.game.setting': '游戏配置',
   'menu.game.undercover.words': '词组管理',
+  'menu.other': '其他配置',
+  'menu.sugar.tag': '标签绑定',
   'menu.botWebsite': 'Bot文档',
   'menu.botGithub': 'Bot仓库',
   'menu.server.dashboard': '仪表盘-服务端',

@@ -27,6 +27,8 @@ export default {
   'menu.game': 'Game',
   'menu.game.setting': 'Game Setting',
   'menu.game.undercover.words': 'Undercover Words',
+  'menu.other': 'Other Setting',
+  'menu.sugar.tag': 'Tag  Binding',
   'menu.botWebsite': 'Bot Docs',
   'menu.botGithub': 'Bot Github',
   'menu.server.dashboard': 'Dashboard-Server',

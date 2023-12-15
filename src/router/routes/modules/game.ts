@@ -9,7 +9,7 @@ const Datas: AppRouteRecordRaw = {
     locale: 'menu.game',
     requiresAuth: true,
     icon: 'icon-trophy',
-    order: 3,
+    order: 4,
   },
   children: [
     {
