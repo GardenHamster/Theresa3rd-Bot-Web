@@ -325,11 +325,11 @@
             <a-input v-model:model-value="item.cron" placeholder="输入一个Cron表达式" allow-clear />
           </a-form-item>
           <a-form-item :field="`subscribes[${index}].groups`" label="指定群" tooltip="指定需要推送的群" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
-            <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
+            <group-select v-model:model-value="item.groups" :options="groupOptions" placeholder="选择一个或多个群" select-all />
           </a-form-item>
-          <a-form-item :field="`subscribes[${index}].contents`" label="推送内容" tooltip="指定需要推送的榜单内容" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]"
+          <a-form-item :field="`subscribes[${index}].contents`" label="推送内容" tooltip="指定需要推送的榜单内容" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一项内容' }]"
             feedback>
-            <a-select v-model:model-value="item.contents" :options="contentOptions" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择一个或多个需要推送的内容" allow-search allow-clear allow-create
+            <a-select v-model:model-value="item.contents" :options="contentOptions" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择一项或多项推送内容" allow-search allow-clear allow-create
               multiple>
             </a-select>
           </a-form-item>

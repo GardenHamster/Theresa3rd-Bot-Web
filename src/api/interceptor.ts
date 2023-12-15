@@ -50,7 +50,7 @@ axios.interceptors.response.use(
     if (result.code < 0) {
       Message.error({
         content: result.message || 'Error',
-        duration: 5 * 1000,
+        duration: 6000,
       });
       return Promise.reject(new Error(result.message || 'Error'));
     }

@@ -200,11 +200,11 @@
 
           <a-form-item :field="`subscribes[${index}].groups`" label="推送群" tooltip="指定需要生成词云并推送的群" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]"
             feedback>
-            <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
+            <group-select v-model:model-value="item.groups" :options="groupOptions" placeholder="选择一个或多个群" select-all />
           </a-form-item>
 
           <a-form-item :field="`subscribes[${index}].masks`" label="指定蒙版" tooltip="词云蒙版，对应上面设置的蒙版名称，不填将使用默认蒙版" :disabled="!formModel.enable || !item.enable" feedback>
-            <a-select v-model:model-value="item.masks" :options="maskOptions" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择一个或多个蒙版" allow-search allow-clear multiple>
+            <a-select v-model:model-value="item.masks" :options="maskOptions" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择任意蒙版" allow-search allow-clear multiple>
             </a-select>
           </a-form-item>
 

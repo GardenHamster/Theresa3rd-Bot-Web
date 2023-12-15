@@ -93,7 +93,7 @@
           </a-form-item>
 
           <a-form-item :field="`timers[${timerIndex}].groups`" label="发送群" tooltip="将提醒内容发送到群" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
-            <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
+            <group-select v-model:model-value="item.groups" :options="groupOptions" placeholder="选择一个或多个群" select-all />
           </a-form-item>
 
           <a-form-item :field="`timers[${timerIndex}].atAll`" label="艾特全体" tooltip="是否艾特全体" :disabled="!formModel.enable || !item.enable" feedback>
@@ -104,7 +104,7 @@
           </a-form-item>
 
           <a-form-item :field="`timers[${timerIndex}].atMembers`" label="艾特成员" tooltip="艾特指定的QQ号" extra="输入QQ号后按下Enter添加" :disabled="!formModel.enable || !item.enable" feedback>
-            <a-select v-model:model-value="item.atMembers" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择一个或多个成员" allow-search allow-clear multiple allow-create>
+            <a-select v-model:model-value="item.atMembers" :style="{ minHeight: '100px' }" :scrollbar="true" placeholder="选择任意成员" allow-search allow-clear multiple allow-create>
             </a-select>
           </a-form-item>
 

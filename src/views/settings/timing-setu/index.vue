@@ -134,11 +134,11 @@
           </a-form-item>
 
           <a-form-item :field="`timers[${index}].groups`" label="指定群" tooltip="指定需要推送的群" :disabled="!formModel.enable || !item.enable" :rules="[{ required: true, message: '至少选择一个群' }]" feedback>
-            <group-select v-model:model-value="item.groups" :options="groupOptions" select-all />
+            <group-select v-model:model-value="item.groups" :options="groupOptions" placeholder="选择一个或多个群" select-all />
           </a-form-item>
 
           <a-form-item :field="`timers[${index}].tags`" label="指定标签" tooltip="指定需要推送的标签内容，不填表示随机" extra="输入一个指令后按下Enter添加" :disabled="!formModel.enable || !item.enable" feedback>
-            <a-input-tag v-model:model-value="item.tags" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+            <a-input-tag v-model:model-value="item.tags" :style="{ minHeight: '100px' }" placeholder="添加任意指定的标签" allow-clear />
           </a-form-item>
 
           <a-form-item :field="`timers[${index}].timingMsg`" label="消息模板" tooltip="涩图消息推送模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.enable || !item.enable" feedback>
