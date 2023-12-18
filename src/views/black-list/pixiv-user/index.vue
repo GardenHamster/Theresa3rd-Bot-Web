@@ -16,22 +16,22 @@
 <template>
   <div class="container">
     <a-card class="card">
-      <Breadcrumb :items="['menu.blacklist', 'menu.blacklist.member']" />
+      <Breadcrumb :items="['menu.blacklist', 'menu.blacklist.pixiv.user']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
-          <a-popconfirm @ok="delMembers" content="确定将选中的成员从黑名单中移除？" type="warning" position="br">
+          <a-popconfirm @ok="delPixivers" content="确定将选中的画师从黑名单中移除？" type="warning" position="br">
             <a-button type="primary">删除选中</a-button>
           </a-popconfirm>
-          <a-button type="outline" @click="handleAddMember">添加成员</a-button>
+          <a-button type="outline" @click="handleAddPixiver">添加画师</a-button>
         </a-space>
-        <a-table row-key="id" :data="memberList" :columns="columns" :filter-icon-align-left="true" :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
+        <a-table row-key="id" :data="pixiverList" :columns="columnDatas" :filter-icon-align-left="true" :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
           v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" only-current />
       </a-space>
     </a-card>
-    <a-modal v-model:visible="formVisible" title="添加黑名单成员" @cancel="handleCancel" @before-ok="handleBeforeOk" @ok="handleOk">
+    <a-modal v-model:visible="formVisible" title="添加屏蔽画师" @cancel="handleCancel" @before-ok="handleBeforeOk" @ok="handleOk">
       <a-form ref="formRef" layout="horizontal" size="small" :auto-label-width="true" :model="formModel">
-        <a-form-item field="memberId" label="屏蔽QQ" :rules="[{ required: true, message: '必须输入一个qq号' }, { type: 'number', positive: true, message: '必须输入一个正数' }]" show-colon feedback>
-          <a-input v-model:model-value="formModel.memberId" placeholder="输入一个QQ号" allow-clear />
+        <a-form-item field="pixiverId" label="屏蔽画师" :rules="[{ required: true, message: '必须输入一个画师ID' }]" show-colon feedback>
+          <a-input v-model:model-value="formModel.pixiverId" placeholder="输入一个画师ID" allow-clear />
         </a-form-item>
       </a-form>
     </a-modal>
@@ -39,10 +39,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import useLoading from '@/hooks/loading';
-import { getBanMembers, addBanMember, delBanMember } from '@/api/black-list';
-import type { BanMemberData, AddMemberParam } from '@/api/black-list';
+import { getBanPixivers, addBanPixiver, delBanPixiver } from '@/api/black-list';
+import type { BanPixiverData, AddPixiverParam } from '@/api/black-list';
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
 import { Message } from '@arco-design/web-vue';
 import { List } from 'linqts';
@@ -53,13 +53,13 @@ const formVisible = ref<boolean>(false);
 const selectedKeys = ref<number[]>([]);
 const pagination = { pageSize: 50 };
 const { loading, setLoading } = useLoading();
-const memberList = ref<BanMemberData[]>([]);
-const formModel = ref<AddMemberParam>({ memberId: '' });
+const pixiverList = ref<BanPixiverData[]>([]);
+const formModel = ref<AddPixiverParam>({ pixiverId: '' });
 
 const columns: TableColumnData[] = [
   {
-    title: '屏蔽QQ',
-    dataIndex: 'memberId',
+    title: '画师ID',
+    dataIndex: 'pixiverId',
     ellipsis: true,
     tooltip: true
   },
@@ -69,9 +69,14 @@ const columns: TableColumnData[] = [
     ellipsis: true,
     tooltip: true,
     render: (record) => dayjs.unix(record.record.createAt).format('YYYY-MM-DD HH:mm:ss')
-  }
+  },
 ];
-const handleAddMember = async () => {
+
+const columnDatas = computed(() => {
+  return [...columns];
+});
+
+const handleAddPixiver = async () => {
   formVisible.value = true;
 }
 
@@ -83,12 +88,12 @@ const handleCancel = async () => {
 const handleBeforeOk = async () => {
   const result = await formRef.value?.validate();
   if (result) return false;
-  const isExists = new List<BanMemberData>(memberList.value).Any(o => o?.memberId.toString() === formModel.value.memberId);
+  const isExists = new List<BanPixiverData>(pixiverList.value).Any(o => o?.pixiverId.toString() === formModel.value.pixiverId);
   if (isExists) {
     formRef.value.setFields({
-      memberId: {
+      keyword: {
         status: 'error',
-        message: '该成员已添加'
+        message: '该画师已添加'
       }
     });
     return false;
@@ -96,11 +101,10 @@ const handleBeforeOk = async () => {
   return true;
 }
 
-const fetchMembers = async () => {
+const fetchPixivers = async () => {
   try {
     setLoading(true);
-    const banMembers = await getBanMembers() as unknown as BanMemberData[];
-    memberList.value = banMembers;
+    pixiverList.value = await getBanPixivers() as unknown as BanPixiverData[];
   } catch (error) {
     console.log(error);
   } finally {
@@ -111,8 +115,8 @@ const fetchMembers = async () => {
 const handleOk = async () => {
   try {
     setLoading(true);
-    await addBanMember(formModel.value);
-    await fetchMembers();
+    await addBanPixiver(formModel.value);
+    await fetchPixivers();
     Message.success({ content: '添加成功', position: 'top' });
     formRef.value?.resetFields();
   } catch (error) {
@@ -124,7 +128,7 @@ const handleOk = async () => {
   }
 }
 
-const delMembers = async () => {
+const delPixivers = async () => {
   try {
     setLoading(true);
     const selectedIds = selectedKeys.value;
@@ -132,8 +136,8 @@ const delMembers = async () => {
       Message.error({ content: '请至少选择一条记录' });
       return;
     }
-    await delBanMember(selectedIds);
-    await fetchMembers();
+    await delBanPixiver(selectedIds);
+    await fetchPixivers();
     selectedKeys.value.length = 0;
     Message.success('删除成功');
   } catch (error) {
@@ -144,12 +148,12 @@ const delMembers = async () => {
   }
 };
 
-fetchMembers();
+fetchPixivers();
 </script>
 
 <script lang="ts">
 export default {
-  name: 'MemberBlackList',
+  name: 'PixivUserBlackList',
 };
 </script>
 

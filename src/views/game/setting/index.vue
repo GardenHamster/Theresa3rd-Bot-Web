@@ -78,6 +78,12 @@
                   <template #unchecked>OFF</template>
                 </a-switch>
               </a-form-item>
+              <a-form-item field="undercover.privateVote" label="私聊投票" tooltip="只允许私聊Bot进行投票，否则群聊和私聊都可以投票" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
+                <a-switch v-model:model-value="formModel.undercover!.privateVote">
+                  <template #checked>ON</template>
+                  <template #unchecked>OFF</template>
+                </a-switch>
+              </a-form-item>
               <a-form-item field="undercover.addWordLimits" label="添加词条限制" tooltip="非管理员限制添加的未审核词条数量，0表示不允许添加" :disabled="!formModel?.enable || !formModel.undercover?.enable" feedback>
                 <a-input-number v-model:model-value="formModel.undercover!.addWordLimits" :style="{ maxWidth: '300px' }" :min="0" :max="100" placeholder="输入一个正整数" mode="button" size="large">
                   <template #suffix>个</template>

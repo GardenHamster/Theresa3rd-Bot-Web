@@ -85,6 +85,8 @@ export interface ManageSetting {
   removeSubCommands?: string[];
   bindTagCommands?: string[];
   unBindTagCommands?: string[];
+  disablePixiverCommands?: string[];
+  enablePixiverCommands?: string[];
 }
 
 export interface MenuSetting {
@@ -370,6 +372,7 @@ export interface UndercoverSetting {
   sendWordCommands?: string[];
   addWordLimits?: number;
   sendIdentity?: boolean;
+  privateVote?: boolean;
   firstRoundNonVoting?: number;
   maxSimilarity?: number;
   matchSeconds?: number;

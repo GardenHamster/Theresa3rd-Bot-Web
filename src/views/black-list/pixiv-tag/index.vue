@@ -16,7 +16,7 @@
 <template>
   <div class="container">
     <a-card class="card">
-      <Breadcrumb :items="['menu.blacklist', 'menu.blacklist.pixivtag']" />
+      <Breadcrumb :items="['menu.blacklist', 'menu.blacklist.pixiv.tag']" />
       <a-space direction="vertical" size="medium" fill>
         <a-space direction="horizontal">
           <a-popconfirm @ok="delTags" content="确定将选中的成员从黑名单中移除？" type="warning" position="br">
@@ -25,30 +25,7 @@
           <a-button type="outline" @click="handleAddTag">添加标签</a-button>
         </a-space>
         <a-table row-key="id" :data="tagList" :columns="columnDatas" :filter-icon-align-left="true" :row-selection="{ type: 'checkbox', showCheckedAll: true, onlyCurrent: true }"
-          v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" only-current>
-          <template #code-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
-            <div class="custom-filter">
-              <a-space direction="vertical">
-                <a-input :model-value="filterValue[0]" @input="(value) => setFilterValue([value])" />
-                <div class="custom-filter-footer">
-                  <a-button @click="handleFilterConfirm">搜索</a-button>
-                  <a-button @click="handleFilterReset">重置</a-button>
-                </div>
-              </a-space>
-            </div>
-          </template>
-          <template #name-filter="{ filterValue, setFilterValue, handleFilterConfirm, handleFilterReset }">
-            <div class="custom-filter">
-              <a-space direction="vertical">
-                <a-input :model-value="filterValue[0]" @input="(value) => setFilterValue([value])" />
-                <div class="custom-filter-footer">
-                  <a-button @click="handleFilterConfirm">搜索</a-button>
-                  <a-button @click="handleFilterReset">重置</a-button>
-                </div>
-              </a-space>
-            </div>
-          </template>
-        </a-table>
+          v-model:selectedKeys="selectedKeys" :pagination="pagination" :loading="loading" only-current />
       </a-space>
     </a-card>
     <a-modal v-model:visible="formVisible" title="添加屏蔽标签" @cancel="handleCancel" @before-ok="handleBeforeOk" @ok="handleOk">

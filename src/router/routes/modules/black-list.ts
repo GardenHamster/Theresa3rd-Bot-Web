@@ -23,11 +23,21 @@ const Datas: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'pixivtag',
+      path: 'pixiv/tag',
       name: 'PixivTagBlackList',
       component: () => import('@/views/black-list/pixiv-tag/index.vue'),
       meta: {
-        locale: 'menu.blacklist.pixivtag',
+        locale: 'menu.blacklist.pixiv.tag',
+        requiresAuth: true,
+        roles: ['admin'],
+      },
+    },
+    {
+      path: 'pixiv/user',
+      name: 'PixivUserBlackList',
+      component: () => import('@/views/black-list/pixiv-user/index.vue'),
+      meta: {
+        locale: 'menu.blacklist.pixiv.user',
         requiresAuth: true,
         roles: ['admin'],
       },

@@ -62,6 +62,14 @@
               <a-form-item field="enableTagCommands" label="解禁标签" tooltip="取消屏蔽一个涩图标签" extra="输入一个指令后按下Enter添加" feedback>
                 <a-input-tag v-model:model-value="formModel.enableTagCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
+
+              <a-form-item field="disablePixiverCommands" label="屏蔽画师" tooltip="屏蔽一个画师，屏蔽后不会推送该画师的相关作品" extra="输入一个指令后按下Enter添加" feedback>
+                <a-input-tag v-model:model-value="formModel.disablePixiverCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+              </a-form-item>
+
+              <a-form-item field="enablePixiverCommands" label="解禁画师" tooltip="取消屏蔽一个画师" extra="输入一个指令后按下Enter添加" feedback>
+                <a-input-tag v-model:model-value="formModel.enablePixiverCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+              </a-form-item>
             </a-tab-pane>
 
             <a-tab-pane key="3" title="订阅管理">
