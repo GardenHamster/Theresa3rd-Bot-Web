@@ -148,6 +148,7 @@ import { FacePath } from '@/store/modules/path/types';
 import { proxyRule } from '@/utils/validator'
 import type { PixivSetting,PixivCookie } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
+import { updatePck } from '@/api/settings';
 
 const formRef = ref();
 const { loading, setLoading } = useLoading();
