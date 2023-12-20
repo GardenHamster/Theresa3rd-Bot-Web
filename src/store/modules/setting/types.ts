@@ -383,3 +383,7 @@ export interface UndercoverSetting {
   violatedMuteSeconds?: number;
   ruleMsg?: string;
 }
+
+export interface PixivCookie{
+  pcookie?:string;
+}
