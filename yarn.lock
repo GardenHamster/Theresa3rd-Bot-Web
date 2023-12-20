@@ -28,9 +28,9 @@
     "color" "^3.1.3"
 
 "@arco-design/web-vue@^2.44.7", "@arco-design/web-vue@^2.51.1":
-  "integrity" "sha512-/qY/LsY9sIXP0qGtdWnOfwN9VzMsZN2psa6TfZtfGBG0F22aMJV7mG4zFpHiAlqFGHwY/jpuPq3LQSd8iMrboQ=="
-  "resolved" "https://registry.npmmirror.com/@arco-design/web-vue/-/web-vue-2.52.0.tgz"
-  "version" "2.52.0"
+  "integrity" "sha512-/9tMP2GrcGWPGcfRQcLMFMxRBm7s6jjFkCpXXnOpvMAIMe80+gzqjVS2dmgCv2a1FpvB9fy5ot7+evJ5zrsQiw=="
+  "resolved" "https://registry.npmmirror.com/@arco-design/web-vue/-/web-vue-2.53.3.tgz"
+  "version" "2.53.3"
   dependencies:
     "@arco-design/color" "^0.4.0"
     "b-tween" "^0.3.3"

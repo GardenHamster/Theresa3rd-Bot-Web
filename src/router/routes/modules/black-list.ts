@@ -9,7 +9,7 @@ const Datas: AppRouteRecordRaw = {
     locale: 'menu.blacklist',
     requiresAuth: true,
     icon: 'icon-stop',
-    order: 3,
+    order: 4,
   },
   children: [
     {
