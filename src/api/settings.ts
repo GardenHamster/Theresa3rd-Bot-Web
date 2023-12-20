@@ -123,3 +123,7 @@ export function getGameSetting() {
 export function setGameSetting(setting: GameSetting) {
   return axios.post<GameSetting>('/api/config/set/game', setting);
 }
+
+export function updatePck(pck: PixivCookie) {
+  return axios.post<any>('/api/cookie/update/pck', pck);
+}
