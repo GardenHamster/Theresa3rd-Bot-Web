@@ -42,6 +42,11 @@
             </a-switch>
           </a-form-item>
 
+          <a-form-item field="cookie" label="PixivCookie" tooltip="更新PixivCookie值" feedback>
+            <a-input v-model:model-value="uppck.pcookie" placeholder="输入PixivCookie值" allow-clear />
+            <a-button @click="updateCookie">{{ $t('更新') }}</a-button>
+          </a-form-item>
+
           <a-form-item field="httpProxy" label="网络代理" tooltip="Pixiv代理地址，值为空时使用本地代理，免代理模式启用后失效，格式：http://127.0.0.1:7890" feedback>
             <a-input v-model:model-value="formModel.httpProxy" placeholder="输入一个Http/Https地址" allow-clear />
           </a-form-item>
@@ -141,7 +146,7 @@ import { useSettingStore, usePathStore, useOptionStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
 import { proxyRule } from '@/utils/validator'
-import type { PixivSetting } from '@/store/modules/setting/types';
+import type { PixivSetting,PixivCookie } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
 const formRef = ref();
@@ -154,6 +159,8 @@ const resendOptions = ref<SelectOptionData[]>([]);
 const imgSizeOptions = ref<SelectOptionData[]>([]);
 const formModel = ref<PixivSetting>({});
 const initModel = ref<PixivSetting>({});
+const uppck = ref<PixivCookie>({});
+const formuppck = ref<PixivCookie>({});
 const placeholders = ref<SelectOptionData[]>([
   { label: '{PixivId}:作品ID', value: 'PixivId}' },
   { label: '{IllustTitle}:作品标题', value: 'IllustTitle}' },
@@ -168,6 +175,16 @@ const placeholders = ref<SelectOptionData[]>([
   { label: '{Urls}:图片链接', value: 'Urls}' },
 ]);
 
+const updateCookie = async () => {
+  try {
+    formuppck.value = JSON.parse(JSON.stringify(uppck.value));
+    await updatePck(formuppck.value);
+    Message.info({ content: 'PixivCookie更新完毕', position: 'top' });
+  } catch (error) {
+    console.log(error);
+  }
+}
+  
 const cookieExpireDay = computed({
   get() {
     return Math.floor((formModel.value.cookieExpire ?? 0) / 60 / 60 / 24);
