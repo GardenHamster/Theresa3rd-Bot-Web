@@ -13,7 +13,7 @@
     box-sizing: border-box;
     gap: 10px;
     position: absolute;
-    z-index: 99999999;
+    z-index: 50;
     background-color: white;
 }
 
@@ -23,6 +23,10 @@
 
 .preview-leave-active {
     animation: fold 0.2s ease reverse;
+}
+
+:deep(.arco-textarea) {
+    min-height: 120px;
 }
 
 @keyframes fold {
@@ -40,8 +44,7 @@
 
 <template>
     <a-space direction="vertical" :style="{ width: '100%', position: 'relative' }" :size="0">
-        <a-mention v-model:model-value="modelValue" :style="{ minHeight: '120px' }" :prefix="['[']" :data="imgMentions"
-            type="textarea" :placeholder="placeholder" @focus="onFocus" @blur="onBlur" auto-size allow-clear />
+        <a-mention v-model:model-value="modelValue" :prefix="['[']" :data="imgMentions" type="textarea" :placeholder="placeholder" @focus="onFocus" @blur="onBlur" allow-clear />
         <transition name="preview">
             <p class="preview" v-show="preview">
                 <template v-for="(content, index) in contents" :key="index">

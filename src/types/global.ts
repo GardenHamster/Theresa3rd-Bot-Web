@@ -29,6 +29,11 @@ export interface Pagination {
   total?: number;
 }
 
+export interface Placeholder {
+  key: string;
+  explain: string;
+}
+
 export type TimeRanger = [string, string];
 
 export interface GeneralChart {

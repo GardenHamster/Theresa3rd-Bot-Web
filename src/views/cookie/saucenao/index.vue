@@ -24,6 +24,10 @@
   background: var(--color-bg-2);
   text-align: right;
 }
+
+:deep(.arco-textarea) {
+  min-height: 250px;
+}
 </style>
 
 <template>
@@ -34,7 +38,7 @@
           <save-warning :initModel="initModel" :formModel="formModel" />
           <Breadcrumb :items="['menu.cookie', 'menu.cookie.saucenao']" />
           <a-form-item field="cookie" label="Cookie" tooltip="saucenao Cookie，获取方式请参考文档" feedback>
-            <a-textarea v-model:model-value="formModel.cookie" :style="{ minHeight: '200px' }" placeholder="输入Cookie..." auto-size allow-clear />
+            <a-textarea v-model:model-value="formModel.cookie" placeholder="输入Cookie..." allow-clear />
           </a-form-item>
         </a-card>
 

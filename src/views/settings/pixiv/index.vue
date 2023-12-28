@@ -118,7 +118,7 @@
           </a-form-item>
 
           <a-form-item field="template" label="消息模板" tooltip="Pixiv作品信息模版，值为空时将使用默认模版" extra="输入“{”可以快速插入占位符" feedback>
-            <a-mention v-model:model-value="formModel.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="placeholders" type="textarea" placeholder="随便写点什么吧..." auto-size allow-clear />
+            <placeholder-textarea v-model:model-value="formModel.template" :placeholders="placeholders" />
           </a-form-item>
         </a-card>
 
@@ -141,6 +141,7 @@ import { useSettingStore, usePathStore, useOptionStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
 import { proxyRule } from '@/utils/validator'
+import { Placeholder } from '@/types/global'
 import type { PixivSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
@@ -154,18 +155,18 @@ const resendOptions = ref<SelectOptionData[]>([]);
 const imgSizeOptions = ref<SelectOptionData[]>([]);
 const formModel = ref<PixivSetting>({});
 const initModel = ref<PixivSetting>({});
-const placeholders = ref<SelectOptionData[]>([
-  { label: '{PixivId}:作品ID', value: 'PixivId}' },
-  { label: '{IllustTitle}:作品标题', value: 'IllustTitle}' },
-  { label: '{UserId}:画师ID', value: 'UserId}' },
-  { label: '{UserName}:画师名', value: 'UserName}' },
-  { label: '{BookmarkCount}:收藏数', value: 'BookmarkCount}' },
-  { label: '{LikeCount}:点赞数', value: 'LikeCount}' },
-  { label: '{ViewCount}:浏览数', value: 'ViewCount}' },
-  { label: '{PageCount}:作品图片数', value: 'PageCount}' },
-  { label: '{RelevantCount}:相关作品数', value: 'RelevantCount}' },
-  { label: '{Tags}:作品标签', value: 'Tags}' },
-  { label: '{Urls}:图片链接', value: 'Urls}' },
+const placeholders = ref<Placeholder[]>([
+  { key: 'PixivId', explain: '作品ID' },
+  { key: 'IllustTitle', explain: '作品标题' },
+  { key: 'UserId', explain: '画师ID' },
+  { key: 'UserName', explain: '画师名' },
+  { key: 'BookmarkCount', explain: '收藏数' },
+  { key: 'LikeCount', explain: '点赞数' },
+  { key: 'ViewCount', explain: '浏览数' },
+  { key: 'PageCount', explain: '作品图片数' },
+  { key: 'RelevantCount', explain: '相关作品数' },
+  { key: 'Tags', explain: '作品标签' },
+  { key: 'Urls', explain: '图片链接' },
 ]);
 
 const cookieExpireDay = computed({

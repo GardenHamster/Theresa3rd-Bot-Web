@@ -102,8 +102,7 @@
               </a-form-item>
 
               <a-form-item field="template" label="消息模版" tooltip="榜单消息模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.enable" feedback>
-                <a-mention v-model:model-value="formModel.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="templatePlaceholders" type="textarea" placeholder="不填写将使用默认模板..." auto-size
-                  allow-clear />
+                <placeholder-textarea v-model:model-value="formModel.template" :placeholders="tempPlaceholders" />
               </a-form-item>
 
             </a-tab-pane>
@@ -364,6 +363,7 @@ import { useSettingStore, usePathStore, useGroupStore, useOptionStore } from '@/
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
 import { cronRule } from '@/utils/validator'
+import { Placeholder } from '@/types/global'
 import type { PixivRankingSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
@@ -380,10 +380,10 @@ const groupOptions = ref<SelectOptionData[]>([]);
 const formModel = ref<PixivRankingSetting>({ daily: {}, dailyAI: {}, male: {}, weekly: {}, monthly: {}, subscribes: [] });
 const initModel = ref<PixivRankingSetting>({});
 
-const templatePlaceholders = ref<SelectOptionData[]>([
-  { label: '{Date}:日期', value: 'Date}' },
-  { label: '{Ranking}:榜单', value: 'Ranking}' },
-  { label: '{CacheSeconds}:缓存时间(秒)', value: 'CacheSeconds}' },
+const tempPlaceholders = ref<Placeholder[]>([
+  { key: 'Date', explain: '日期' },
+  { key: 'Ranking', explain: '榜单' },
+  { key: 'CacheSeconds', explain: '缓存时间(秒)' },
 ]);
 
 const contentOptions = ref<SelectOptionData[]>([

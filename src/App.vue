@@ -78,4 +78,29 @@ body,
   min-width: 300px;
   max-width: 50%;
 }
+
+.arco-textarea {
+  resize: none;
+}
+
+.arco-textarea::-webkit-scrollbar-track-piece {
+  background-color: #f8f8f8;
+}
+
+.arco-textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.arco-textarea::-webkit-scrollbar-thumb {
+  background-color: #dddddd;
+  background-clip: padding-box;
+  -webkit-border-radius: 2.5em;
+  border-radius: 2.5em;
+  min-height: 35px;
+}
+
+.arco-textarea::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
 </style>

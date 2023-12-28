@@ -89,8 +89,7 @@
                 <a-input-tag v-model:model-value="formModel.pixiv!.randomTags" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
               <a-form-item field="pixiv.template" label="提示模板" tooltip="提示模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.pixiv?.enable" feedback>
-                <a-mention v-model:model-value="formModel.pixiv!.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="pixivPlaceholders" type="textarea" placeholder="随便写点什么吧..." auto-size
-                  allow-clear />
+                <placeholder-textarea v-model:model-value="formModel.pixiv!.template" :placeholders="pixivPlaceholders" />
               </a-form-item>
               <a-form-item field="pixiv.maxScan" label="扫描次数" tooltip="根据标签搜索时,最多扫描N个作品,不存在合格的作品时,将返回无结果提示" :disabled="!formModel.pixiv?.enable" feedback>
                 <a-input-number v-model:model-value="formModel.pixiv!.maxScan" :style="{ maxWidth: '300px' }" :min="0" :max="1000" placeholder="输入一个数字" mode="button" size="large">
@@ -117,8 +116,7 @@
                 <a-input-tag v-model:model-value="formModel.lolicon!.commands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
               <a-form-item field="lolicon.template" label="消息模板" tooltip="lolicon涩图消息模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.lolicon?.enable" feedback>
-                <a-mention v-model:model-value="formModel.lolicon!.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="loliconPlaceholders" type="textarea" placeholder="随便写点什么吧..."
-                  auto-size allow-clear />
+                <placeholder-textarea v-model:model-value="formModel.lolicon!.template" :placeholders="loliconPlaceholders" />
               </a-form-item>
             </a-tab-pane>
             <a-tab-pane key="4" title="Lolisuki">
@@ -141,8 +139,7 @@
                 </a-space>
               </a-form-item>
               <a-form-item field="lolisuki.template" label="消息模板" tooltip="lolisuki涩图消息模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.lolisuki?.enable" feedback>
-                <a-mention v-model:model-value="formModel.lolisuki!.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="lolisukiPlaceholders" type="textarea" placeholder="随便写点什么吧..."
-                  auto-size allow-clear />
+                <placeholder-textarea v-model:model-value="formModel.lolisuki!.template" :placeholders="lolisukiPlaceholders" />
               </a-form-item>
             </a-tab-pane>
             <a-tab-pane key="5" title="本地涩图">
@@ -159,8 +156,7 @@
                 <a-input v-model:model-value="formModel.local!.localPath" placeholder="输入一个相对路径或者绝对路径" allow-clear />
               </a-form-item>
               <a-form-item field="local.template" label="消息模板" tooltip="本地涩图消息模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.local?.enable" feedback>
-                <a-mention v-model:model-value="formModel.local!.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="localPlaceholders" type="textarea" placeholder="随便写点什么吧..." auto-size
-                  allow-clear />
+                <placeholder-textarea v-model:model-value="formModel.local!.template" :placeholders="localPlaceholders" />
               </a-form-item>
             </a-tab-pane>
             <a-tab-pane key="6" title="画师作品预览">
@@ -177,8 +173,7 @@
                 <preview-textarea v-model:model-value="formModel.pixivUser!.processingMsg" :facePaths="facePaths" />
               </a-form-item>
               <a-form-item field="pixivUser.template" label="消息模板" tooltip="消息模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.pixivUser?.enable" feedback>
-                <a-mention v-model:model-value="formModel.pixivUser!.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="pixivUserPlaceholders" type="textarea" placeholder="随便写点什么吧..."
-                  auto-size allow-clear />
+                <placeholder-textarea v-model:model-value="formModel.pixivUser!.template" :placeholders="pixivUserPlaceholders" />
               </a-form-item>
               <a-form-item field="pixivUser.maxScan" label="扫描数量" tooltip="最多扫描画师前N个作品" :disabled="!formModel.pixivUser?.enable" feedback>
                 <a-input-number v-model:model-value="formModel.pixivUser!.maxScan" :style="{ maxWidth: '300px' }" :min="0" :max="1000" placeholder="输入一个数字" mode="button" size="large">
@@ -215,6 +210,7 @@ import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useGroupStore, useOptionStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
+import { Placeholder } from '@/types/global'
 import type { SetuSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
@@ -232,42 +228,46 @@ const initModel = ref<SetuSetting>({});
 const minLevel = ref<number>(0);
 const maxLevel = ref<number>(0);
 
-const pixivPlaceholders = ref<SelectOptionData[]>([
-  { label: '{TodayLeft}:当天剩余使用次数', value: 'TodayLeft}' },
-  { label: '{RevokeInterval}:撤回时间(秒)', value: 'RevokeInterval}' },
+const pixivPlaceholders = ref<Placeholder[]>([
+  { key: 'TodayLeft', explain: '当天剩余使用次数' },
+  { key: 'RevokeInterval', explain: '撤回时间(秒)' },
 ]);
-const loliconPlaceholders = ref<SelectOptionData[]>([
-  { label: '{MemberCD}:独立CD(秒)', value: 'MemberCD}' },
-  { label: '{TodayLeft}:当天剩余使用次数', value: 'TodayLeft}' },
-  { label: '{RevokeInterval}:撤回时间(秒)', value: 'RevokeInterval}' },
-  { label: '{PixivId}:作品ID', value: 'PixivId}' },
-  { label: '{IllustTitle}:作品标题', value: 'IllustTitle}' },
-  { label: '{UserId}:画师ID', value: 'UserId}' },
-  { label: '{UserName}:画师名称', value: 'UserName}' },
-  { label: '{Urls}:图片链接', value: 'Urls}' },
+
+const loliconPlaceholders = ref<Placeholder[]>([
+  { key: 'MemberCD', explain: '独立CD(秒)' },
+  { key: 'TodayLeft', explain: '当天剩余使用次数' },
+  { key: 'RevokeInterval', explain: '撤回时间(秒)' },
+  { key: 'PixivId', explain: '作品ID' },
+  { key: 'IllustTitle', explain: '作品标题' },
+  { key: 'UserId', explain: '画师ID' },
+  { key: 'UserName', explain: '画师名称' },
+  { key: 'Urls', explain: '图片链接' },
 ]);
-const lolisukiPlaceholders = ref<SelectOptionData[]>([
-  { label: '{MemberCD}:独立CD(秒)', value: 'MemberCD}' },
-  { label: '{TodayLeft}:当天剩余使用次数', value: 'TodayLeft}' },
-  { label: '{RevokeInterval}:撤回时间(秒)', value: 'RevokeInterval}' },
-  { label: '{PixivId}:作品ID', value: 'PixivId}' },
-  { label: '{IllustTitle}:作品标题', value: 'IllustTitle}' },
-  { label: '{UserId}:画师ID', value: 'UserId}' },
-  { label: '{UserName}:画师名称', value: 'UserName}' },
-  { label: '{Level}:级别', value: 'Level}' },
-  { label: '{Taste}:分类', value: 'Taste}' },
-  { label: '{Urls}:图片链接', value: 'Urls}' },
+
+const lolisukiPlaceholders = ref<Placeholder[]>([
+  { key: 'MemberCD', explain: '独立CD(秒)' },
+  { key: 'TodayLeft', explain: '当天剩余使用次数' },
+  { key: 'RevokeInterval', explain: '撤回时间(秒)' },
+  { key: 'PixivId', explain: '作品ID' },
+  { key: 'IllustTitle', explain: '作品标题' },
+  { key: 'UserId', explain: '画师ID' },
+  { key: 'UserName', explain: '画师名称' },
+  { key: 'Level', explain: '级别' },
+  { key: 'Taste', explain: '分类' },
+  { key: 'Urls', explain: '图片链接' },
 ]);
-const localPlaceholders = ref<SelectOptionData[]>([
-  { label: '{MemberCD}:独立CD(秒)', value: 'MemberCD}' },
-  { label: '{TodayLeft}:当天剩余使用次数', value: 'TodayLeft}' },
-  { label: '{RevokeInterval}:撤回时间(秒)', value: 'RevokeInterval}' },
-  { label: '{FileName}:文件名', value: 'FileName}' },
-  { label: '{SizeMB}:文件大小(MB)', value: 'SizeMB}' },
+
+const localPlaceholders = ref<Placeholder[]>([
+  { key: 'MemberCD', explain: '独立CD(秒)' },
+  { key: 'TodayLeft', explain: '当天剩余使用次数' },
+  { key: 'RevokeInterval', explain: '撤回时间(秒)' },
+  { key: 'FileName', explain: '文件名' },
+  { key: 'SizeMB', explain: '文件大小(MB)' },
 ]);
-const pixivUserPlaceholders = ref<SelectOptionData[]>([
-  { label: '{UserName}:画师名称', value: 'UserName}' },
-  { label: '{CacheSeconds}:缓存时间(秒)', value: 'CacheSeconds}' },
+
+const pixivUserPlaceholders = ref<Placeholder[]>([
+  { key: 'UserName', explain: '画师名称' },
+  { key: 'CacheSeconds', explain: '缓存时间(秒)' },
 ]);
 
 const onSubmit = async () => {

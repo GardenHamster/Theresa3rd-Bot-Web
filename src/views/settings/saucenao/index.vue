@@ -156,8 +156,7 @@
             <preview-textarea v-model:model-value="formModel.processingMsg" :facePaths="facePaths" placeholder="模版为空时将使用自动生成" />
           </a-form-item>
           <a-form-item field="template" label="消息模版" tooltip="搜索结果消息模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.enable" feedback>
-            <a-mention v-model:model-value="formModel.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="templatePlaceholders" type="textarea" placeholder="随便写点什么吧..." auto-size
-              allow-clear />
+            <placeholder-textarea v-model:model-value="formModel.template" :placeholders="tempPlaceholders" />
           </a-form-item>
         </a-card>
 
@@ -179,8 +178,8 @@ import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
+import { Placeholder } from '@/types/global'
 import type { SaucenaoSetting } from '@/store/modules/setting/types';
-import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
 const formRef = ref();
 const { loading, setLoading } = useLoading();
@@ -190,11 +189,11 @@ const facePaths = ref<FacePath[]>([]);
 const formModel = ref<SaucenaoSetting>({});
 const initModel = ref<SaucenaoSetting>({});
 
-const templatePlaceholders = ref<SelectOptionData[]>([
-  { label: '{MatchCount}:搜索结果数', value: 'MatchCount}' },
-  { label: '{TodayLeft}:当天剩余使用次数', value: 'TodayLeft}' },
-  { label: '{RevokeInterval}:撤回时间(秒)', value: 'RevokeInterval}' },
-  { label: '{MemberCD}:独立CD(秒)', value: 'MemberCD}' },
+const tempPlaceholders = ref<Placeholder[]>([
+  { key: 'MatchCount', explain: '搜索结果数' },
+  { key: 'TodayLeft', explain: '当天剩余使用次数' },
+  { key: 'RevokeInterval', explain: '撤回时间(秒)' },
+  { key: 'MemberCD', explain: '独立CD(秒)' },
 ]);
 
 const onSubmit = async () => {

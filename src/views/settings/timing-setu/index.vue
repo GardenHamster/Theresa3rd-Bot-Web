@@ -142,7 +142,7 @@
           </a-form-item>
 
           <a-form-item :field="`timers[${index}].timingMsg`" label="消息模板" tooltip="涩图消息推送模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.enable || !item.enable" feedback>
-            <a-mention v-model:model-value="item.timingMsg" :style="{ minHeight: '120px' }" :prefix="['{']" :data="placeholders" type="textarea" placeholder="随便写点什么吧..." auto-size allow-clear />
+            <placeholder-textarea v-model:model-value="item.timingMsg" :placeholders="placeholders" />
           </a-form-item>
         </a-card>
 
@@ -170,6 +170,7 @@ import { useSettingStore, usePathStore, useGroupStore, useOptionStore } from '@/
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
 import { cronRule } from '@/utils/validator'
+import { Placeholder } from '@/types/global'
 import type { TimingSetuSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
@@ -187,9 +188,9 @@ const initModel = ref<TimingSetuSetting>({});
 const minLevel = ref<number>(0);
 const maxLevel = ref<number>(0);
 
-const placeholders = ref<SelectOptionData[]>([
-  { label: '{Tags}:标签', value: 'Tags}' },
-  { label: '{SourceName}:图片来源', value: 'SourceName}' },
+const placeholders = ref<Placeholder[]>([
+  { key: 'Tags', explain: '标签' },
+  { key: 'SourceName', explain: '图片来源' },
 ]);
 
 const onSubmit = async () => {

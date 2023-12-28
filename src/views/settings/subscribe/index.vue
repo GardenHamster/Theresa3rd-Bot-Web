@@ -49,8 +49,7 @@
                 <a-input-tag v-model:model-value="formModel.miyoushe!.rmCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
               <a-form-item field="miyoushe.template" label="推送模板" tooltip="米游社消息推送模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.miyoushe!.enable" feedback>
-                <a-mention v-model:model-value="formModel.miyoushe!.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="miyoushePlaceholders" type="textarea" placeholder="不填写将使用默认模板..."
-                  auto-size allow-clear />
+                <placeholder-textarea v-model:model-value="formModel.miyoushe!.template" :placeholders="miyoushePlaceholders" />
               </a-form-item>
               <a-form-item field="miyoushe.scanInterval" label="扫描间隔" tooltip="扫描间隔时间" :disabled="!formModel.miyoushe?.enable" feedback>
                 <a-input-number v-model:model-value="formModel.miyoushe!.scanInterval" :style="{ maxWidth: '300px' }" :min="10" :max="10000000" placeholder="输入一个数字" mode="button" size="large">
@@ -86,8 +85,7 @@
                 <a-input-tag v-model:model-value="formModel.pixivUser!.syncCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
               <a-form-item field="pixivUser.template" label="推送模板" tooltip="Pixiv用户最新作品推送模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.pixivUser!.enable" feedback>
-                <a-mention v-model:model-value="formModel.pixivUser!.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="pixivUserPlaceholders" type="textarea" placeholder="不填写将使用默认模板..."
-                  auto-size allow-clear />
+                <placeholder-textarea v-model:model-value="formModel.pixivUser!.template" :placeholders="pixivUserPlaceholders" />
               </a-form-item>
               <a-form-item field="pixivUser.scanMode" label="扫描模式" tooltip="扫描Pixiv画师作品的模式" :disabled="!formModel.pixivUser!.enable" feedback>
                 <a-select v-model:model-value="formModel.pixivUser!.scanMode" :options="scanOptions" placeholder="选择一个模式" :scrollbar="true"></a-select>
@@ -123,8 +121,7 @@
                 <a-input-tag v-model:model-value="formModel.pixivTag!.rmCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
               <a-form-item field="pixivTag.template" label="推送模板" tooltip="Pixiv标签最新作品推送模板" extra="输入“{”可以快速插入占位符" :disabled="!formModel.pixivTag!.enable" feedback>
-                <a-mention v-model:model-value="formModel.pixivTag!.template" :style="{ minHeight: '120px' }" :prefix="['{']" :data="pixivTagPlaceholders" type="textarea" placeholder="不填写将使用默认模板..."
-                  auto-size allow-clear />
+                <placeholder-textarea v-model:model-value="formModel.pixivTag!.template" :placeholders="pixivTagPlaceholders" />
               </a-form-item>
               <a-form-item field="pixivTag.maxScan" label="扫描数量" tooltip="最多扫描标签中前N个作品" :disabled="!formModel.pixivTag?.enable" feedback>
                 <a-input-number v-model:model-value="formModel.pixivTag!.maxScan" :style="{ maxWidth: '300px' }" :min="1" :max="1000" placeholder="输入一个数字" mode="button" size="large">
@@ -175,6 +172,7 @@ import useLoading from '@/hooks/loading';
 import { useSettingStore, usePathStore, useGroupStore, useOptionStore } from '@/store';
 import { Message } from '@arco-design/web-vue';
 import { FacePath } from '@/store/modules/path/types';
+import { Placeholder } from '@/types/global'
 import type { SubscribeSetting } from '@/store/modules/setting/types';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
@@ -190,20 +188,20 @@ const groupOptions = ref<SelectOptionData[]>([]);
 const formModel = ref<SubscribeSetting>({ miyoushe: {}, pixivUser: {}, pixivTag: {} });
 const initModel = ref<SubscribeSetting>({});
 
-const miyoushePlaceholders = ref<SelectOptionData[]>([
-  { label: '{UserName}:版主名称', value: 'UserName}' },
-  { label: '{CreateTime}:发布时间', value: 'CreateTime}' },
-  { label: '{Title}:帖子标题', value: 'Title}' },
-  { label: '{Content}:帖子内容', value: 'Content}' },
-  { label: '{Urls}:帖子链接', value: 'Urls}' },
+const miyoushePlaceholders = ref<Placeholder[]>([
+  { key: 'UserName', explain: '版主名称' },
+  { key: 'CreateTime', explain: '发布时间' },
+  { key: 'Title', explain: '帖子标题' },
+  { key: 'Content', explain: '帖子内容' },
+  { key: 'Urls', explain: '帖子链接' },
 ]);
 
-const pixivUserPlaceholders = ref<SelectOptionData[]>([
-  { label: '{UserName}:画师名称', value: 'UserName}' },
+const pixivUserPlaceholders = ref<Placeholder[]>([
+  { key: 'UserName', explain: '画师名称' },
 ]);
 
-const pixivTagPlaceholders = ref<SelectOptionData[]>([
-  { label: '{TagName}:订阅标签', value: 'TagName}' },
+const pixivTagPlaceholders = ref<Placeholder[]>([
+  { key: 'TagName', explain: '订阅标签' },
 ]);
 
 const onSubmit = async () => {

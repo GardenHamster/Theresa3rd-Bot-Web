@@ -12,6 +12,7 @@ import {
 import Chart from './chart/index.vue';
 import Breadcrumb from './breadcrumb/index.vue';
 import PreviewTextarea from './form-item/preview-textarea/index.vue';
+import PlaceholderTextarea from './form-item/placeholder-textarea/index.vue';
 import GroupSelect from './form-item/group-select/index.vue';
 import SaveWarning from './form-item/save-warning/index.vue';
 import ImageInput from './form-item/image-input/index.vue';
@@ -36,6 +37,7 @@ export default {
     Vue.component('Clock', Clock);
     Vue.component('Breadcrumb', Breadcrumb);
     Vue.component('PreviewTextarea', PreviewTextarea);
+    Vue.component('PlaceholderTextarea', PlaceholderTextarea);
     Vue.component('GroupSelect', GroupSelect);
     Vue.component('SaveWarning', SaveWarning);
     Vue.component('ImageInput', ImageInput);
