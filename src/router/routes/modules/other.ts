@@ -22,6 +22,16 @@ const Datas: AppRouteRecordRaw = {
         roles: ['admin'],
       },
     },
+    {
+      path: 'dictionary',
+      name: 'Dictionary',
+      component: () => import('@/views/dictionary/index.vue'),
+      meta: {
+        locale: 'menu.dictionary',
+        requiresAuth: true,
+        roles: ['admin'],
+      },
+    },
   ],
 };
 

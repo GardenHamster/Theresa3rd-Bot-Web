@@ -1,6 +1,7 @@
 export interface OptionInfo {
   value: number;
   label: string;
+  subOptions: OptionInfo[]
 }
 
 export interface OptionState {
@@ -11,4 +12,5 @@ export interface OptionState {
   pixivUserScanOptions?: OptionInfo[];
   setuSourceOptions?: OptionInfo[];
   pixivRankingSortOptions?: OptionInfo[];
+  dictionaryTypeOptions?: OptionInfo[];
 }

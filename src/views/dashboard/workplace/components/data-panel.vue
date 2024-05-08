@@ -1,6 +1,6 @@
 <template>
   <a-card title="运行时间" :bordered="false">
-    <a-grid :cols="24" :row-gap="16" class="panel">
+    <a-grid :cols="24" :row-gap="16">
       <a-grid-item :span="{ xs: 24, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12 }">
         <a-space>
           <a-avatar :size="54" class="col-avatar">
@@ -12,7 +12,7 @@
     </a-grid>
   </a-card>
   <a-card title="历史运行统计" :bordered="false">
-    <a-grid :cols="24" :row-gap="16" class="panel">
+    <a-grid :cols="24" :row-gap="16">
       <a-grid-item :span="smallSpan">
         <a-space>
           <a-avatar :size="54" class="col-avatar">
@@ -43,6 +43,8 @@
           </a-statistic>
         </a-space>
       </a-grid-item>
+    </a-grid>
+    <a-grid :cols="24" :row-gap="16" style="margin-top: 30px;">
       <a-grid-item :span="smallSpan">
         <a-space>
           <a-avatar :size="54" class="col-avatar">
@@ -56,7 +58,7 @@
     </a-grid>
   </a-card>
   <a-card title="订阅数据统计" :bordered="false">
-    <a-grid :cols="24" :row-gap="16" class="panel">
+    <a-grid :cols="24" :row-gap="16">
       <a-grid-item :span="smallSpan">
         <a-space>
           <a-avatar :size="54" class="col-avatar">

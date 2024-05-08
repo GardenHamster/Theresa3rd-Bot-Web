@@ -198,6 +198,3 @@ export default {
   name: 'PixivTagBlackList',
 };
 </script>
-
-
-

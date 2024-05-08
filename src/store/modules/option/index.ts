@@ -1,27 +1,9 @@
 import { defineStore } from 'pinia';
 import { getResendOptions, getImgSizes, getTagMatchOptions, getPixivRandomOptions, getPixivUserScanOptions } from '@/api/option';
-import { getSetuSourceOptions, getPixivRankingSortOptions } from '@/api/option';
+import { getSetuSourceOptions, getPixivRankingSortOptions, getDictionaryTypeOptions } from '@/api/option';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
+import { infoToOptions, stringToOptions } from '@/utils/options';
 import { OptionState, OptionInfo } from './types';
-
-const infoToOptions = (optionInfos: OptionInfo[]) => {
-  const optionList: SelectOptionData[] = [];
-  for (let i = 0; i < optionInfos.length; i += 1) {
-    const option = optionInfos[i];
-    const optionItem: SelectOptionData = { label: option.label, value: option.value };
-    optionList.push(optionItem);
-  }
-  return optionList;
-};
-
-const stringToOptions = (stringArr: string[]) => {
-  const optionList: SelectOptionData[] = [];
-  for (let i = 0; i < stringArr.length; i += 1) {
-    const optionItem: SelectOptionData = { label: stringArr[i], value: stringArr[i] };
-    optionList.push(optionItem);
-  }
-  return optionList;
-};
 
 const useOptionStore = defineStore('option', {
   state: (): OptionState => ({}),
@@ -100,6 +82,17 @@ const useOptionStore = defineStore('option', {
     },
     async loadPixivRankingSortOptions(): Promise<SelectOptionData[]> {
       const optionInfos = await this.loadPixivRankingSortInfos();
+      return infoToOptions(optionInfos);
+    },
+
+    async loadDictionaryTypeInfos(): Promise<OptionInfo[]> {
+      if (this.dictionaryTypeOptions) return this.dictionaryTypeOptions;
+      const optionInfos = (await getDictionaryTypeOptions()) as unknown as OptionInfo[];
+      this.dictionaryTypeOptions = optionInfos;
+      return optionInfos;
+    },
+    async loadDictionaryTypeOptions(): Promise<SelectOptionData[]> {
+      const optionInfos = await this.loadDictionaryTypeInfos();
       return infoToOptions(optionInfos);
     },
 

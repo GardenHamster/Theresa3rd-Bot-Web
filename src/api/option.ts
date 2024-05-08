@@ -28,3 +28,7 @@ export function getSetuSourceOptions() {
 export function getPixivRankingSortOptions() {
   return axios.get<OptionInfo[]>('/api/option/list/pixiv/ranking/sort');
 }
+
+export function getDictionaryTypeOptions() {
+  return axios.get<OptionInfo[]>('/api/option/list/dictionary/type');
+}
