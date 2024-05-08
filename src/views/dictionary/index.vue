@@ -80,6 +80,7 @@ import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 import { Message } from '@arco-design/web-vue';
 import { List } from 'linqts';
+import dayjs from 'dayjs';
 
 const formRef = ref();
 const formVisible = ref<boolean>(false);
@@ -137,7 +138,17 @@ const columns: TableColumnData[] = [
       if (options === null) return '未定义';
       return new List<OptionInfo>(options).Where(o => o?.value === record.record.subType).FirstOrDefault()?.label ?? '未定义'
     }
-  }
+  },
+  {
+    title: '添加日期',
+    dataIndex: 'createAt',
+    ellipsis: true,
+    tooltip: true,
+    sortable: {
+      sortDirections: ['ascend', 'descend']
+    },
+    render: (record) => dayjs.unix(record.record.createAt).format('YYYY-MM-DD HH:mm:ss')
+  },
 ];
 
 const columnDatas = computed(() => {
