@@ -42,6 +42,12 @@
                   <template #unchecked>OFF</template>
                 </a-switch>
               </a-form-item>
+              <a-form-item field="SendPrivateOrigin" label="私发原图" tooltip="私聊发送结果同时发送原图" :disabled="!formModel.sendPrivate" feedback>
+                <a-switch v-model:model-value="formModel.SendPrivateOrigin">
+                  <template #checked>ON</template>
+                  <template #unchecked>OFF</template>
+                </a-switch>
+              </a-form-item>
               <a-form-item field="groupCD" label="共享CD" tooltip="群共享CD，使用指令后全群需要CD才能重新使用该功能" feedback>
                 <a-input-number v-model:model-value="formModel.groupCD" :style="{ maxWidth: '300px' }" :min="0" :max="100000" placeholder="输入一个数字" mode="button" size="large">
                   <template #suffix>秒</template>

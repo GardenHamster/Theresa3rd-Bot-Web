@@ -58,6 +58,12 @@
               <template #unchecked>OFF</template>
             </a-switch>
           </a-form-item>
+          <a-form-item field="SendPrivateOrigin" label="私发原图" tooltip="私聊发送结果同时发送原图" :disabled="!formModel.sendPrivate || !formModel.enable" feedback>
+            <a-switch v-model:model-value="formModel.SendPrivateOrigin">
+              <template #checked>ON</template>
+              <template #unchecked>OFF</template>
+            </a-switch>
+          </a-form-item>
           <a-form-item field="revokeSearched" label="撤回搜索" tooltip="完成图片搜索后，是否撤回被查找的图片" :disabled="!formModel.enable" feedback>
             <a-switch v-model:model-value="formModel.revokeSearched">
               <template #checked>ON</template>
@@ -98,7 +104,8 @@
             </a-input-number>
           </a-form-item>
           <a-form-item field="singlePriority" label="仅最优结果" tooltip="相似度高于该值时，仅返回头一个匹配度最高的结果" :disabled="!formModel.enable" feedback>
-            <a-input-number v-model:model-value="formModel.singlePriority" :style="{ maxWidth: '300px' }" :min="0" :max="100" :precision="2" :step="0.1" placeholder="输入一个数字" mode="button" size="large">
+            <a-input-number v-model:model-value="formModel.singlePriority" :style="{ maxWidth: '300px' }" :min="0" :max="100" :precision="2" :step="0.1" placeholder="输入一个数字" mode="button"
+              size="large">
               <template #suffix>%</template>
             </a-input-number>
           </a-form-item>

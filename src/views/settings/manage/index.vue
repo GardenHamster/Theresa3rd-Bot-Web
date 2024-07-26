@@ -46,7 +46,13 @@
               </a-form-item>
             </a-tab-pane>
 
-            <a-tab-pane key="2" title="黑名单">
+            <a-tab-pane key="2" title="Token">
+              <a-form-item field="pixivCookieCommands" label="Pixiv" tooltip="更新Pixiv Csrf Token指令，需要私聊使用" extra="输入一个指令后按下Enter添加" feedback>
+                <a-input-tag v-model:model-value="formModel.pixivTokenCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
+              </a-form-item>
+            </a-tab-pane>
+
+            <a-tab-pane key="3" title="黑名单">
               <a-form-item field="disableMemberCommands" label="拉黑成员" tooltip="将一个群员拉入黑名单，忽略该成员发送的所有指令" extra="输入一个指令后按下Enter添加" feedback>
                 <a-input-tag v-model:model-value="formModel.disableMemberCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
@@ -72,7 +78,7 @@
               </a-form-item>
             </a-tab-pane>
 
-            <a-tab-pane key="3" title="订阅管理">
+            <a-tab-pane key="4" title="订阅管理">
               <a-form-item field="listSubCommands" label="查询订阅" tooltip="列出所在群中的所有订阅信息" extra="输入一个指令后按下Enter添加" feedback>
                 <a-input-tag v-model:model-value="formModel.listSubCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
@@ -82,7 +88,7 @@
               </a-form-item>
             </a-tab-pane>
 
-            <a-tab-pane key="4" title="标签绑定">
+            <a-tab-pane key="5" title="标签绑定">
               <a-form-item field="bindTagCommands" label="绑定标签" tooltip="将一个或多个Pixiv标签绑定到一个或多个关键词中，使用该关键词可以直接搜索与之绑定的Pixiv标签" extra="输入一个指令后按下Enter添加" feedback>
                 <a-input-tag v-model:model-value="formModel.bindTagCommands" :style="{ minHeight: '100px' }" placeholder="输入指令后按下回车添加" allow-clear />
               </a-form-item>
@@ -173,5 +179,3 @@ export default {
   name: 'ManageSetting',
 };
 </script>
-
-

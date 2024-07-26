@@ -14,6 +14,7 @@ export interface SettingState {
   pixivRankingSetting?: PixivRankingSetting;
   wordCloudSetting?: WordCloudSetting;
   gameSetting?: GameSetting;
+  collectionSetting?: CollectionSetting;
 }
 
 export interface GeneralSetting {
@@ -76,6 +77,7 @@ export interface PermissionsSetting {
 
 export interface ManageSetting {
   pixivCookieCommands?: string[];
+  pixivTokenCommands?: string[];
   saucenaoCookieCommands?: string[];
   disableTagCommands?: string[];
   enableTagCommands?: string[];
@@ -140,6 +142,7 @@ export interface SetuSetting {
   maxDaily?: number
   revokeInterval?: number
   sendPrivate?: boolean
+  SendPrivateOrigin?: boolean
   pixiv?: PixivSetuSetting
   lolicon?: LoliconSetuSetting
   lolisuki?: LolisukiSetuSetting
@@ -204,6 +207,7 @@ export interface SaucenaoSetting {
   imagePriority?: number
   pullOrigin?: boolean
   sendPrivate?: boolean
+  SendPrivateOrigin?: boolean
   revokeInterval?: number
   revokeSearched?: boolean
   continueAscii2d?: boolean
@@ -382,4 +386,17 @@ export interface UndercoverSetting {
   failedMuteSeconds?: number;
   violatedMuteSeconds?: number;
   ruleMsg?: string;
+}
+
+export interface CollectionSetting {
+  enable?: boolean;
+  commands?: string[];
+  pixivCollect?: boolean;
+  localCollect?: boolean;
+  localSavePath?: string;
+  ossCollect?: boolean;
+  ossEndpoint?: string
+  ossAccessKeyId?: string
+  ossAccessKeySecret?: string
+  ossBucketName?: string
 }

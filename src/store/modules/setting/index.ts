@@ -14,9 +14,10 @@ import { getTimingSetuSetting, setTimingSetuSetting } from '@/api/settings';
 import { getPixivRankingSetting, setPixivRankingSetting } from '@/api/settings';
 import { getWordCloudSetting, setWordCloudSetting } from '@/api/settings';
 import { getGameSetting, setGameSetting } from '@/api/settings';
+import { getCollectionSetting, setCollectionSetting } from '@/api/settings';
 import { SettingState, GeneralSetting, PixivSetting, PermissionsSetting, ManageSetting } from './types';
 import { MenuSetting, RepeaterSetting, WelcomeSetting, ReminderSetting, SetuSetting, SaucenaoSetting } from './types';
-import { SubscribeSetting, TimingSetuSetting, PixivRankingSetting, WordCloudSetting, GameSetting } from './types';
+import { SubscribeSetting, TimingSetuSetting, PixivRankingSetting, WordCloudSetting, GameSetting, CollectionSetting } from './types';
 
 const useSettingStore = defineStore('setting', {
   state: (): SettingState => ({}),
@@ -173,6 +174,15 @@ const useSettingStore = defineStore('setting', {
     async saveGameSetting(setting: GameSetting) {
       await setGameSetting(setting);
       this.gameSetting = setting;
+    },
+
+    async loadCollectionSetting(): Promise<CollectionSetting> {
+      this.collectionSetting = (await getCollectionSetting()) as unknown as CollectionSetting;
+      return this.collectionSetting;
+    },
+    async saveCollectionSetting(setting: CollectionSetting) {
+      await setCollectionSetting(setting);
+      this.collectionSetting = setting;
     },
 
   },
