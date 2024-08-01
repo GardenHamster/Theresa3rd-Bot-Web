@@ -2,6 +2,7 @@ import localeSettings from './zh-CN/settings';
 
 export default {
   'menu.dashboard': '运行状态',
+  'menu.log': '运行日志',
   'menu.settings': 'Bot配置',
   'menu.settings.general': '全局配置',
   'menu.settings.pixiv': 'Pixiv配置',

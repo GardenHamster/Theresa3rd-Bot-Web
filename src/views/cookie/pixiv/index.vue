@@ -38,7 +38,10 @@
           <save-warning :initModel="initModel" :formModel="formModel" />
           <Breadcrumb :items="['menu.cookie', 'menu.cookie.pixiv']" />
           <a-form-item field="cookie" label="Cookie" tooltip="Pixiv Cookie，获取方式请参考文档" feedback>
-            <a-textarea v-model:model-value="formModel.cookie" :auto-size="{ minRows: 50, maxRows: 10 }" placeholder="输入Cookie..." allow-clear />
+            <a-textarea v-model:model-value="formModel.cookie" placeholder="输入Cookie..." allow-clear />
+          </a-form-item>
+          <a-form-item field="token" label="Token" tooltip="Pixiv Csrf-Token，获取方式请参考文档" feedback>
+            <a-textarea v-model:model-value="formModel.token" placeholder="输入Csrf-Token..." allow-clear />
           </a-form-item>
         </a-card>
 
@@ -57,13 +60,13 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import useLoading from '@/hooks/loading';
-import { getPixivCookie, setPixivCookie, CookieData } from '@/api/cookie';
+import { getPixivCookie, setPixivCookie, CookieTokenData } from '@/api/cookie';
 import { Message } from '@arco-design/web-vue';
 
 const formRef = ref();
 const { loading, setLoading } = useLoading();
-const formModel = ref<CookieData>({ cookie: '' });
-const initModel = ref<CookieData>({ cookie: '' });
+const formModel = ref<CookieTokenData>({ cookie: '', token: '' });
+const initModel = ref<CookieTokenData>({ cookie: '', token: '' });
 
 const onSubmit = async () => {
   try {
@@ -73,7 +76,7 @@ const onSubmit = async () => {
       return;
     }
     setLoading(true);
-    await setPixivCookie(formModel.value.cookie);
+    await setPixivCookie(formModel.value.cookie, formModel.value.token);
     initModel.value = JSON.parse(JSON.stringify(formModel.value));
     Message.success({ content: '保存成功', position: 'top' });
   } catch (error) {
@@ -101,7 +104,7 @@ const onReset = async () => {
 const fetchCookie = async () => {
   try {
     setLoading(true);
-    formModel.value = await getPixivCookie() as unknown as CookieData;
+    formModel.value = await getPixivCookie() as unknown as CookieTokenData;
     initModel.value = JSON.parse(JSON.stringify(formModel.value))
   } catch (error) {
     console.log(error);

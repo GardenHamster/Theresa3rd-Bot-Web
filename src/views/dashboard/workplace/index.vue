@@ -1,14 +1,12 @@
 <template>
   <a-spin class="spin" :loading="loading" tip="加载中..." :size="35">
     <div class="container">
-      <div class="left-side">
-        <div class="panel background">
-          <div class="mask">
-            <Banner />
-            <DataPanel :totalCount="totalCount" :subscribeCount="subscribeCount" />
-            <Instructions />
-            <div style="height:30px;"></div>
-          </div>
+      <div class="panel background">
+        <div class="mask">
+          <Banner />
+          <DataPanel :totalCount="totalCount" :subscribeCount="subscribeCount" />
+          <Instructions />
+          <div style="height:30px;"></div>
         </div>
       </div>
     </div>
@@ -44,7 +42,7 @@ const fetchDatas = async () => {
 fetchDatas();
 </script>
 
-<script lang = "ts" >
+<script lang="ts">
 export default {
   name: 'Workplace',
 };
@@ -58,21 +56,10 @@ export default {
 
 .container {
   height: 100%;
-  padding: 15px 20px 5px 20px;
-  display: flex;
+  padding: 0px;
   border-radius: 5px;
-}
-
-.left-side {
-  flex: 1;
   overflow: auto;
   background-color: var(--color-bg-2);
-  height: 100%;
-}
-
-.right-side {
-  width: 280px;
-  margin-left: 16px;
 }
 
 .panel {

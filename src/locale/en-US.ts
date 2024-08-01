@@ -2,6 +2,7 @@ import localeSettings from './en-US/settings';
 
 export default {
   'menu.dashboard': 'Dashboard',
+  'menu.log': 'Running Logs',
   'menu.settings': 'Bot Settings',
   'menu.settings.general': 'Global Settings',
   'menu.settings.pixiv': 'Pixiv Settings',

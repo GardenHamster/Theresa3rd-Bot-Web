@@ -152,6 +152,3 @@ export default {
   name: 'MemberBlackList',
 };
 </script>
-
-
-
